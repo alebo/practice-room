@@ -1,0 +1,70 @@
+import { test, expect } from '@playwright/test';
+import { quiz } from '../fixtures/sample-quiz.js';
+import { createAttempt, isFRQ } from '../../app/quiz.js';
+import { serializeAttempt } from '../../app/storage.js';
+import { decryptReport, parseShareURL } from '../../app/privatebin.js';
+const key=`lernraum:${quiz.id}`;
+async function completed(page) {
+  await page.route('**/questions.js',route=>route.fulfill({contentType:'text/javascript',body:`export const quiz = ${JSON.stringify(quiz)};`}));
+  await page.goto('/');await expect(page.locator('#view-title')).toBeVisible();
+  const attempt=createAttempt(quiz);attempt.index=attempt.order.length-1;attempt.done=true;
+  for(const q of quiz.questions) attempt.answers[q.id]=isFRQ(q)?{text:'Synthetic answer only.',checked:true}:{selected:q.correct,checked:true};
+  await page.evaluate(({key,data})=>localStorage.setItem(key,data),{key,data:serializeAttempt(quiz,attempt)});
+  await page.reload();await expect(page.locator('.score')).toHaveText('5 / 5');
+}
+const cors={'access-control-allow-origin':'*','access-control-allow-methods':'POST, GET, OPTIONS','access-control-allow-headers':'content-type,x-requested-with'};
+test('encrypted link is created explicitly, copied, retained, and refreshed after edits',async({page,context})=>{
+  await context.grantPermissions(['clipboard-read','clipboard-write']);
+  const uploads=[];
+  await page.route('https://privatebin.net/**',async route=>{
+    if(route.request().method()==='OPTIONS') {await route.fulfill({status:204,headers:cors});return;}
+    uploads.push(route.request().postDataJSON());
+    await route.fulfill({headers:cors,contentType:'application/json',body:JSON.stringify({status:0,id:uploads.length.toString(16).padStart(16,'0')})});
+  });
+  await completed(page);
+  expect(uploads).toHaveLength(0);
+  const saved=JSON.parse(await page.evaluate(k=>localStorage.getItem(k),key));
+  await page.getByRole('button',{name:'Link erstellen',exact:true}).click();
+  await expect(page.locator('#share-url')).toBeVisible();
+  const link=await page.locator('#share-url').inputValue();
+  const report=await decryptReport(uploads[0],parseShareURL(link).key);
+  expect(report).toContain('Synthetic answer only.');
+  expect(JSON.stringify(uploads[0])).not.toContain('Synthetic answer only.');
+  expect(uploads[0].adata[3]).toBe(0);
+  await page.getByRole('button',{name:'Link kopieren',exact:true}).click();
+  await expect(page.locator('#share-status')).toContainText('Link kopiert');
+  expect(await page.evaluate(()=>navigator.clipboard.readText())).toBe(link);
+  await page.reload();
+  await expect(page.locator('#share-url')).toHaveValue(link);
+  await page.getByRole('button',{name:'Link anzeigen',exact:true}).click();
+  expect(uploads).toHaveLength(1);
+  expect(JSON.parse(await page.evaluate(k=>localStorage.getItem(k),key)).answers).toEqual(saved.answers);
+  await page.locator('[data-frq]').first().fill('Changed synthetic response.');
+  await expect(page.locator('#share-panel')).toContainText('Antworten wurden geändert');
+  await page.getByRole('button',{name:'Neuen Link erstellen',exact:true}).click();
+  await expect(page.locator('#share-url')).not.toHaveValue(link);
+  const updated=await page.locator('#share-url').inputValue();
+  expect(await decryptReport(uploads[1],parseShareURL(updated).key)).toContain('Changed synthetic response.');
+  await page.setViewportSize({width:375,height:812});
+  await page.locator('#share-panel').scrollIntoViewIfNeeded();
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+  await page.screenshot({path:'.playwright/results/sharing-mobile.png'});
+  await page.getByRole('button',{name:'Gesamten Test neu starten'}).click();
+  await page.locator('#confirm-restart').click();
+  await expect(page.locator('legend')).toBeVisible();
+  expect(JSON.parse(await page.evaluate(k=>localStorage.getItem(k),key)).share).toBeUndefined();
+});
+test('upload errors and rate limits preserve saved results',async({page})=>{
+  await page.route('https://privatebin.net/**',route=>route.fulfill({headers:cors,contentType:'application/json',body:JSON.stringify({status:1,message:'Please wait 60 seconds between each post.'})}));
+  await completed(page);
+  const before=await page.evaluate(k=>localStorage.getItem(k),key);
+  await page.getByRole('button',{name:'Link erstellen',exact:true}).click();
+  await expect(page.locator('#share-status')).toContainText('Warte eine Minute');
+  expect(await page.evaluate(k=>localStorage.getItem(k),key)).toBe(before);
+  await expect(page.getByRole('button',{name:'Ergebnis kopieren',exact:true})).toBeEnabled();
+  await page.unroute('https://privatebin.net/**');
+  await page.route('https://privatebin.net/**',route=>route.abort('failed'));
+  await page.getByRole('button',{name:'Link erstellen',exact:true}).click();
+  await expect(page.locator('#share-status')).toContainText('Deine Antworten bleiben gespeichert');
+  expect(await page.evaluate(k=>localStorage.getItem(k),key)).toBe(before);
+});

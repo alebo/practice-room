@@ -34,7 +34,7 @@ deployment/pages-workflow.yml         Optional Actions workflow template
 dist/                                 Generated static site, ignored by Git
 ```
 
-Keep the app and publishable questions/answer keys in this repository: the practice app already delivers answer keys to visitors, and versioning content with the engine makes deployments reproducible. Keep learner answers, assessments, knowledge-gap notes, and original study materials out of Git and hosting. `.gitignore` excludes `private/` and test `sources/`; the builder copies only the app, explicit quiz data, supported image assets, and bundled Mermaid. Moving to a private content repository later is possible without changing the quiz schema; it is not needed for these public exercise sets.
+Keep the app and publishable questions/answer keys in this repository: the practice app already delivers answer keys to visitors, and versioning content with the engine makes deployments reproducible. Keep learner answers, assessments, knowledge-gap notes, and original study materials out of Git and the site deployment. Learners may explicitly share encrypted reports through PrivateBin; this is separate from the public site files. `.gitignore` excludes `private/` and test `sources/`; the builder copies only the app, explicit quiz data, supported image assets, and bundled Mermaid. Moving to a private content repository later is possible without changing the quiz schema; it is not needed for these public exercise sets.
 
 The imported first-attempt evidence is under the local learner alias `learner-001`. Its provenance identifies it as reconstructed from existing notes, not a new online submission. No learner data is committed. Back up `private/` and `sources/` separately if needed; Git does not protect these local files.
 
@@ -115,7 +115,7 @@ The UI remains German and content is rendered as plain text, except explicitly s
 
 ## Import answers and prepare targeted follow-up questions
 
-Visitors finish a test, press **Ergebnis kopieren**, and send the text to the verifier. The site does not collect submissions or identities. Save a received report in `private/learners/<learner-id>/imports/`, then:
+Visitors finish a test and can either copy the report text or explicitly create an encrypted sharing link. The site does not automatically upload answers or collect identities. Save a received report in `private/learners/<learner-id>/imports/`, then:
 
 ```sh
 npm run answers:import -- --learner learner-001 --test biology-grade-8 --set 002-nutrients-and-digestion --file private/learners/learner-001/imports/set-002-report.txt
@@ -123,6 +123,23 @@ npm run answers:gaps -- --learner learner-001
 ```
 
 Import checks the title/version and matches every question and selected option to that quiz. It rejects mismatches and duplicate reports, preserves raw text and the quiz snapshot, and recalculates MCQ correctness. An ambiguous text report is rejected for manual clarification rather than guessed. The literal FRQ response “Nicht beantwortet” is treated as skipped because the copied text does not distinguish it from a blank answer.
+
+### Share and import a PrivateBin link
+
+At the end of a test, **Link erstellen** encrypts the current full-test report in the browser and uploads only ciphertext to `https://privatebin.net/`. The learner then presses **Link kopieren** and sends the full link to the verifier. No registration or application backend is required.
+
+The selected instance currently allows three-day pastes and enforces a one-minute interval between uploads. The page reuses an existing unexpired link for unchanged answers. Editing an FRQ marks the existing link as outdated; creating a new link shares a new snapshot. Old links are not silently updated. Burn-after-reading and discussions are disabled. The app's report limit is 512 KiB.
+
+```sh
+npm run answers:import -- --learner learner-001 --test biology-grade-8 --set 002-nutrients-and-digestion --url 'https://privatebin.net/?PASTE_ID#KEY'
+npm run answers:gaps -- --learner learner-001
+```
+
+Supply the complete URL, including the fragment after `#`. That fragment is the decryption key: anyone holding the complete link can read the report. The importer fetches ciphertext without sending the key, decrypts locally, and uses the same validated report import as `--file`. It accepts only `privatebin.net` HTTPS links; password-protected pastes are not supported. Full secret links are not written to import provenance or printed by the importer.
+
+Sharing, import, and link expiry do not clear browser answers. A confirmed local restart clears the saved attempt and its local share link, but it does not delete a previously uploaded paste; the paste expires independently. If the service is unavailable or rate-limited, the report remains available for copying and later retry. Actual encrypted upload, official PrivateBin viewing, and CLI import were verified with synthetic data; the test pastes were deleted afterward.
+
+Protocol reference: https://github.com/PrivateBin/PrivateBin/wiki/Encryption-format
 
 For FRQs, edit the attempt's `review.json`: `assessment` is `unreviewed`, `correct`, `partial`, or `incorrect`; add `notes` explaining the evidence. MCQ scores remain derived from the selected answers; review notes may supplement them. Run `answers:gaps` again after review.
 

@@ -91,7 +91,7 @@ No name field or central result collection exists. Visitors send the copied repo
 
 ## Use learner evidence for follow-up sets
 
-Learner data belongs only in ignored `private/learners/<learner-id>/`. Never commit or publish responses, verifier notes, or knowledge-gap files. Raw source material belongs in ignored `content/tests/<test>/sources/`; selected published question images go in the set's `assets/`.
+Learner data belongs only in ignored `private/learners/<learner-id>/`. Never commit responses, verifier notes, or knowledge-gap files or include them in site deployments. A learner may explicitly share an encrypted result through the PrivateBin button; never upload answers automatically. Raw source material belongs in ignored `content/tests/<test>/sources/`; selected published question images go in the set's `assets/`.
 
 Import a copied report with:
 
@@ -99,6 +99,16 @@ Import a copied report with:
 npm run answers:import -- --learner learner-001 --test biology-grade-8 --set 002-nutrients-and-digestion --file private/learners/learner-001/imports/report.txt
 npm run answers:gaps -- --learner learner-001
 ```
+
+For a learner's PrivateBin link, use `--url` instead of `--file`:
+
+```sh
+npm run answers:import -- --learner learner-001 --test biology-grade-8 --set 002-nutrients-and-digestion --url 'https://privatebin.net/?PASTE_ID#KEY'
+```
+
+The full link including `#KEY` is required and grants access to the report; keep it out of Git and public messages. The importer accepts only the configured `privatebin.net` HTTPS service, retrieves ciphertext without transmitting the key, decrypts locally, and imports the original full-test report. Password-protected pastes are unsupported. Do not claim a successful import if the link expired, decryption failed, or the quiz version does not match. Use the retained browser report or original quiz version to resolve the issue.
+
+The app's **Link erstellen** button uploads only on a learner's explicit action. Links currently expire after three days; the service limits uploads to one per minute. Link creation/copying does not reset browser answers. FRQ edits require a new link to share the changed report. Existing links remain snapshots until they expire; local reset does not remotely delete a paste.
 
 Read `knowledge-gaps.json` and the referenced attempt's `attempt.json`/`review.json` when authoring targeted practice. Each import preserves raw text and the exact quiz snapshot. Report version mismatches and ambiguous parsing require clarification, not guessed answer matches. Existing baseline evidence may be reconstructed from notes; check provenance and do not describe its import date as the date of the test.
 
