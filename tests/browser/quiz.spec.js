@@ -142,7 +142,7 @@ test('FRQ drafts, skipped answers, edits, copying, fallback and original report 
   await page.getByRole('button',{name:'Ergebnis ansehen',exact:true}).click();
   await expect(page.locator('.score')).toHaveText('4 / 5');
   await expect(page.locator('.response-status').last()).toHaveText('Nicht beantwortet');
-  await page.getByRole('button',{name:'Ergebnis kopieren',exact:true}).click();
+  await page.getByRole('button',{name:'Als Text kopieren',exact:true}).click();
   await expect(page.locator('#copy-status')).toContainText('Bericht kopiert');
   let copied=await page.evaluate(()=>navigator.clipboard.readText());
   expect(copied).toContain(text); expect(copied).toContain('Nicht beantwortet');
@@ -165,12 +165,12 @@ test('FRQ drafts, skipped answers, edits, copying, fallback and original report 
   await page.reload();
   await expect(page.locator('.score')).toHaveText('4 / 5');
   await expect(page.locator('.retry-result')).toContainText('1 / 1');
-  await page.getByRole('button',{name:'Ergebnis kopieren',exact:true}).click();
+  await page.getByRole('button',{name:'Als Text kopieren',exact:true}).click();
   await expect(page.locator('#copy-status')).toContainText('Bericht kopiert');
   copied=await page.evaluate(()=>navigator.clipboard.readText());
   expect(copied).toContain('4 von 5'); expect(copied).toContain('Ergänzung'); expect(copied).toContain('Nachgetragen');
   await page.evaluate(()=>{navigator.clipboard.writeText=async()=>{throw new Error('denied');};});
-  await page.getByRole('button',{name:'Ergebnis kopieren',exact:true}).click();
+  await page.getByRole('button',{name:'Als Text kopieren',exact:true}).click();
   await expect(page.locator('#copy-status')).toContainText('Automatisches Kopieren ist nicht verfügbar');
   await expect(page.locator('#report-text')).toBeVisible();
   expect(await page.locator('#report-text').evaluate(e=>e.selectionEnd-e.selectionStart)).toBe(copied.length);
@@ -195,7 +195,7 @@ test('completed answers remain copyable after reopening and a content update unt
   await expect(reopened.locator('h1')).toHaveText(quiz.title);
   await expect(reopened.locator('.score')).toHaveText('4 / 5');
   await expect(reopened.locator('[data-frq]').first()).toHaveValue('Gespeicherte Antwort vor dem Update.');
-  await reopened.getByRole('button',{name:'Ergebnis kopieren',exact:true}).click();
+  await reopened.getByRole('button',{name:'Als Text kopieren',exact:true}).click();
   await expect(reopened.locator('#copy-status')).toContainText('Bericht kopiert');
   const copied=await reopened.evaluate(()=>navigator.clipboard.readText());
   expect(copied).toContain(`Testversion: ${quiz.version}`);

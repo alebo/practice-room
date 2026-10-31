@@ -27,7 +27,7 @@ test('published set: all ten multi-answer questions, explanations and copyable r
   await page.reload();
   await expect(page.locator('.score')).toHaveText('10 / 10');
   await expect(page.locator('[data-frq]')).toHaveCount(0);
-  await page.getByRole('button',{name:'Ergebnis kopieren',exact:true}).click();
+  await page.getByRole('button',{name:'Als Text kopieren',exact:true}).click();
   await expect(page.locator('#copy-status')).toContainText('Bericht kopiert');
   const report=await page.evaluate(()=>navigator.clipboard.readText());
   expect(report).toContain(quiz.label); expect(report).toContain('10 von 10');

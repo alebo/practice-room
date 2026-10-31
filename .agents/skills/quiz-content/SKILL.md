@@ -78,7 +78,7 @@ Examples of question objects (use JSON syntax in the set file):
 
 ## Copyable verifier report
 
-**Ergebnis kopieren** produces plain text containing:
+The **Ergebnis zur Prüfung teilen** section prioritizes creating and copying a share link. **Als Text kopieren** is the secondary alternative, with a manual text preview in the same section. It produces plain text containing:
 
 - Test label, title, version, and link.
 - Original full-test MCQ score and per-question results, selected answers, and correct answers.

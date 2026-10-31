@@ -23,6 +23,8 @@ test('encrypted link is created explicitly, copied, retained, and refreshed afte
   });
   await completed(page);
   expect(uploads).toHaveLength(0);
+  await expect(page.locator('#share-panel #copy-report')).toHaveClass('secondary');
+  await expect(page.locator('#share-panel #create-share')).toHaveClass('primary');
   const saved=JSON.parse(await page.evaluate(k=>localStorage.getItem(k),key));
   await page.getByRole('button',{name:'Link erstellen',exact:true}).click();
   await expect(page.locator('#share-url')).toBeVisible();
@@ -41,6 +43,9 @@ test('encrypted link is created explicitly, copied, retained, and refreshed afte
   expect(JSON.parse(await page.evaluate(k=>localStorage.getItem(k),key)).answers).toEqual(saved.answers);
   await page.locator('[data-frq]').first().fill('Changed synthetic response.');
   await expect(page.locator('#share-panel')).toContainText('Antworten wurden geändert');
+  await page.getByRole('button',{name:'Als Text kopieren',exact:true}).click();
+  await expect(page.locator('#copy-status')).toContainText('Bericht kopiert');
+  expect(await page.evaluate(()=>navigator.clipboard.readText())).toContain('Changed synthetic response.');
   await page.getByRole('button',{name:'Neuen Link erstellen',exact:true}).click();
   await expect(page.locator('#share-url')).not.toHaveValue(link);
   const updated=await page.locator('#share-url').inputValue();
@@ -61,7 +66,7 @@ test('upload errors and rate limits preserve saved results',async({page})=>{
   await page.getByRole('button',{name:'Link erstellen',exact:true}).click();
   await expect(page.locator('#share-status')).toContainText('Warte eine Minute');
   expect(await page.evaluate(k=>localStorage.getItem(k),key)).toBe(before);
-  await expect(page.getByRole('button',{name:'Ergebnis kopieren',exact:true})).toBeEnabled();
+  await expect(page.getByRole('button',{name:'Als Text kopieren',exact:true})).toBeEnabled();
   await page.unroute('https://privatebin.net/**');
   await page.route('https://privatebin.net/**',route=>route.abort('failed'));
   await page.getByRole('button',{name:'Link erstellen',exact:true}).click();
