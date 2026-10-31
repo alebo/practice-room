@@ -150,3 +150,5 @@ To create the next exercise, read this evidence, choose the concepts needing pra
 ## Hosting
 
 The repository uses branch-based GitHub Pages publishing from `gh-pages`. The optional workflow in `deployment/pages-workflow.yml` can instead be installed under `.github/workflows/` when the GitHub token has workflow permission and Pages is switched to Actions. Both paths use the same content builder.
+
+MCQs can be left unanswered with **Weiß ich nicht**. The solution is shown before continuing; unanswered questions earn no point, persist across reloads, appear as **Nicht beantwortet** in reports, and remain available for retry. Imported evidence identifies unanswered MCQs separately from incorrect selections.

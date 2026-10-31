@@ -1,5 +1,7 @@
 import { test, expect } from '@playwright/test';
-import { loadSet } from '../../scripts/lib/content.mjs';
+import { readJSON, loadSet } from '../../scripts/lib/content.mjs';
+const active = await readJSON(new URL('../../content/active-set.json', import.meta.url));
+const {quiz: activeQuiz} = await loadSet(active.test, active.set);
 const {quiz} = await loadSet('biology-grade-8','002-nutrients-and-digestion');
 test('published set: all ten multi-answer questions, explanations and copyable results', async ({page,context}) => {
   await context.grantPermissions(['clipboard-read','clipboard-write']);
@@ -44,5 +46,5 @@ test('each exercise has a permanent route and separate saved progress',async({pa
   await expect(page.locator('#view-title')).toHaveText(title);
   await expect(page.locator('input:checked')).toHaveCount(1);
   await page.goto('/');
-  await expect(page.locator('h1')).toHaveText(quiz.title);
+  await expect(page.locator('h1')).toHaveText(activeQuiz.title);
 });

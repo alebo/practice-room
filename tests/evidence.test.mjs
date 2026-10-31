@@ -38,3 +38,18 @@ test('gap evidence contains missed options and separates unreviewed FRQs',()=>{
   const reviewed=summarizeEvidence([{attempt,review:{questions:{[id]:{assessment:'partial',notes:'Needs explanation.'}}}}]);
   assert.ok(reviewed.skills.some(s=>s.evidence.some(e=>e.questionId===id&&e.assessment==='partial'&&e.notes==='Needs explanation.')));
 });
+
+test('unanswered MCQs survive storage validation and report import without invented choices',async()=>{
+  const {validAttempt}=await import('../app/quiz.js');
+  const a=completed();
+  const q=quiz.questions.find(q=>!isFRQ(q));
+  a.answers[q.id]={selected:[],checked:true};
+  assert.equal(validAttempt(quiz,a),true);
+  const report=buildReport(quiz,a,'https://example.org');
+  assert.match(report,/Ergebnis: Nicht beantwortet\nGewählt: \n/);
+  const answers=parseReport(report,quiz);
+  assert.deepEqual(answers[q.id],{type:'mcq',selected:[],correct:false});
+  assert.throws(()=>parseReport(report.replace('Ergebnis: Nicht beantwortet','Ergebnis: Richtig'),quiz),/disagrees/);
+  const summary=summarizeEvidence([{attempt:{id:'skip',quiz,answers},review:{questions:{}}}]);
+  assert.ok(summary.skills.some(s=>s.evidence.some(e=>e.questionId===q.id&&e.unanswered&&e.selectedIncorrect.length===0)));
+});

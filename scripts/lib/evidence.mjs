@@ -35,10 +35,11 @@ export function parseReport(raw, quiz) {
       answers[q.id]={type:'frq',text:response==='Nicht beantwortet'?'':response,assessment:'unreviewed'};
     } else {
       block=block.split('\nFREIE ANTWORTEN –')[0].trimEnd();
-      const match=block.match(/(?:^|\n)Ergebnis: (Richtig|Falsch)\nGewählt: ([\s\S]*?)\nRichtig: ([\s\S]+)$/);
+      const match=block.match(/(?:^|\n)Ergebnis: (Richtig|Falsch|Nicht beantwortet)\nGewählt: ([\s\S]*?)\nRichtig: ([\s\S]+)$/);
       if(!match) throw new Error(`Missing MCQ fields: ${q.id}`);
       const selected=optionIds(match[2],q.options), key=optionIds(match[3],q.options);
-      if(!selected.length || !isCorrect(q,key)) throw new Error(`Answer key mismatch: ${q.id}`);
+      if(!isCorrect(q,key)) throw new Error(`Answer key mismatch: ${q.id}`);
+      if ((match[1]==='Nicht beantwortet') !== (selected.length===0)) throw new Error(`Unanswered status disagrees with selected answers: ${q.id}`);
       const correct=isCorrect(q,selected);
       if(correct!==(match[1]==='Richtig')) throw new Error(`Reported score disagrees with selected answers: ${q.id}`);
       answers[q.id]={type:'mcq',selected,correct};
@@ -58,6 +59,7 @@ export function summarizeEvidence(attempts) {
       const evidence={attemptId:attempt.id,test:attempt.test,set:attempt.set,quizVersion:attempt.quiz.version,questionId:q.id,prompt:q.prompt,assessment,importedAt:attempt.importedAt,provenance:attempt.provenance || {kind:'copied-report'},notes:manual?.notes || ''};
       if(isFRQ(q)) evidence.response=answer.text;
       else {
+        evidence.unanswered=answer.selected.length===0;
         evidence.selected=answer.selected;
         evidence.missedCorrect=q.correct.filter(id=>!answer.selected.includes(id)).map(id=>q.options.find(o=>o.id===id).text);
         evidence.selectedIncorrect=answer.selected.filter(id=>!q.correct.includes(id)).map(id=>q.options.find(o=>o.id===id).text);

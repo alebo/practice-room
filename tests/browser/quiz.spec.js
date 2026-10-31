@@ -211,3 +211,28 @@ test('completed answers remain copyable after reopening and a content update unt
   expect(reset.answers).toEqual({});
   expect(reset.quizSnapshot.version).toBe(updated.version);
 });
+
+test('MCQs can be explicitly left unanswered, persist on reload and enter retry',async({page})=>{
+  await page.goto('/');
+  const first=await current(page);
+  await page.getByRole('button',{name:'Weiß ich nicht',exact:true}).click();
+  await expect(page.locator('.feedback')).toContainText('Nicht beantwortet');
+  await page.reload();
+  await expect(page.locator('.feedback')).toContainText('Nicht beantwortet');
+  await page.getByRole('button',{name:'Nächste Frage'}).click();
+  for(let i=1;i<quiz.questions.length;i++){
+    const q=await current(page);
+    if(!isFRQ(q)) {
+      await page.locator('input[name="answer"]').first().check();
+      await page.getByRole('button',{name:'Weiß ich nicht',exact:true}).click();
+    }
+    await page.getByRole('button',{name:i===quiz.questions.length-1?'Ergebnis ansehen':isFRQ(q)?'Weiter':'Nächste Frage',exact:true}).click();
+  }
+  await expect(page.locator('.score')).toHaveText('0 / 5');
+  await page.reload();
+  await expect(page.locator('.score')).toHaveText('0 / 5');
+  await page.getByRole('button',{name:'5 Fehler wiederholen'}).click();
+  const saved=await page.evaluate(key=>JSON.parse(localStorage.getItem(key)),key);
+  expect(JSON.stringify(saved)).toContain(first.id);
+  await expect(page.getByRole('button',{name:'Weiß ich nicht',exact:true})).toBeVisible();
+});
