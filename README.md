@@ -1,6 +1,6 @@
 # Lernraum – Biologie üben
 
-A German practice quiz for GitHub Pages at `alebo/bio-2026-11`. Plain HTML, CSS and JavaScript; no accounts or server-side storage. The initial content is explicitly labelled as a sample.
+A German practice quiz for GitHub Pages at `alebo/bio-2026-11`. Plain HTML, CSS and JavaScript; no accounts or server-side storage. The current published content is Übung 002: ten multiple-answer MCQs on nutrients and digestion, without liver questions.
 
 ## Run locally
 
@@ -28,7 +28,7 @@ Edit `site/questions.js`; put images in `site/assets/`. Each question has a stab
 
 Images use `image: { src: './assets/example.svg', alt: 'Meaningful description' }`. Mermaid diagrams use `mermaid` for source and `diagramDescription` for an accessible text equivalent. Avoid options such as “all of the above”: options are shuffled. Increment the quiz `version` whenever content changes to invalidate obsolete saved attempts.
 
-The sample demonstrates an SVG image and Mermaid flowchart. Mermaid is pinned and bundled locally; the deployed site does not fetch scripts or fonts from third-party CDNs. The build only publishes `site/` and the Mermaid library, excluding source photographs and notes elsewhere in this workspace.
+The regression fixture in `tests/fixtures/sample-quiz.js` covers FRQs, an SVG image, and a Mermaid flowchart independently of the published test. Mermaid is pinned and bundled locally; the deployed site does not fetch scripts or fonts from third-party CDNs. The build only publishes `site/` and the Mermaid library, excluding source photographs and notes elsewhere in this workspace.
 
 ## Behavior
 
@@ -42,7 +42,7 @@ Selections, free-response drafts, checked answers, order, original reports and r
 
 When clipboard access is unavailable, the report opens with all text selected for manual copying. Visitors can always inspect the report using “Bericht als Text ansehen / manuell kopieren”. Copying does not send the report anywhere: the visitor sends it to their chosen verifier.
 
-The version 2 sample adds two FRQs to the five MCQs. Earlier version 1 saved attempts are invalidated because the test content changed.
+Übung 002 is supplied in `uebungstests/002_vertiefung.js`, with matching questions and solutions text files. `site/questions.js` contains the published copy. Its distinct quiz ID gives it separate browser-local progress from the earlier sample.
 
 ## GitHub Pages
 

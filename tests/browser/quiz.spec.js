@@ -1,6 +1,9 @@
 import { test, expect } from '@playwright/test';
 import { isFRQ, createAttempt } from '../../site/quiz.js';
-import { quiz } from '../../site/questions.js';
+import { quiz } from '../fixtures/sample-quiz.js';
+test.beforeEach(async ({page}) => {
+  await page.route('**/questions.js', route => route.fulfill({contentType:'text/javascript', body:`export const quiz = ${JSON.stringify(quiz)};`}));
+});
 const key = `lernraum:${quiz.id}`;
 async function current(page) {
   const prompt = await page.locator('#view-title').textContent();

@@ -1,6 +1,7 @@
+import { quiz as publishedQuiz } from '../site/questions.js';
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { quiz } from '../site/questions.js';
+import { quiz } from './fixtures/sample-quiz.js';
 import { createAttempt, isCorrect, shuffle, validAttempt, validateQuiz, isFRQ, buildReport, mcqSummary } from '../site/quiz.js';
 test('sample content is valid', () => validateQuiz(quiz));
 test('multiple answers require exact matching, with no partial or duplicate credit', () => {
@@ -82,3 +83,5 @@ test('FRQ-only tests have no MCQ score and restore skipped answers',()=>{
   assert.equal(mcqSummary(source,a).total,0);
   assert.ok(!buildReport(source,a,'https://example.org').includes('NaN'));
 });
+
+test('published content is valid', () => validateQuiz(publishedQuiz));

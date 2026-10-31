@@ -1,0 +1,33 @@
+import { test, expect } from '@playwright/test';
+import { quiz } from '../../site/questions.js';
+test('published set: all ten multi-answer questions, explanations and copyable results', async ({page,context}) => {
+  await context.grantPermissions(['clipboard-read','clipboard-write']);
+  const errors=[]; page.on('pageerror',e=>errors.push(e.message));
+  await page.goto('/');
+  await expect(page.locator('h1')).toHaveText(quiz.title);
+  await expect(page.locator('.intro')).not.toContainText('Beispieltest');
+  const seen=new Set();
+  for(let i=0;i<quiz.questions.length;i++) {
+    const prompt=await page.locator('#view-title').textContent();
+    const q=quiz.questions.find(q=>q.prompt===prompt);
+    expect(q).toBeTruthy(); expect(q.correct.length).toBeGreaterThan(1);
+    seen.add(q.id);
+    await expect(page.locator('input[type=radio]')).toHaveCount(0);
+    await expect(page.locator('input[type=checkbox]')).toHaveCount(q.options.length);
+    for(const id of q.correct) await page.locator(`input[value="${id}"]`).check();
+    await page.getByRole('button',{name:'Antwort prüfen'}).click();
+    await expect(page.locator('.feedback')).toContainText(q.explanation);
+    await page.getByRole('button',{name:i===quiz.questions.length-1?'Ergebnis ansehen':'Nächste Frage'}).click();
+  }
+  expect(seen.size).toBe(10);
+  await expect(page.locator('.score')).toHaveText('10 / 10');
+  await page.reload();
+  await expect(page.locator('.score')).toHaveText('10 / 10');
+  await expect(page.locator('[data-frq]')).toHaveCount(0);
+  await page.getByRole('button',{name:'Ergebnis kopieren',exact:true}).click();
+  await expect(page.locator('#copy-status')).toContainText('Bericht kopiert');
+  const report=await page.evaluate(()=>navigator.clipboard.readText());
+  expect(report).toContain(quiz.label); expect(report).toContain('10 von 10');
+  for(const q of quiz.questions) expect(report).toContain(q.prompt);
+  expect(errors).toEqual([]);
+});
