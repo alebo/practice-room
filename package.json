@@ -6,9 +6,19 @@
   "scripts": {
     "build": "node scripts/build.mjs",
     "start": "node scripts/serve.mjs",
-    "test": "node --test tests/quiz.test.mjs",
-    "test:browser": "playwright test"
+    "test": "node --test tests/*.test.mjs",
+    "test:browser": "node scripts/build.mjs --fixtures && playwright test",
+    "sets:list": "node scripts/sets.mjs list",
+    "set:new": "node scripts/sets.mjs new",
+    "set:activate": "node scripts/sets.mjs activate",
+    "publish:pages": "node scripts/publish.mjs",
+    "answers:import": "node scripts/answers.mjs import",
+    "answers:gaps": "node scripts/answers.mjs gaps"
   },
-  "dependencies": { "mermaid": "12.2.0" },
-  "devDependencies": { "@playwright/test": "1.58.2" }
+  "dependencies": {
+    "mermaid": "12.2.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.58.2"
+  }
 }

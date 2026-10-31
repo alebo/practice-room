@@ -1,4 +1,4 @@
-export const quiz = {
+{
   "id": "biologie-002-vertiefung",
   "version": 1,
   "language": "de",
@@ -34,7 +34,10 @@ export const quiz = {
         "fett",
         "protein"
       ],
-      "explanation": "Kohlenhydrate liefern vor allem Energie. Fette speichern Energie und haben Baustofffunktionen. Eiweiße sind vor allem Baustoffe, können aber auch Energie liefern."
+      "explanation": "Kohlenhydrate liefern vor allem Energie. Fette speichern Energie und haben Baustofffunktionen. Eiweiße sind vor allem Baustoffe, können aber auch Energie liefern.",
+      "skills": [
+        "nutrients.roles"
+      ]
     },
     {
       "id": "bio002-wachstum-sport",
@@ -63,7 +66,11 @@ export const quiz = {
         "bewegung",
         "aufbau"
       ],
-      "explanation": "Bewegung benötigt Energie. Für Wachstum werden aus aufgenommenen Bausteinen körpereigene Stoffe aufgebaut; auch dieser Aufbau benötigt Energie."
+      "explanation": "Bewegung benötigt Energie. Für Wachstum werden aus aufgenommenen Bausteinen körpereigene Stoffe aufgebaut; auch dieser Aufbau benötigt Energie.",
+      "skills": [
+        "metabolism.energy",
+        "metabolism.building"
+      ]
     },
     {
       "id": "bio002-fette-vergleichen",
@@ -92,7 +99,10 @@ export const quiz = {
         "bausteine",
         "reserve"
       ],
-      "explanation": "Fette bestehen im dargestellten Modell aus Glycerin und drei Fettsäuren. Sie dienen als Reserve und haben Baustofffunktionen. Mit 38,9 kJ/g liefern sie mehr Energie als Kohlenhydrate mit 17,2 kJ/g."
+      "explanation": "Fette bestehen im dargestellten Modell aus Glycerin und drei Fettsäuren. Sie dienen als Reserve und haben Baustofffunktionen. Mit 38,9 kJ/g liefern sie mehr Energie als Kohlenhydrate mit 17,2 kJ/g.",
+      "skills": [
+        "nutrients.fats"
+      ]
     },
     {
       "id": "bio002-brot-mund",
@@ -122,7 +132,10 @@ export const quiz = {
         "speichel",
         "amylase"
       ],
-      "explanation": "Im Mund wirken mechanische Zerkleinerung und chemische Verdauung zusammen. Das Stärke spaltende Enzym im Speichel heißt Amylase. Pepsin wirkt im Magen."
+      "explanation": "Im Mund wirken mechanische Zerkleinerung und chemische Verdauung zusammen. Das Stärke spaltende Enzym im Speichel heißt Amylase. Pepsin wirkt im Magen.",
+      "skills": [
+        "digestion.mouth"
+      ]
     },
     {
       "id": "bio002-gut-kauen",
@@ -151,7 +164,11 @@ export const quiz = {
         "oberflaeche",
         "kontakt"
       ],
-      "explanation": "Kauen vergrößert die Oberfläche und vermischt die Nahrung mit Speichel. Die Verdauung und die Aufnahme der meisten Nährstoffbausteine erfolgen anschließend weiter im Verdauungstrakt."
+      "explanation": "Kauen vergrößert die Oberfläche und vermischt die Nahrung mit Speichel. Die Verdauung und die Aufnahme der meisten Nährstoffbausteine erfolgen anschließend weiter im Verdauungstrakt.",
+      "skills": [
+        "digestion.mouth",
+        "enzymes.action"
+      ]
     },
     {
       "id": "bio002-magenaufgaben",
@@ -180,7 +197,10 @@ export const quiz = {
         "mischen",
         "schleim"
       ],
-      "explanation": "Der Magen durchmischt die Nahrung. Eine Schleimschicht schützt seine Wand. Die Verdauung wird im Dünndarm fortgesetzt."
+      "explanation": "Der Magen durchmischt die Nahrung. Eine Schleimschicht schützt seine Wand. Die Verdauung wird im Dünndarm fortgesetzt.",
+      "skills": [
+        "digestion.stomach"
+      ]
     },
     {
       "id": "bio002-salzsaeure-pepsin",
@@ -210,7 +230,11 @@ export const quiz = {
         "keime",
         "peptide"
       ],
-      "explanation": "Salzsäure ist kein Enzym. Sie schafft geeignete Bedingungen für Pepsin und tötet viele Krankheitserreger ab. Pepsin spaltet Eiweiße zunächst in Peptide."
+      "explanation": "Salzsäure ist kein Enzym. Sie schafft geeignete Bedingungen für Pepsin und tötet viele Krankheitserreger ab. Pepsin spaltet Eiweiße zunächst in Peptide.",
+      "skills": [
+        "digestion.stomach",
+        "enzymes.action"
+      ]
     },
     {
       "id": "bio002-eiweissweg",
@@ -240,7 +264,10 @@ export const quiz = {
         "darm",
         "verwendung"
       ],
-      "explanation": "Pepsin beginnt die Eiweißspaltung im Magen. Im Dünndarm entstehen aufnehmbare Aminosäuren. Körperzellen können daraus eigene Eiweiße aufbauen."
+      "explanation": "Pepsin beginnt die Eiweißspaltung im Magen. Im Dünndarm entstehen aufnehmbare Aminosäuren. Körperzellen können daraus eigene Eiweiße aufbauen.",
+      "skills": [
+        "digestion.proteins"
+      ]
     },
     {
       "id": "bio002-enzymmodell",
@@ -269,7 +296,10 @@ export const quiz = {
         "passend",
         "wieder"
       ],
-      "explanation": "Die passende Form erklärt die Substratspezifität. Das Enzym wird bei der Reaktion nicht verbraucht und kann erneut wirken."
+      "explanation": "Die passende Form erklärt die Substratspezifität. Das Enzym wird bei der Reaktion nicht verbraucht und kann erneut wirken.",
+      "skills": [
+        "enzymes.action"
+      ]
     },
     {
       "id": "bio002-darmvergleich",
@@ -299,7 +329,10 @@ export const quiz = {
         "resorption",
         "wasser"
       ],
-      "explanation": "Der Dünndarm ist der wichtigste Ort der Nährstoffaufnahme. Seine große Oberfläche erleichtert die Resorption. Der Dickdarm gewinnt unter anderem Wasser zurück."
+      "explanation": "Der Dünndarm ist der wichtigste Ort der Nährstoffaufnahme. Seine große Oberfläche erleichtert die Resorption. Der Dickdarm gewinnt unter anderem Wasser zurück.",
+      "skills": [
+        "digestion.intestines"
+      ]
     }
   ]
-};
+}

@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { isFRQ, createAttempt } from '../../site/quiz.js';
+import { isFRQ, createAttempt } from '../../app/quiz.js';
 import { quiz } from '../fixtures/sample-quiz.js';
 test.beforeEach(async ({page}) => {
   await page.route('**/questions.js', route => route.fulfill({contentType:'text/javascript', body:`export const quiz = ${JSON.stringify(quiz)};`}));
@@ -91,6 +91,7 @@ test('image and Mermaid render at desktop and mobile widths', async({page})=>{
     await page.goto('/');
     await page.evaluate(({key,id})=>{localStorage.removeItem(key); sessionStorage.setItem('visual-question',id);},{key,id});
     await page.reload();
+    await expect(page.locator('#view-title')).toBeVisible();
     await page.evaluate(({key,id})=>{
       const a=JSON.parse(localStorage.getItem(key));
       a.order=[id,...a.order.filter(q=>q!==id)];
@@ -114,6 +115,7 @@ async function seedAtFRQ(page) {
   const first=a.order[0], q=quiz.questions.find(q=>q.id===first);
   a.answers[first].selected=[q.options.find(o=>!q.correct.includes(o.id)).id];
   await page.goto('/');
+  await expect(page.locator('#view-title')).toBeVisible();
   await page.evaluate(({key,a})=>localStorage.setItem(key,JSON.stringify(a)),{key,a});
   await page.reload();
   return a;

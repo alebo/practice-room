@@ -4,3 +4,7 @@ test-results/
 playwright-report/
 .codex/
 .DS_Store
+# Learner responses, assessments, and evidence never enter the public repository.
+/private/
+# Original study materials stay local; publish selected assets inside a set only.
+/content/tests/*/sources/

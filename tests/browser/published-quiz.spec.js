@@ -1,9 +1,10 @@
 import { test, expect } from '@playwright/test';
-import { quiz } from '../../site/questions.js';
+import { loadSet } from '../../scripts/lib/content.mjs';
+const {quiz} = await loadSet('biology-grade-8','002-nutrients-and-digestion');
 test('published set: all ten multi-answer questions, explanations and copyable results', async ({page,context}) => {
   await context.grantPermissions(['clipboard-read','clipboard-write']);
   const errors=[]; page.on('pageerror',e=>errors.push(e.message));
-  await page.goto('/');
+  await page.goto('/tests/biology-grade-8/002-nutrients-and-digestion/');
   await expect(page.locator('h1')).toHaveText(quiz.title);
   await expect(page.locator('.intro')).not.toContainText('Beispieltest');
   const seen=new Set();
@@ -30,4 +31,18 @@ test('published set: all ten multi-answer questions, explanations and copyable r
   expect(report).toContain(quiz.label); expect(report).toContain('10 von 10');
   for(const q of quiz.questions) expect(report).toContain(q.prompt);
   expect(errors).toEqual([]);
+});
+
+test('each exercise has a permanent route and separate saved progress',async({page})=>{
+  await page.goto('/tests/biology-grade-8/001-basics/');
+  const title=await page.locator('#view-title').textContent();
+  await page.locator('input').first().check();
+  await page.goto('/tests/biology-grade-8/002-nutrients-and-digestion/');
+  await expect(page.locator('h1')).toHaveText(quiz.title);
+  await expect(page.locator('input:checked')).toHaveCount(0);
+  await page.goto('/tests/biology-grade-8/001-basics/');
+  await expect(page.locator('#view-title')).toHaveText(title);
+  await expect(page.locator('input:checked')).toHaveCount(1);
+  await page.goto('/');
+  await expect(page.locator('h1')).toHaveText(quiz.title);
 });

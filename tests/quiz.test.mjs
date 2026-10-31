@@ -1,8 +1,8 @@
-import { quiz as publishedQuiz } from '../site/questions.js';
+import { listSets } from '../scripts/lib/content.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { quiz } from './fixtures/sample-quiz.js';
-import { createAttempt, isCorrect, shuffle, validAttempt, validateQuiz, isFRQ, buildReport, mcqSummary } from '../site/quiz.js';
+import { createAttempt, isCorrect, shuffle, validAttempt, validateQuiz, isFRQ, buildReport, mcqSummary } from '../app/quiz.js';
 test('sample content is valid', () => validateQuiz(quiz));
 test('multiple answers require exact matching, with no partial or duplicate credit', () => {
   const q = quiz.questions.find(q => q.correct?.length > 1);
@@ -84,4 +84,4 @@ test('FRQ-only tests have no MCQ score and restore skipped answers',()=>{
   assert.ok(!buildReport(source,a,'https://example.org').includes('NaN'));
 });
 
-test('published content is valid', () => validateQuiz(publishedQuiz));
+test('all exercise sets are valid', async () => { for (const {quiz} of await listSets()) validateQuiz(quiz); });

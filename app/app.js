@@ -1,4 +1,4 @@
-import { quiz } from './questions.js';
+const { quiz } = await import(new URL('./questions.js', document.baseURI).href);
 import { createAttempt, isCorrect, validAttempt, validateQuiz, isFRQ, mcqSummary, buildReport } from './quiz.js';
 const app = document.querySelector('#app');
 const key = `lernraum:${quiz.id}`;
@@ -30,7 +30,7 @@ function storageNote() {
 function question(id) { return quiz.questions.find(q => q.id === id); }
 function missed() { return mcqSummary(quiz, state).wrong; }
 function fullAttempt() { return state.original || state; }
-function reportText() { return buildReport(quiz, fullAttempt(), new URL('./', location.href).href); }
+function reportText() { return buildReport(quiz, fullAttempt(), new URL(quiz.canonicalPath || './', location.href).href); }
 function intro() {
   return `<section class="intro"><div class="eyebrow"><span class="dot"></span>${esc(quiz.label)}</div><h1>${esc(quiz.title)}</h1><p>${esc(quiz.subtitle)}</p><div class="sample-note"><span aria-hidden="true">✧</span> ${quiz.questions.length} Fragen · ohne Zeitdruck</div></section>`;
 }
