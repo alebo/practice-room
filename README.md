@@ -38,6 +38,8 @@ Selections, checked answers, order and results are saved to localStorage in the 
 
 ## GitHub Pages
 
-The included workflow builds and deploys `dist/` on pushes to `main`. In repository Settings → Pages, select **GitHub Actions** as the source. The intended URL is https://alebo.github.io/bio-2026-11/ once deployment succeeds. Relative asset paths support this repository subpath.
+The live site uses the `gh-pages` branch as its publishing source, with generated `dist/` files at the branch root. Source code lives on `main`. After content changes, rebuild and publish the updated `dist/` contents to `gh-pages`. The URL is https://alebo.github.io/bio-2026-11/. Relative asset paths support this repository subpath.
+
+An optional GitHub Actions workflow is supplied in `deployment/pages-workflow.yml`. To enable automatic deployment from `main`, authenticate with workflow permission, move the template to `.github/workflows/pages.yml`, and change Settings → Pages to **GitHub Actions**. The initial token lacked workflow permission, so the first deployment uses branch publishing.
 
 Workflow reference: https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages
