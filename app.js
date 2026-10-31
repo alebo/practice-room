@@ -181,22 +181,34 @@ function results() {
   const frqs = full.order.filter(id => isFRQ(question(id)));
   const retryScore = state.original && state.done ? mcqSummary(quiz, state) : null;
   const wrong = state.done ? missed() : [];
-  return `<section class="workspace"><article class="result-card"><div class="eyebrow">Gesamtbericht · ursprünglicher Versuch</div><h2 id="view-title" tabindex="-1">Deine Ergebnisse auf einen Blick.</h2>${score.total ? `<div class="score">${score.correct}<span> / ${score.total}</span></div><p>MCQ richtig beantwortet · ${Math.round(score.correct/score.total*100)} %</p>` : '<p>Dieser Test enthält keine MCQs.</p>'}${frqs.length ? `<p class="muted">${frqs.length} freie Antworten · nicht bewertet</p>` : ''}<p class="muted">Ein Punkt pro vollständig richtiger MCQ-Antwort.</p><div class="actions"><button class="primary" id="copy-report">Ergebnis kopieren</button>${wrong.length ? `<button class="secondary" id="retry-missed">${wrong.length} Fehler wiederholen <span aria-hidden="true">→</span></button>` : ''}${!state.done ? '<button class="secondary" id="continue-retry">Wiederholung fortsetzen</button>' : ''}<button class="secondary" id="retry-all">Gesamten Test neu starten</button></div><p id="copy-status" role="status" aria-live="polite"></p></article>${retryScore ? `<aside class="retry-result"><h2>MCQ-Wiederholung</h2><p><strong>${retryScore.correct} / ${retryScore.total}</strong> richtig. Dieser Übungsversuch verändert den Gesamtbericht nicht.</p></aside>` : ''}${sharePanel()}<section class="report-panel"><h2>Bericht zum Weitergeben</h2><p class="muted">${frqs.length ? 'Freie Antworten kannst du unten bearbeiten. Der Bericht wird sofort aktualisiert. ' : ''}Kopiere den Bericht und sende ihn zur Prüfung.</p><details><summary>Bericht als Text ansehen / manuell kopieren</summary><label class="response-label" for="report-text">Vollständiger Bericht</label><textarea id="report-text" rows="14" readonly>${esc(reportText())}</textarea><button class="text-button" id="select-report">Gesamten Text markieren</button></details></section><section class="review"><h2>Deine Antworten im Überblick</h2><p class="muted">MCQ-Ergebnisse stammen aus dem ursprünglichen Versuch.${frqs.length ? ' Freie Antworten bleiben bearbeitbar.' : ''}</p>${full.order.map((id, i) => reviewQuestion(id, i, full)).join('')}</section></section>`;
+  return `<section class="workspace"><article class="result-card"><div class="eyebrow">Gesamtbericht · ursprünglicher Versuch</div><h2 id="view-title" tabindex="-1">Deine Ergebnisse auf einen Blick.</h2>${score.total ? `<div class="score">${score.correct}<span> / ${score.total}</span></div><p>MCQ richtig beantwortet · ${Math.round(score.correct/score.total*100)} %</p>` : '<p>Dieser Test enthält keine MCQs.</p>'}${frqs.length ? `<p class="muted">${frqs.length} freie Antworten · nicht bewertet</p>` : ''}<p class="muted">Ein Punkt pro vollständig richtiger MCQ-Antwort.</p><div class="actions">${wrong.length ? `<button class="secondary" id="retry-missed">${wrong.length} Fehler wiederholen <span aria-hidden="true">→</span></button>` : ''}${!state.done ? '<button class="secondary" id="continue-retry">Wiederholung fortsetzen</button>' : ''}<button class="secondary" id="retry-all">Gesamten Test neu starten</button></div></article>${retryScore ? `<aside class="retry-result"><h2>MCQ-Wiederholung</h2><p><strong>${retryScore.correct} / ${retryScore.total}</strong> richtig. Dieser Übungsversuch verändert den Gesamtbericht nicht.</p></aside>` : ''}${sharePanel()}<section class="review"><h2>Deine Antworten im Überblick</h2><p class="muted">MCQ-Ergebnisse stammen aus dem ursprünglichen Versuch.${frqs.length ? ' Freie Antworten bleiben bearbeitbar.' : ''}</p>${full.order.map((id, i) => reviewQuestion(id, i, full)).join('')}</section></section>`;
 }
 function sharePanel() {
   const share = fullAttempt().share;
   const expired = share && Date.now() >= share.expiresAt;
   const usable = share && !share.stale && !expired;
-  return `<section class="report-panel" id="share-panel"><h2>Ergebnis als Link teilen</h2><p class="muted">Dein Bericht wird vor dem Hochladen verschlüsselt und auf privatebin.net für drei Tage gespeichert. Wer den vollständigen Link hat, kann ihn lesen. Deine Antworten bleiben in diesem Browser erhalten.</p>${share ? `<label class="response-label" for="share-url">${usable ? 'Link für die prüfende Person' : 'Bisheriger Link'}</label><input class="share-url" id="share-url" type="text" readonly value="${esc(share.url)}"><p class="response-status">${share.stale ? 'Deine Antworten wurden geändert. Erstelle einen neuen Link für den aktuellen Bericht.' : expired ? 'Dieser Link ist abgelaufen. Du kannst einen neuen erstellen.' : `Gültig bis ${esc(new Date(share.expiresAt).toLocaleString('de-DE'))}.`}</p>` : ''}<div class="actions"><button class="primary" id="create-share" ${shareInProgress ? 'disabled' : ''}>${usable ? 'Link anzeigen' : share ? 'Neuen Link erstellen' : 'Link erstellen'}</button>${usable ? '<button class="secondary" id="copy-share">Link kopieren</button>' : ''}</div><p id="share-status" role="status" aria-live="polite"></p></section>`;
+  return `<section class="report-panel" id="share-panel"><h2>Ergebnis zur Prüfung teilen</h2><p class="muted">Erstelle einen Link und sende ihn an die prüfende Person. So lässt sich auch ein langer Bericht einfach weitergeben. Alternativ kannst du den vollständigen Bericht als Text kopieren.</p>${quiz.questions.some(isFRQ) ? '<p class="muted">Freie Antworten kannst du unten bearbeiten. Teile danach den aktuellen Bericht erneut.</p>' : ''}<p class="muted">Beim Erstellen eines Links wird dein Bericht vor dem Hochladen verschlüsselt und auf privatebin.net für drei Tage gespeichert. Wer den vollständigen Link hat, kann ihn lesen. Deine Antworten bleiben in diesem Browser erhalten.</p>${share ? `<label class="response-label" for="share-url">${usable ? 'Link für die prüfende Person' : 'Bisheriger Link'}</label><input class="share-url" id="share-url" type="text" readonly value="${esc(share.url)}"><p class="response-status">${share.stale ? 'Deine Antworten wurden geändert. Erstelle einen neuen Link für den aktuellen Bericht.' : expired ? 'Dieser Link ist abgelaufen. Du kannst einen neuen erstellen.' : `Gültig bis ${esc(new Date(share.expiresAt).toLocaleString('de-DE'))}.`}</p>` : ''}<div class="actions"><button class="${usable ? 'secondary' : 'primary'}" id="create-share" ${shareInProgress ? 'disabled' : ''}>${usable ? 'Link anzeigen' : share ? 'Neuen Link erstellen' : 'Link erstellen'}</button>${usable ? '<button class="primary" id="copy-share">Link kopieren</button>' : ''}<button class="secondary" id="copy-report">Als Text kopieren</button></div><p id="share-status" role="status" aria-live="polite"></p><p id="copy-status" role="status" aria-live="polite"></p><details><summary>Vollständigen Bericht ansehen oder manuell kopieren</summary><label class="response-label" for="report-text">Bericht als Text</label><textarea id="report-text" rows="14" readonly>${esc(reportText())}</textarea><button class="text-button" id="select-report">Gesamten Text markieren</button></details></section>`;
 }
 function bindSharing() {
+  document.querySelector('#select-report').onclick = selectReport;
+  document.querySelector('#copy-report').onclick = async () => {
+    const text = reportText();
+    try {
+      if (!navigator.clipboard?.writeText) throw new Error('Clipboard unavailable');
+      await navigator.clipboard.writeText(text);
+      document.querySelector('#copy-status').textContent = text === reportText() ? 'Bericht kopiert. Du kannst ihn jetzt zur Prüfung senden.' : 'Der Bericht wurde inzwischen geändert. Bitte erneut kopieren.';
+    } catch {
+      selectReport();
+      document.querySelector('#copy-status').textContent = 'Automatisches Kopieren ist nicht verfügbar. Der Bericht ist markiert: Kopiere ihn mit Strg+C, ⌘C oder dem Kopiermenü.';
+    }
+  };
   const create = document.querySelector('#create-share');
   const select = () => { const input = document.querySelector('#share-url'); input?.focus(); input?.select(); };
   const copy = document.querySelector('#copy-share');
   if (copy) copy.onclick = async () => {
     try {
       await navigator.clipboard.writeText(fullAttempt().share.url);
-      document.querySelector('#share-status').textContent = 'Link kopiert. Sende ihn innerhalb von drei Tagen an die prüfende Person.';
+      document.querySelector('#share-status').textContent = 'Link kopiert. Sende ihn vor dem angegebenen Ablaufdatum an die prüfende Person.';
     } catch {
       select();
       document.querySelector('#share-status').textContent = 'Link markiert. Kopiere ihn mit Strg+C, ⌘C oder dem Kopiermenü.';
@@ -250,20 +262,9 @@ function bindResults() {
     save();
     editor.parentElement.querySelector('.response-status').textContent = editor.value.trim() ? 'Antwort im Bericht enthalten.' : 'Nicht beantwortet';
     document.querySelector('#report-text').value = reportText();
-    document.querySelector('#copy-status').textContent = 'Bericht aktualisiert. Bitte erneut kopieren.';
+    document.querySelector('#copy-status').textContent = 'Bericht aktualisiert. Bitte einen neuen Link erstellen oder den Text erneut kopieren.';
   };
-  document.querySelector('#select-report').onclick = selectReport;
-  document.querySelector('#copy-report').onclick = async () => {
-    const text = reportText();
-    try {
-      if (!navigator.clipboard?.writeText) throw new Error('Clipboard unavailable');
-      await navigator.clipboard.writeText(text);
-      document.querySelector('#copy-status').textContent = text === reportText() ? 'Bericht kopiert. Du kannst ihn jetzt zur Prüfung senden.' : 'Der Bericht wurde inzwischen geändert. Bitte erneut kopieren.';
-    } catch {
-      selectReport();
-      document.querySelector('#copy-status').textContent = 'Automatisches Kopieren ist nicht verfügbar. Der Bericht ist markiert: Kopiere ihn mit Strg+C, ⌘C oder dem Kopiermenü.';
-    }
-  };
+
 }
 function selectReport() {
   const text = document.querySelector('#report-text');
