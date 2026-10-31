@@ -110,11 +110,11 @@ function exercise() {
     const correct = q.correct.includes(id);
     const status = answer.checked ? correct ? 'correct' : selected ? 'incorrect' : '' : '';
     return `<label class="option ${status}"><input type="${multiple ? 'checkbox' : 'radio'}" name="answer" value="${esc(id)}" ${selected ? 'checked' : ''} aria-describedby="selection-hint"><span class="option-letter" aria-hidden="true">${String.fromCharCode(65+i)}</span><span class="option-text">${esc(option.text)}</span>${answer.checked && (correct || selected) ? `<span class="answer-tag">${correct ? '✓ Richtig' : '× Falsch'}</span>` : ''}</label>`;
-  }).join('')}</div></fieldset><div id="feedback" aria-live="polite">${answer.checked ? feedback(q, answer) : ''}</div><div class="card-bottom"><span class="bottom-hint">${answer.checked ? 'Ein Schritt weiter.' : 'Nimm dir die Zeit, die du brauchst.'}</span>${answer.checked ? `<button class="primary" id="next" type="button">${state.index === state.order.length - 1 ? 'Ergebnis ansehen' : 'Nächste Frage'} <span aria-hidden="true">→</span></button>` : `<button class="primary" id="check" type="submit" ${answer.selected.length ? '' : 'disabled'}>Antwort prüfen <span aria-hidden="true">→</span></button>`}</div></form></article><div class="under-card"><span><span aria-hidden="true">✓</span> Lernen ohne Druck. Fehler gehören dazu.</span>${state.original ? '<button class="text-button" id="show-report">Gesamtbericht ansehen</button>' : ''}<button class="text-button" id="restart">Neu starten</button></div></section>`;
+  }).join('')}</div></fieldset><div id="feedback" aria-live="polite">${answer.checked ? feedback(q, answer) : ''}</div><div class="card-bottom"><span class="bottom-hint">${answer.checked ? 'Ein Schritt weiter.' : 'Nimm dir die Zeit, die du brauchst.'}</span>${answer.checked ? `<button class="primary" id="next" type="button">${state.index === state.order.length - 1 ? 'Ergebnis ansehen' : 'Nächste Frage'} <span aria-hidden="true">→</span></button>` : `<button class="secondary" id="skip" type="button">Weiß ich nicht</button><button class="primary" id="check" type="submit" ${answer.selected.length ? '' : 'disabled'}>Antwort prüfen <span aria-hidden="true">→</span></button>`}</div></form></article><div class="under-card"><span><span aria-hidden="true">✓</span> Lernen ohne Druck. Fehler gehören dazu.</span>${state.original ? '<button class="text-button" id="show-report">Gesamtbericht ansehen</button>' : ''}<button class="text-button" id="restart">Neu starten</button></div></section>`;
 }
 function feedback(q, answer) {
   const correct = isCorrect(q, answer.selected);
-  return `<section class="feedback ${correct ? 'positive' : 'negative'}" tabindex="-1"><strong>${correct ? 'Richtig! Gut gemacht.' : 'Noch nicht ganz richtig.'}</strong>${!correct ? '<p>Die richtigen Antworten sind oben grün markiert.</p>' : ''}${q.explanation ? `<p lang="${esc(q.language || quiz.language)}">${esc(q.explanation)}</p>` : ''}</section>`;
+  return `<section class="feedback ${correct ? 'positive' : 'negative'}" tabindex="-1"><strong>${correct ? 'Richtig! Gut gemacht.' : !answer.selected.length ? 'Nicht beantwortet.' : 'Noch nicht ganz richtig.'}</strong>${!correct ? '<p>Die richtigen Antworten sind oben grün markiert.</p>' : ''}${q.explanation ? `<p lang="${esc(q.language || quiz.language)}">${esc(q.explanation)}</p>` : ''}</section>`;
 }
 function freeResponse(q) {
   const text = state.answers[q.id]?.text || '';
@@ -150,6 +150,11 @@ function bindExercise() {
     if (!answer?.selected.length || answer.checked) return;
     answer.checked = true; save(); render(); document.querySelector('.feedback').focus();
   };
+  const skip = document.querySelector('#skip');
+  if (skip) skip.onclick = () => {
+    state.answers[q.id] = { selected: [], checked: true };
+    save(); render(); document.querySelector('.feedback').focus();
+  };
   const next = document.querySelector('#next');
   if (next) next.onclick = advance;
 }
@@ -159,7 +164,7 @@ function reviewQuestion(id, index, attempt) {
     return `<details class="frq-review" open><summary><span class="review-status pending" aria-label="Nicht bewertet">—</span><span lang="${esc(q.language || quiz.language)}">${index + 1}. ${esc(q.prompt)}</span><span aria-hidden="true">+</span></summary><div class="review-body">${media(q)}<p class="muted">Nicht bewertet · Prüfung durch eine andere Person</p><label class="response-label" for="edit-${esc(id)}">Deine Antwort bearbeiten</label><textarea id="edit-${esc(id)}" data-frq="${esc(id)}" rows="5" lang="${esc(q.language || quiz.language)}">${esc(a.text)}</textarea><p class="response-status" data-status="${esc(id)}">${a.text.trim() ? 'Antwort im Bericht enthalten.' : 'Nicht beantwortet'}</p></div></details>`;
   }
   const correct = isCorrect(q, a.selected);
-  return `<details><summary><span class="review-status ${correct ? 'success' : 'failure'}" aria-label="${correct ? 'Richtig' : 'Falsch'}">${correct ? '✓' : '×'}</span><span lang="${esc(q.language || quiz.language)}">${index+1}. ${esc(q.prompt)}</span><span aria-hidden="true">+</span></summary><div class="review-body" lang="${esc(q.language || quiz.language)}">${media(q)}<ul>${attempt.optionOrder[id].map(oid => { const o=q.options.find(o=>o.id===oid); return `<li class="${q.correct.includes(oid) ? 'review-correct' : ''}">${esc(o.text)} <small>${a.selected.includes(oid) ? '· Deine Auswahl ' : ''}${q.correct.includes(oid) ? '· Richtig' : ''}</small></li>`; }).join('')}</ul>${q.explanation ? `<p>${esc(q.explanation)}</p>` : ''}</div></details>`;
+  return `<details><summary><span class="review-status ${correct ? 'success' : 'failure'}" aria-label="${!a.selected.length ? 'Nicht beantwortet' : correct ? 'Richtig' : 'Falsch'}">${correct ? '✓' : '×'}</span><span lang="${esc(q.language || quiz.language)}">${index+1}. ${esc(q.prompt)}</span><span aria-hidden="true">+</span></summary><div class="review-body" lang="${esc(q.language || quiz.language)}">${media(q)}${!a.selected.length ? '<p>Nicht beantwortet</p>' : ''}<ul>${attempt.optionOrder[id].map(oid => { const o=q.options.find(o=>o.id===oid); return `<li class="${q.correct.includes(oid) ? 'review-correct' : ''}">${esc(o.text)} <small>${a.selected.includes(oid) ? '· Deine Auswahl ' : ''}${q.correct.includes(oid) ? '· Richtig' : ''}</small></li>`; }).join('')}</ul>${q.explanation ? `<p>${esc(q.explanation)}</p>` : ''}</div></details>`;
 }
 function results() {
   const full = fullAttempt();

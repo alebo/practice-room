@@ -47,7 +47,7 @@ export function validAttempt(quiz, state, allowOriginal = true) {
     } else {
       const order = state.optionOrder[id];
       if (!Array.isArray(order) || order.length !== q.options.length || new Set(order).size !== order.length || order.some(o => !q.options.some(x => x.id === o))) return false;
-      if (a && (!Array.isArray(a.selected) || new Set(a.selected).size !== a.selected.length || a.selected.some(o => !order.includes(o)) || typeof a.checked !== 'boolean' || (q.correct.length === 1 && a.selected.length > 1) || (a.checked && !a.selected.length))) return false;
+      if (a && (!Array.isArray(a.selected) || new Set(a.selected).size !== a.selected.length || a.selected.some(o => !order.includes(o)) || typeof a.checked !== 'boolean' || (q.correct.length === 1 && a.selected.length > 1))) return false;
     }
     if ((i < state.index || state.done) && !a?.checked) return false;
     if (i > state.index && a) return false;
@@ -75,7 +75,7 @@ export function buildReport(quiz, attempt, url) {
       if (isFRQ(q)) lines.push('Antwort:', a?.text.trim() ? a.text : 'Nicht beantwortet');
       else {
         const labels = ids => ids.map(oid => q.options.find(o => o.id === oid).text).join('; ');
-        lines.push(`Ergebnis: ${isCorrect(q, a.selected) ? 'Richtig' : 'Falsch'}`, `Gewählt: ${labels(a.selected)}`, `Richtig: ${labels(q.correct)}`);
+        lines.push(`Ergebnis: ${!a.selected.length ? 'Nicht beantwortet' : isCorrect(q, a.selected) ? 'Richtig' : 'Falsch'}`, `Gewählt: ${labels(a.selected)}`, `Richtig: ${labels(q.correct)}`);
       }
       lines.push('');
     });
