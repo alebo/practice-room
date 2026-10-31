@@ -1,6 +1,6 @@
 // Stable IDs identify questions/options. Change version whenever test content changes.
 export const quiz = {
-  id: 'biologie-demo', version: 1, language: 'de',
+  id: 'biologie-demo', version: 2, language: 'de',
   title: 'Kleine Schritte. Großes Verstehen.',
   subtitle: 'Entdecke, was du schon weißt – und lerne bei jeder Antwort etwas dazu.',
   label: 'Biologie · Beispieltest',
@@ -22,6 +22,11 @@ export const quiz = {
       correct: ['speed','specific'], explanation: 'Enzyme wirken als Biokatalysatoren und sind meist substratspezifisch. Sie werden bei der Reaktion nicht verbraucht. Ihre Aktivität hängt unter anderem von der Temperatur ab.' },
     { id: 'absorption', topic: 'Verdauung', prompt: 'Wo wird der größte Teil der Nährstoffe in den Körper aufgenommen?',
       options: [{id:'small',text:'Im Dünndarm'}, {id:'mouth',text:'Im Mund'}, {id:'stomach',text:'Im Magen'}, {id:'esophagus',text:'In der Speiseröhre'}],
-      correct: ['small'], explanation: 'Der Dünndarm besitzt durch Falten, Zotten und Mikrovilli eine sehr große Oberfläche. Über sie werden die meisten Nährstoffe aufgenommen.' }
+      correct: ['small'], explanation: 'Der Dünndarm besitzt durch Falten, Zotten und Mikrovilli eine sehr große Oberfläche. Über sie werden die meisten Nährstoffe aufgenommen.' },
+    { id: 'frq-digestion', type: 'frq', topic: 'Verdauung', language: 'de',
+      prompt: 'Erkläre in eigenen Worten, warum die große Oberfläche des Dünndarms für die Aufnahme von Nährstoffen wichtig ist.' },
+    { id: 'frq-plants', type: 'frq', topic: 'Fotosynthese', language: 'de',
+      prompt: 'Eine Pflanze steht mehrere Tage im Dunkeln. Beschreibe, wie sich das auf ihre Fotosynthese auswirkt, und begründe deine Antwort.' }
+
   ]
 };

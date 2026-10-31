@@ -1,9 +1,10 @@
 import { quiz } from './questions.js';
-import { createAttempt, isCorrect, validAttempt, validateQuiz } from './quiz.js';
+import { createAttempt, isCorrect, validAttempt, validateQuiz, isFRQ, mcqSummary, buildReport } from './quiz.js';
 const app = document.querySelector('#app');
 const key = `lernraum:${quiz.id}`;
 const esc = text => String(text).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let state;
+let reportView = false;
 let storageAvailable = true;
 let mermaidPromise;
 let renderNumber = 0;
@@ -27,22 +28,22 @@ function storageNote() {
   document.querySelector('#storage-note').textContent = storageAvailable ? 'Dein Fortschritt bleibt in diesem Browser.' : 'Speichern ist nicht verfügbar. Dieser Versuch bleibt nur bis zum Neuladen erhalten.';
 }
 function question(id) { return quiz.questions.find(q => q.id === id); }
-function missed() { return state.order.filter(id => !isCorrect(question(id), state.answers[id]?.selected || [])); }
+function missed() { return mcqSummary(quiz, state).wrong; }
+function fullAttempt() { return state.original || state; }
+function reportText() { return buildReport(quiz, fullAttempt(), new URL('./', location.href).href); }
 function intro() {
   return `<section class="intro"><div class="eyebrow"><span class="dot"></span>${esc(quiz.label)}</div><h1>${esc(quiz.title)}</h1><p>${esc(quiz.subtitle)}</p><div class="sample-note"><span aria-hidden="true">✧</span> Beispieltest zum Ausprobieren · ${quiz.questions.length} Fragen · ohne Zeitdruck</div></section>`;
 }
 function render(focus = false) {
   renderNumber++;
-  app.innerHTML = intro() + (state.done ? results() : exercise());
+  app.innerHTML = intro() + (state.done || reportView ? results() : exercise());
   storageNote();
-  if (!state.done) bindExercise();
-  else {
-    document.querySelector('#retry-all').onclick = requestRestart;
-    const retry = document.querySelector('#retry-missed');
-    if (retry) retry.onclick = () => { state = createAttempt(quiz, missed(), 'missed'); save(); render(true); };
-  }
+  if (!state.done && !reportView) bindExercise();
+  else bindResults();
   const restart = document.querySelector('#restart');
   if (restart) restart.onclick = requestRestart;
+  const showReport = document.querySelector('#show-report');
+  if (showReport) showReport.onclick = () => { reportView = true; render(true); };
   if (focus) document.querySelector('#view-title').focus();
   renderDiagrams(renderNumber);
 }
@@ -82,24 +83,45 @@ async function renderDiagrams(generation) {
 }
 function exercise() {
   const q = question(state.order[state.index]);
+  if (isFRQ(q)) return freeResponse(q);
   const answer = state.answers[q.id] || { selected: [], checked: false };
   const multiple = q.correct.length > 1;
   const completed = state.order.filter(id => state.answers[id]?.checked).length;
-  return `<section class="workspace"><div class="progress-row"><span>${state.mode === 'missed' ? 'Wiederholung' : 'Dein Fortschritt'}</span><strong>${completed} / ${state.order.length} beantwortet</strong></div><progress value="${completed}" max="${state.order.length}" aria-label="Beantwortete Fragen"></progress><article class="question-card"><div class="question-meta"><span>FRAGE ${String(state.index + 1).padStart(2,'0')} <span class="muted">/ ${String(state.order.length).padStart(2,'0')}</span></span><span class="topic">${esc(q.topic || 'Übung')}</span></div><form id="answer-form"><fieldset ${answer.checked ? 'disabled' : ''}><legend id="view-title" tabindex="-1" lang="${esc(q.language || quiz.language)}">${esc(q.prompt)}</legend><p class="selection-hint" id="selection-hint">${multiple ? 'Mehrere Antworten sind richtig. Wähle alle passenden aus.' : 'Genau eine Antwort ist richtig.'}</p>${media(q)}<div class="options" lang="${esc(q.language || quiz.language)}">${state.optionOrder[q.id].map((id, i) => {
+  return `<section class="workspace"><div class="progress-row"><span>${state.mode === 'missed' ? 'MCQ-Wiederholung' : 'Teil 1 · Multiple Choice'}</span><strong>${completed} / ${state.order.length} abgeschlossen</strong></div><progress value="${completed}" max="${state.order.length}" aria-label="Abgeschlossene Fragen"></progress><article class="question-card"><div class="question-meta"><span>FRAGE ${String(state.index + 1).padStart(2,'0')} <span class="muted">/ ${String(state.order.length).padStart(2,'0')}</span></span><span class="topic">MCQ · ${esc(q.topic || 'Übung')}</span></div><form id="answer-form"><fieldset ${answer.checked ? 'disabled' : ''}><legend id="view-title" tabindex="-1" lang="${esc(q.language || quiz.language)}">${esc(q.prompt)}</legend><p class="selection-hint" id="selection-hint">${multiple ? 'Mehrere Antworten sind richtig. Wähle alle passenden aus.' : 'Genau eine Antwort ist richtig.'}</p>${media(q)}<div class="options" lang="${esc(q.language || quiz.language)}">${state.optionOrder[q.id].map((id, i) => {
     const option = q.options.find(o => o.id === id);
     const selected = answer.selected.includes(id);
     const correct = q.correct.includes(id);
     const status = answer.checked ? correct ? 'correct' : selected ? 'incorrect' : '' : '';
     return `<label class="option ${status}"><input type="${multiple ? 'checkbox' : 'radio'}" name="answer" value="${esc(id)}" ${selected ? 'checked' : ''} aria-describedby="selection-hint"><span class="option-letter" aria-hidden="true">${String.fromCharCode(65+i)}</span><span class="option-text">${esc(option.text)}</span>${answer.checked && (correct || selected) ? `<span class="answer-tag">${correct ? '✓ Richtig' : '× Falsch'}</span>` : ''}</label>`;
-  }).join('')}</div></fieldset><div id="feedback" aria-live="polite">${answer.checked ? feedback(q, answer) : ''}</div><div class="card-bottom"><span class="bottom-hint">${answer.checked ? 'Ein Schritt weiter.' : 'Nimm dir die Zeit, die du brauchst.'}</span>${answer.checked ? `<button class="primary" id="next" type="button">${state.index === state.order.length - 1 ? 'Ergebnis ansehen' : 'Nächste Frage'} <span aria-hidden="true">→</span></button>` : `<button class="primary" id="check" type="submit" ${answer.selected.length ? '' : 'disabled'}>Antwort prüfen <span aria-hidden="true">→</span></button>`}</div></form></article><div class="under-card"><span><span aria-hidden="true">✓</span> Lernen ohne Druck. Fehler gehören dazu.</span><button class="text-button" id="restart">Neu starten</button></div></section>`;
+  }).join('')}</div></fieldset><div id="feedback" aria-live="polite">${answer.checked ? feedback(q, answer) : ''}</div><div class="card-bottom"><span class="bottom-hint">${answer.checked ? 'Ein Schritt weiter.' : 'Nimm dir die Zeit, die du brauchst.'}</span>${answer.checked ? `<button class="primary" id="next" type="button">${state.index === state.order.length - 1 ? 'Ergebnis ansehen' : 'Nächste Frage'} <span aria-hidden="true">→</span></button>` : `<button class="primary" id="check" type="submit" ${answer.selected.length ? '' : 'disabled'}>Antwort prüfen <span aria-hidden="true">→</span></button>`}</div></form></article><div class="under-card"><span><span aria-hidden="true">✓</span> Lernen ohne Druck. Fehler gehören dazu.</span>${state.original ? '<button class="text-button" id="show-report">Gesamtbericht ansehen</button>' : ''}<button class="text-button" id="restart">Neu starten</button></div></section>`;
 }
 function feedback(q, answer) {
   const correct = isCorrect(q, answer.selected);
   return `<section class="feedback ${correct ? 'positive' : 'negative'}" tabindex="-1"><strong>${correct ? 'Richtig! Gut gemacht.' : 'Noch nicht ganz richtig.'}</strong>${!correct ? '<p>Die richtigen Antworten sind oben grün markiert.</p>' : ''}${q.explanation ? `<p lang="${esc(q.language || quiz.language)}">${esc(q.explanation)}</p>` : ''}</section>`;
 }
+function freeResponse(q) {
+  const text = state.answers[q.id]?.text || '';
+  const completed = state.order.filter(id => state.answers[id]?.checked).length;
+  return `<section class="workspace"><div class="progress-row"><span>Teil 2 · Freie Antworten</span><strong>${completed} / ${state.order.length} abgeschlossen</strong></div><progress value="${completed}" max="${state.order.length}" aria-label="Abgeschlossene Fragen"></progress><article class="question-card"><div class="question-meta"><span>FRAGE ${state.index + 1} / ${state.order.length}</span><span class="topic">Freie Antwort · ${esc(q.topic || 'Übung')}</span></div><form id="answer-form"><h2 id="view-title" tabindex="-1" lang="${esc(q.language || quiz.language)}">${esc(q.prompt)}</h2><p id="frq-hint" class="selection-hint">Diese Antwort wird extern geprüft. Du kannst sie leer lassen und am Ende bearbeiten.</p>${media(q)}<label class="response-label" for="free-answer">Deine Antwort</label><textarea id="free-answer" rows="7" aria-describedby="frq-hint" lang="${esc(q.language || quiz.language)}" placeholder="Schreibe deine Gedanken hier auf …">${esc(text)}</textarea><div class="card-bottom"><span class="bottom-hint">${storageAvailable ? 'Entwurf wird automatisch gespeichert.' : 'Speichern im Browser ist nicht verfügbar.'}</span><button class="primary" type="submit">${state.index === state.order.length - 1 ? 'Ergebnis ansehen' : 'Weiter'} <span aria-hidden="true">→</span></button></div></form></article><div class="under-card"><span>Keine automatische Bewertung.</span><button class="text-button" id="restart">Neu starten</button></div></section>`;
+}
+function advance() {
+  if (state.index === state.order.length - 1) state.done = true;
+  else state.index++;
+  save(); render(true);
+}
 function bindExercise() {
   const q = question(state.order[state.index]);
   const form = document.querySelector('#answer-form');
+  if (isFRQ(q)) {
+    const textarea = document.querySelector('#free-answer');
+    textarea.oninput = () => { state.answers[q.id] = { text: textarea.value, checked: false }; save(); };
+    form.onsubmit = event => {
+      event.preventDefault();
+      state.answers[q.id] = { text: textarea.value, checked: true };
+      advance();
+    };
+    return;
+  }
   form.onchange = () => {
     const selected = [...form.querySelectorAll('input:checked')].map(input => input.value);
     state.answers[q.id] = { selected, checked: false };
@@ -112,23 +134,62 @@ function bindExercise() {
     answer.checked = true; save(); render(); document.querySelector('.feedback').focus();
   };
   const next = document.querySelector('#next');
-  if (next) next.onclick = () => {
-    if (state.index === state.order.length - 1) state.done = true;
-    else state.index++;
-    save(); render(true);
-  };
+  if (next) next.onclick = advance;
+}
+function reviewQuestion(id, index, attempt) {
+  const q = question(id), a = attempt.answers[id];
+  if (isFRQ(q)) {
+    return `<details class="frq-review" open><summary><span class="review-status pending" aria-label="Nicht bewertet">—</span><span lang="${esc(q.language || quiz.language)}">${index + 1}. ${esc(q.prompt)}</span><span aria-hidden="true">+</span></summary><div class="review-body">${media(q)}<p class="muted">Nicht bewertet · Prüfung durch eine andere Person</p><label class="response-label" for="edit-${esc(id)}">Deine Antwort bearbeiten</label><textarea id="edit-${esc(id)}" data-frq="${esc(id)}" rows="5" lang="${esc(q.language || quiz.language)}">${esc(a.text)}</textarea><p class="response-status" data-status="${esc(id)}">${a.text.trim() ? 'Antwort im Bericht enthalten.' : 'Nicht beantwortet'}</p></div></details>`;
+  }
+  const correct = isCorrect(q, a.selected);
+  return `<details><summary><span class="review-status ${correct ? 'success' : 'failure'}" aria-label="${correct ? 'Richtig' : 'Falsch'}">${correct ? '✓' : '×'}</span><span lang="${esc(q.language || quiz.language)}">${index+1}. ${esc(q.prompt)}</span><span aria-hidden="true">+</span></summary><div class="review-body" lang="${esc(q.language || quiz.language)}">${media(q)}<ul>${attempt.optionOrder[id].map(oid => { const o=q.options.find(o=>o.id===oid); return `<li class="${q.correct.includes(oid) ? 'review-correct' : ''}">${esc(o.text)} <small>${a.selected.includes(oid) ? '· Deine Auswahl ' : ''}${q.correct.includes(oid) ? '· Richtig' : ''}</small></li>`; }).join('')}</ul>${q.explanation ? `<p>${esc(q.explanation)}</p>` : ''}</div></details>`;
 }
 function results() {
-  const wrong = missed();
-  const score = state.order.length - wrong.length;
-  return `<section class="workspace"><article class="result-card"><div class="eyebrow">${state.mode === 'missed' ? 'Wiederholung abgeschlossen' : 'Übung abgeschlossen'}</div><h2 id="view-title" tabindex="-1">${wrong.length ? 'Du bist einen Schritt weiter.' : 'Alles richtig. Stark gemacht!'}</h2><div class="score">${score}<span> / ${state.order.length}</span></div><p>Fragen richtig beantwortet · ${Math.round(score/state.order.length*100)} %</p><p class="muted">Ein Punkt pro vollständig richtiger Antwort.</p><div class="actions">${wrong.length ? `<button class="primary" id="retry-missed">${wrong.length} Fehler wiederholen <span aria-hidden="true">→</span></button>` : ''}<button class="secondary" id="retry-all">Gesamten Test neu starten</button></div></article><section class="review"><h2>Deine Antworten im Überblick</h2><p class="muted">Öffne eine Frage, um Antworten und Erklärung anzusehen.</p>${state.order.map((id, i) => {
-    const q = question(id); const a = state.answers[id]; const correct = isCorrect(q,a.selected);
-    return `<details><summary><span class="review-status ${correct ? 'success' : 'failure'}" aria-label="${correct ? 'Richtig' : 'Falsch'}">${correct ? '✓' : '×'}</span><span lang="${esc(q.language || quiz.language)}">${i+1}. ${esc(q.prompt)}</span><span aria-hidden="true">+</span></summary><div class="review-body" lang="${esc(q.language || quiz.language)}">${media(q)}<ul>${state.optionOrder[id].map(oid => { const o=q.options.find(o=>o.id===oid); return `<li class="${q.correct.includes(oid) ? 'review-correct' : ''}">${esc(o.text)} <small>${a.selected.includes(oid) ? '· Deine Auswahl ' : ''}${q.correct.includes(oid) ? '· Richtig' : ''}</small></li>`; }).join('')}</ul>${q.explanation ? `<p>${esc(q.explanation)}</p>` : ''}</div></details>`;
-  }).join('')}</section></section>`;
+  const full = fullAttempt();
+  const score = mcqSummary(quiz, full);
+  const frqs = full.order.filter(id => isFRQ(question(id)));
+  const retryScore = state.original && state.done ? mcqSummary(quiz, state) : null;
+  const wrong = state.done ? missed() : [];
+  return `<section class="workspace"><article class="result-card"><div class="eyebrow">Gesamtbericht · ursprünglicher Versuch</div><h2 id="view-title" tabindex="-1">Deine Ergebnisse auf einen Blick.</h2>${score.total ? `<div class="score">${score.correct}<span> / ${score.total}</span></div><p>MCQ richtig beantwortet · ${Math.round(score.correct/score.total*100)} %</p>` : '<p>Dieser Test enthält keine MCQs.</p>'}<p class="muted">${frqs.length} freie Antworten · nicht bewertet</p><p class="muted">Ein Punkt pro vollständig richtiger MCQ-Antwort.</p><div class="actions"><button class="primary" id="copy-report">Ergebnis kopieren</button>${wrong.length ? `<button class="secondary" id="retry-missed">${wrong.length} Fehler wiederholen <span aria-hidden="true">→</span></button>` : ''}${!state.done ? '<button class="secondary" id="continue-retry">Wiederholung fortsetzen</button>' : ''}<button class="secondary" id="retry-all">Gesamten Test neu starten</button></div><p id="copy-status" role="status" aria-live="polite"></p></article>${retryScore ? `<aside class="retry-result"><h2>MCQ-Wiederholung</h2><p><strong>${retryScore.correct} / ${retryScore.total}</strong> richtig. Dieser Übungsversuch verändert den Gesamtbericht nicht.</p></aside>` : ''}<section class="report-panel"><h2>Bericht zum Weitergeben</h2><p class="muted">Freie Antworten kannst du unten bearbeiten. Der Bericht wird sofort aktualisiert. Kopiere ihn anschließend und sende ihn zur Prüfung.</p><details><summary>Bericht als Text ansehen / manuell kopieren</summary><label class="response-label" for="report-text">Vollständiger Bericht</label><textarea id="report-text" rows="14" readonly>${esc(reportText())}</textarea><button class="text-button" id="select-report">Gesamten Text markieren</button></details></section><section class="review"><h2>Deine Antworten im Überblick</h2><p class="muted">MCQ-Ergebnisse stammen aus dem ursprünglichen Versuch. Freie Antworten bleiben bearbeitbar.</p>${full.order.map((id, i) => reviewQuestion(id, i, full)).join('')}</section></section>`;
+}
+function bindResults() {
+  document.querySelector('#retry-all').onclick = requestRestart;
+  const retry = document.querySelector('#retry-missed');
+  if (retry) retry.onclick = () => {
+    const original = fullAttempt();
+    state = { ...createAttempt(quiz, missed(), 'missed'), original };
+    reportView = false; save(); render(true);
+  };
+  const resume = document.querySelector('#continue-retry');
+  if (resume) resume.onclick = () => { reportView = false; render(true); };
+  for (const editor of document.querySelectorAll('[data-frq]')) editor.oninput = () => {
+    fullAttempt().answers[editor.dataset.frq].text = editor.value;
+    save();
+    editor.parentElement.querySelector('.response-status').textContent = editor.value.trim() ? 'Antwort im Bericht enthalten.' : 'Nicht beantwortet';
+    document.querySelector('#report-text').value = reportText();
+    document.querySelector('#copy-status').textContent = 'Bericht aktualisiert. Bitte erneut kopieren.';
+  };
+  document.querySelector('#select-report').onclick = selectReport;
+  document.querySelector('#copy-report').onclick = async () => {
+    const text = reportText();
+    try {
+      if (!navigator.clipboard?.writeText) throw new Error('Clipboard unavailable');
+      await navigator.clipboard.writeText(text);
+      document.querySelector('#copy-status').textContent = text === reportText() ? 'Bericht kopiert. Du kannst ihn jetzt zur Prüfung senden.' : 'Der Bericht wurde inzwischen geändert. Bitte erneut kopieren.';
+    } catch {
+      selectReport();
+      document.querySelector('#copy-status').textContent = 'Automatisches Kopieren ist nicht verfügbar. Der Bericht ist markiert: Kopiere ihn mit Strg+C, ⌘C oder dem Kopiermenü.';
+    }
+  };
+}
+function selectReport() {
+  const text = document.querySelector('#report-text');
+  text.closest('details').open = true;
+  text.value = reportText(); text.focus(); text.select();
 }
 function requestRestart() { document.querySelector('#restart-dialog').showModal(); }
 document.querySelector('#cancel-restart').onclick = () => document.querySelector('#restart-dialog').close();
 document.querySelector('#confirm-restart').onclick = () => {
   document.querySelector('#restart-dialog').close();
-  state = createAttempt(quiz); save(); render(true);
+  state = createAttempt(quiz); reportView = false; save(); render(true);
 };
