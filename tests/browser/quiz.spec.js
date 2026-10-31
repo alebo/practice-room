@@ -76,9 +76,19 @@ test('mobile layout, blocked storage, and keyboard selection', async({page})=>{
   await expect(page.locator('.feedback')).toBeVisible();
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
 });
-test('invalid saved data recovers and unanswered shuffle survives refresh', async({page})=>{
-  await page.addInitScript(k=>{if(!sessionStorage.getItem('seeded')){localStorage.setItem(k,'{"version":1,"order":["bad"]}');sessionStorage.setItem('seeded','1');}},key);
+test('invalid saved data is preserved until a confirmed reset', async({page})=>{
+  const raw='{"version":1,"order":["bad"]}';
+  await page.addInitScript(({key,raw})=>{if(!sessionStorage.getItem('seeded')){localStorage.setItem(key,raw);sessionStorage.setItem('seeded','1');}},{key,raw});
   await page.goto('/');
+  await expect(page.locator('#saved-data')).toHaveValue(raw);
+  await page.reload();
+  await expect(page.locator('#saved-data')).toHaveValue(raw);
+  expect(await page.evaluate(k=>localStorage.getItem(k),key)).toBe(raw);
+  await page.getByRole('button',{name:'Neu starten',exact:true}).click();
+  await page.getByRole('button',{name:'Weiterüben',exact:true}).click();
+  await expect(page.locator('#saved-data')).toHaveValue(raw);
+  await page.getByRole('button',{name:'Neu starten',exact:true}).click();
+  await page.locator('#confirm-restart').click();
   const before=await page.locator('legend').textContent();
   const options=await page.locator('.option-text').allTextContents();
   await page.reload();
@@ -167,4 +177,37 @@ test('FRQ drafts, skipped answers, edits, copying, fallback and original report 
   await page.setViewportSize({width:375,height:812});
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   await page.screenshot({path:'.playwright/results/frq-results-mobile.png',fullPage:true});
+});
+
+test('completed answers remain copyable after reopening and a content update until explicit reset',async({page,context})=>{
+  await context.grantPermissions(['clipboard-read','clipboard-write']);
+  await seedAtFRQ(page);
+  await page.locator('#free-answer').fill('Gespeicherte Antwort vor dem Update.');
+  await page.getByRole('button',{name:'Weiter',exact:true}).click();
+  await page.getByRole('button',{name:'Ergebnis ansehen',exact:true}).click();
+  await expect(page.locator('.score')).toHaveText('4 / 5');
+  const saved=await page.evaluate(k=>localStorage.getItem(k),key);
+  const updated={...quiz,version:quiz.version+1,title:'Aktualisierter Test'};
+  await context.route('**/questions.js',route=>route.fulfill({contentType:'text/javascript',body:`export const quiz = ${JSON.stringify(updated)};`}));
+  await page.close();
+  const reopened=await context.newPage();
+  await reopened.goto('/');
+  await expect(reopened.locator('h1')).toHaveText(quiz.title);
+  await expect(reopened.locator('.score')).toHaveText('4 / 5');
+  await expect(reopened.locator('[data-frq]').first()).toHaveValue('Gespeicherte Antwort vor dem Update.');
+  await reopened.getByRole('button',{name:'Ergebnis kopieren',exact:true}).click();
+  await expect(reopened.locator('#copy-status')).toContainText('Bericht kopiert');
+  const copied=await reopened.evaluate(()=>navigator.clipboard.readText());
+  expect(copied).toContain(`Testversion: ${quiz.version}`);
+  expect(copied).toContain('Gespeicherte Antwort vor dem Update.');
+  expect(await reopened.evaluate(k=>localStorage.getItem(k),key)).toBe(saved);
+  await reopened.getByRole('button',{name:'Gesamten Test neu starten'}).click();
+  await reopened.getByRole('button',{name:'Weiterüben',exact:true}).click();
+  await expect(reopened.locator('.score')).toHaveText('4 / 5');
+  await reopened.getByRole('button',{name:'Gesamten Test neu starten'}).click();
+  await reopened.locator('#confirm-restart').click();
+  await expect(reopened.locator('h1')).toHaveText(updated.title);
+  const reset=JSON.parse(await reopened.evaluate(k=>localStorage.getItem(k),key));
+  expect(reset.answers).toEqual({});
+  expect(reset.quizSnapshot.version).toBe(updated.version);
 });

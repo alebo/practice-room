@@ -99,7 +99,7 @@ Browser checks explicitly build with sample assets; ordinary builds and publishi
 
    The command requires committed app/content/tooling changes, refuses scaffold placeholders, runs unit checks, builds a clean site, and updates `gh-pages` without force-pushing. It uses the current `gh` login over HTTPS. No workflow permission is needed. Check the resulting deployment using `gh run list --repo alebo/bio-2026-11 --branch gh-pages`, then verify the live URL. A successful Git push alone does not verify deployment.
 
-Each build includes all exercise sets, so old links remain usable when the homepage changes. Editing an existing set requires increasing its `version`; that resets its browser attempt. Prefer a new set for new exercises. Imports verify the report version and store a full quiz snapshot, preserving the meaning of previously imported answers. To import a report for an older edited version, restore that version of the set from Git first.
+Each build includes all exercise sets, so old links remain usable when the homepage changes. Editing an existing set requires increasing its `version`. Saved browser attempts retain their own question snapshot and remain readable and copyable; the new version is used only after the visitor explicitly confirms a full restart. Prefer a new set for new exercises. Imports verify the report version and store a full quiz snapshot, preserving the meaning of previously imported answers. To import a report for an older edited version, restore that version of the set from Git first.
 
 ## Question format
 
@@ -109,7 +109,9 @@ A quiz contains `id`, integer `version`, `language`, `title`, `subtitle`, `label
 - FRQ: `type: "frq"`, `prompt`; no options, automatic grade, or model answer. Plain multiline text only; skipping is allowed and answers can be edited in final review.
 - Shared optional fields: `topic` (display label), `language`, `skills` (stable English concept tags, such as `digestion.mouth`), `image: {src: "./assets/example.svg", alt: "..."}`, `mermaid`, and `diagramDescription`.
 
-Questions shuffle within sections: MCQs first, then FRQs. MCQ options also shuffle. Only the exact correct set earns a point; avoid position-dependent options. The UI remains German and content is rendered as plain text, except explicitly supplied images and Mermaid diagrams. FRQs are not automatically assessed. Retry scores remain separate from the original full-test report.
+Questions shuffle within sections: MCQs first, then FRQs. MCQ options also shuffle. Only the exact correct set earns a point; avoid position-dependent options. Browser answers use `localStorage` under `lernraum:<quiz-id>`, with the complete question snapshot, drafts, selections, order, and original/retry state. There is no app expiration. Reloading or reopening the same set restores the saved attempt. Copying does not clear it. Incompatible legacy data is preserved with a raw-data copy option until an explicit reset. Browser data clearing, private browsing, or unavailable storage can prevent persistence.
+
+The UI remains German and content is rendered as plain text, except explicitly supplied images and Mermaid diagrams. FRQs are not automatically assessed. Retry scores remain separate from the original full-test report.
 
 ## Import answers and prepare targeted follow-up questions
 

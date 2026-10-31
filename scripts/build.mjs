@@ -11,7 +11,7 @@ if (!selected) throw new Error(`Unknown active set: ${active.test}/${active.set}
 const dist = path.join(root,'dist');
 await rm(dist,{recursive:true,force:true});
 await mkdir(dist,{recursive:true});
-for (const file of ['app.js','quiz.js','styles.css']) await cp(path.join(root,'app',file),path.join(dist,file));
+for (const file of ['app.js','quiz.js','storage.js','styles.css']) await cp(path.join(root,'app',file),path.join(dist,file));
 const template = await readFile(path.join(root,'app/index.html'),'utf8');
 const escape = value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 async function renderSet(item, destination, prefix, canonicalPath) {

@@ -31,7 +31,7 @@ Do not present attachments, drawing inputs, audio/video responses, automatic sho
 
 ## Content schema
 
-The `quiz.json` object contains `id`, integer `version`, default `language`, `title`, `subtitle`, `label`, and a `questions` array. Preserve stable IDs; increment `version` when changing test content because saved attempts are tied to that version. This resets attempts from older versions, so mention that effect when updating a published test.
+The `quiz.json` object contains `id`, integer `version`, default `language`, `title`, `subtitle`, `label`, and a `questions` array. Preserve stable IDs; increment `version` when changing test content. Browser attempts retain a full question snapshot and remain readable and copyable across version changes. Only an explicitly confirmed full restart replaces the saved answers with an attempt on the latest version. Incompatible legacy data is preserved for raw-data copying rather than overwritten.
 
 Every question needs a unique stable `id` and a plain-text `prompt`. Optional fields shared by MCQs and FRQs:
 
@@ -87,7 +87,7 @@ Examples of question objects (use JSON syntax in the set file):
 
 Write media descriptions with this report in mind. They must communicate the relevant visual information without unnecessarily giving away the answer. Preserve multilingual text and line breaks in free responses.
 
-No name field or central result collection exists. Visitors send the copied report themselves. Manual text selection is available if clipboard access fails. Retrying missed MCQs keeps the original full-test report and FRQ answers; retry scores are separate. A full restart replaces the saved attempt. Browser-local storage is not a verifier-grade audit trail, and public practice questions include their correct answers in the shipped source.
+No name field or central result collection exists. Visitors send the copied report themselves. Manual text selection is available if clipboard access fails. Retrying missed MCQs keeps the original full-test report and FRQ answers; retry scores are separate. A confirmed full restart replaces the saved attempt. Answers use localStorage without an application expiry; copying, reloading, and reopening do not clear them. Browser data clearing or unavailable storage can still remove or prevent persistence. Browser-local storage is not a verifier-grade audit trail, and public practice questions include their correct answers in the shipped source.
 
 ## Use learner evidence for follow-up sets
 

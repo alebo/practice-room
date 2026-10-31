@@ -1,31 +1,46 @@
-const { quiz } = await import(new URL('./questions.js', document.baseURI).href);
-import { createAttempt, isCorrect, validAttempt, validateQuiz, isFRQ, mcqSummary, buildReport } from './quiz.js';
+const { quiz: publishedQuiz } = await import(new URL('./questions.js', document.baseURI).href);
+let quiz = publishedQuiz;
+import { restoreSavedAttempt, serializeAttempt } from './storage.js';
+import { createAttempt, isCorrect, validateQuiz, isFRQ, mcqSummary, buildReport } from './quiz.js';
 const app = document.querySelector('#app');
 const key = `lernraum:${quiz.id}`;
 const esc = text => String(text).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let state;
 let reportView = false;
 let storageAvailable = true;
+let storageReadable = true;
+let recoveryRaw = null;
 let mermaidPromise;
 let renderNumber = 0;
 try {
   validateQuiz(quiz);
-  try { const saved = JSON.parse(localStorage.getItem(key)); if (validAttempt(quiz, saved)) state = saved; }
-  catch { storageAvailable = false; }
-  state ||= createAttempt(quiz);
-  save();
-  render();
+  let raw = null;
+  try { raw = localStorage.getItem(key); }
+  catch { storageAvailable = false; storageReadable = false; }
+  const restored = restoreSavedAttempt(publishedQuiz, raw);
+  if (restored.mode === 'recovery') {
+    recoveryRaw = restored.raw;
+    renderRecovery();
+  } else {
+    quiz = restored.quiz;
+    state = restored.state;
+    save();
+    render();
+  }
 } catch (error) {
   app.innerHTML = '<h1>Die Übung konnte nicht geladen werden.</h1><p>Bitte versuche es später erneut.</p>';
   console.error(error);
 }
 function save() {
-  try { localStorage.setItem(key, JSON.stringify(state)); storageAvailable = true; }
+  try {
+    if (!storageReadable || recoveryRaw !== null) throw new Error('Saved data is protected.');
+    localStorage.setItem(key, serializeAttempt(quiz, state)); storageAvailable = true;
+  }
   catch { storageAvailable = false; }
   storageNote();
 }
 function storageNote() {
-  document.querySelector('#storage-note').textContent = storageAvailable ? 'Dein Fortschritt bleibt in diesem Browser.' : 'Speichern ist nicht verfügbar. Dieser Versuch bleibt nur bis zum Neuladen erhalten.';
+  document.querySelector('#storage-note').textContent = storageAvailable ? 'Deine Antworten bleiben gespeichert, bis du diesen Test neu startest.' : 'Speichern ist nicht verfügbar. Dieser Versuch bleibt nur bis zum Neuladen erhalten.';
 }
 function question(id) { return quiz.questions.find(q => q.id === id); }
 function missed() { return mcqSummary(quiz, state).wrong; }
@@ -36,7 +51,7 @@ function intro() {
 }
 function render(focus = false) {
   renderNumber++;
-  app.innerHTML = intro() + (state.done || reportView ? results() : exercise());
+  app.innerHTML = intro() + (quiz.version !== publishedQuiz.version ? `<aside class="retry-result"><p>Dein gespeicherter Versuch (Version ${esc(quiz.version)}) bleibt erhalten. Eine neue Testversion ist verfügbar. Du kannst deinen bisherigen Bericht weiterhin kopieren. Erst „Neu starten“ ersetzt deine Antworten.</p></aside>` : '') + (state.done || reportView ? results() : exercise());
   storageNote();
   if (!state.done && !reportView) bindExercise();
   else bindResults();
@@ -187,9 +202,26 @@ function selectReport() {
   text.closest('details').open = true;
   text.value = reportText(); text.focus(); text.select();
 }
+function renderRecovery() {
+  app.innerHTML = `<section class="intro"><h1 id="view-title" tabindex="-1">Deine gespeicherten Antworten bleiben erhalten.</h1><p>Dieser ältere oder beschädigte Speicherstand lässt sich nicht automatisch öffnen. Sichere die gespeicherten Daten, bevor du den Test neu startest.</p></section><section class="report-panel"><label class="response-label" for="saved-data">Gespeicherte Daten</label><textarea id="saved-data" rows="12" readonly>${esc(recoveryRaw)}</textarea><div class="actions"><button class="primary" id="copy-saved">Gespeicherte Daten kopieren</button><button class="secondary" id="reset-saved">Neu starten</button></div><p id="recovery-status" role="status"></p></section>`;
+  storageNote();
+  document.querySelector('#reset-saved').onclick = requestRestart;
+  document.querySelector('#copy-saved').onclick = async () => {
+    const data = document.querySelector('#saved-data');
+    try {
+      if (!navigator.clipboard?.writeText) throw new Error('Clipboard unavailable');
+      await navigator.clipboard.writeText(recoveryRaw);
+      document.querySelector('#recovery-status').textContent = 'Gespeicherte Daten kopiert.';
+    } catch {
+      data.focus(); data.select();
+      document.querySelector('#recovery-status').textContent = 'Daten markiert. Kopiere sie mit Strg+C, ⌘C oder dem Kopiermenü.';
+    }
+  };
+}
 function requestRestart() { document.querySelector('#restart-dialog').showModal(); }
 document.querySelector('#cancel-restart').onclick = () => document.querySelector('#restart-dialog').close();
 document.querySelector('#confirm-restart').onclick = () => {
   document.querySelector('#restart-dialog').close();
+  quiz = publishedQuiz; recoveryRaw = null; storageReadable = true;
   state = createAttempt(quiz); reportView = false; save(); render(true);
 };
