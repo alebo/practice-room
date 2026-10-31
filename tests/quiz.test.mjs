@@ -85,3 +85,16 @@ test('FRQ-only tests have no MCQ score and restore skipped answers',()=>{
 });
 
 test('all exercise sets are valid', async () => { for (const {quiz} of await listSets()) validateQuiz(quiz); });
+
+test('backward navigation retains later drafts without accepting skipped progress',()=>{
+  const a=createAttempt(quiz);
+  a.answers[a.order[0]]={selected:[],checked:true};
+  a.answers[a.order[1]]={selected:[],checked:false};
+  a.furthestIndex=1;
+  assert.equal(validAttempt(quiz,a),true);
+  a.answers[a.order[0]].checked=false;
+  assert.equal(validAttempt(quiz,a),false);
+  a.answers[a.order[0]].checked=true;
+  a.furthestIndex=quiz.questions.length;
+  assert.equal(validAttempt(quiz,a),false);
+});

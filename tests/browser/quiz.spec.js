@@ -236,3 +236,28 @@ test('MCQs can be explicitly left unanswered, persist on reload and enter retry'
   expect(JSON.stringify(saved)).toContain(first.id);
   await expect(page.getByRole('button',{name:'Weiß ich nicht',exact:true})).toBeVisible();
 });
+
+test('back navigation preserves FRQ drafts, edits, and locked MCQs across reloads',async({page})=>{
+  const a=createAttempt(quiz);
+  a.index=a.order.findIndex(id=>isFRQ(quiz.questions.find(q=>q.id===id)));
+  for(const id of a.order.slice(0,a.index)) a.answers[id]={selected:[],checked:true};
+  await page.goto('/');
+  await page.evaluate(({key,a})=>localStorage.setItem(key,JSON.stringify(a)),{key,a});
+  await page.reload();
+  await page.locator('#free-answer').fill('First response');
+  await page.getByRole('button',{name:'Weiter',exact:true}).click();
+  await page.locator('#free-answer').fill('Second draft');
+  await page.getByRole('button',{name:'← Zurück',exact:true}).click();
+  await expect(page.locator('#free-answer')).toHaveValue('First response');
+  await page.locator('#free-answer').fill('Edited first response');
+  await page.getByRole('button',{name:'← Zurück',exact:true}).click();
+  await page.reload();
+  await expect(page.locator('input[name="answer"]').first()).toBeDisabled();
+  await page.getByRole('button',{name:'Nächste Frage'}).click();
+  await expect(page.locator('#free-answer')).toHaveValue('Edited first response');
+  await page.getByRole('button',{name:'Weiter',exact:true}).click();
+  await expect(page.locator('#free-answer')).toHaveValue('Second draft');
+  await page.getByRole('button',{name:'Ergebnis ansehen',exact:true}).click();
+  await expect(page.locator('[data-frq]').first()).toHaveValue('Edited first response');
+  await expect(page.locator('[data-frq]').last()).toHaveValue('Second draft');
+});
