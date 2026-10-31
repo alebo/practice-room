@@ -1,7 +1,6 @@
 node_modules/
 dist/
-test-results/
-playwright-report/
+.playwright/
 .codex/
 .DS_Store
 # Learner responses, assessments, and evidence never enter the public repository.

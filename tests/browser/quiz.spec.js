@@ -101,10 +101,10 @@ test('image and Mermaid render at desktop and mobile widths', async({page})=>{
     if(id==='cell') await expect.poll(()=>page.locator('figure img').evaluate(i=>i.complete&&i.naturalWidth>0)).toBe(true);
     else await expect(page.locator('.diagram-canvas svg')).toBeVisible();
     await page.setViewportSize({width:1440,height:1100});
-    await page.screenshot({path:`test-results/${id}-desktop.png`,fullPage:true});
+    await page.screenshot({path:`.playwright/results/${id}-desktop.png`,fullPage:true});
     await page.setViewportSize({width:375,height:812});
     expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
-    await page.screenshot({path:`test-results/${id}-mobile.png`,fullPage:true});
+    await page.screenshot({path:`.playwright/results/${id}-mobile.png`,fullPage:true});
   }
 });
 
@@ -166,5 +166,5 @@ test('FRQ drafts, skipped answers, edits, copying, fallback and original report 
   expect(await page.locator('#report-text').evaluate(e=>e.selectionEnd-e.selectionStart)).toBe(copied.length);
   await page.setViewportSize({width:375,height:812});
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
-  await page.screenshot({path:'test-results/frq-results-mobile.png',fullPage:true});
+  await page.screenshot({path:'.playwright/results/frq-results-mobile.png',fullPage:true});
 });

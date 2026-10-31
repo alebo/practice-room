@@ -30,6 +30,7 @@ private/
 .agents/skills/quiz-content/           Project-local question-authoring skill
 tests/                                Unit/browser checks and sample fixtures
 deployment/pages-workflow.yml         Optional Actions workflow template
+.playwright/                          Generated browser-test results and reports, ignored
 dist/                                 Generated static site, ignored by Git
 ```
 
