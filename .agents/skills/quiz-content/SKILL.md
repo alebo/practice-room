@@ -5,7 +5,7 @@ description: Create, convert, or edit exercise sets for this project's online qu
 
 # Quiz content and learner evidence
 
-Prepare content compatible with the quiz at https://alebo.github.io/bio-2026-11/. This skill is project-local. Paths below are relative to the repository root, three directories above this skill folder.
+Prepare content compatible with the quiz at https://alebo.github.io/practice-room/. This skill is project-local. Paths below are relative to the repository root, three directories above this skill folder.
 
 ## Source of truth
 

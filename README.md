@@ -1,6 +1,6 @@
 # Quiz workspace
 
-Reusable HTML/CSS/JavaScript practice app with German UI and multilingual content. The public site is https://alebo.github.io/bio-2026-11/. Repository paths, scripts, and documentation use English; learner-facing content may use any language.
+Reusable HTML/CSS/JavaScript practice app with German UI and multilingual content. The public site is https://alebo.github.io/practice-room/. Repository paths, scripts, and documentation use English; learner-facing content may use any language.
 
 ## Layout and ownership
 
@@ -97,7 +97,7 @@ Browser checks explicitly build with sample assets; ordinary builds and publishi
    npm run publish:pages
    ```
 
-   The command requires committed app/content/tooling changes, refuses scaffold placeholders, runs unit checks, builds a clean site, and updates `gh-pages` without force-pushing. It uses the current `gh` login over HTTPS. No workflow permission is needed. Check the resulting deployment using `gh run list --repo alebo/bio-2026-11 --branch gh-pages`, then verify the live URL. A successful Git push alone does not verify deployment.
+   The command requires committed app/content/tooling changes, refuses scaffold placeholders, runs unit checks, builds a clean site, and updates `gh-pages` without force-pushing. It uses the current `gh` login over HTTPS. No workflow permission is needed. Check the resulting deployment using `gh run list --repo alebo/practice-room --branch gh-pages`, then verify the live URL. A successful Git push alone does not verify deployment.
 
 Each build includes all exercise sets, so old links remain usable when the homepage changes. Editing an existing set requires increasing its `version`. Saved browser attempts retain their own question snapshot and remain readable and copyable; the new version is used only after the visitor explicitly confirms a full restart. Prefer a new set for new exercises. Imports verify the report version and store a full quiz snapshot, preserving the meaning of previously imported answers. To import a report for an older edited version, restore that version of the set from Git first.
 

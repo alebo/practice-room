@@ -19,7 +19,7 @@ if (values['dry-run']) {
 }
 const checkout=await mkdtemp(path.join(tmpdir(),'quiz-pages-'));
 try {
-  run('git',[...git,'clone','--quiet','--single-branch','--branch','gh-pages','https://github.com/alebo/bio-2026-11.git',checkout]);
+  run('git',[...git,'clone','--quiet','--single-branch','--branch','gh-pages','https://github.com/alebo/practice-room.git',checkout]);
   // Replace generated files, preserving only Git history. Never force-push.
   for(const entry of await readdir(checkout)) if(entry!=='.git') await rm(path.join(checkout,entry),{recursive:true,force:true});
   await cp(path.join(root,'dist'),checkout,{recursive:true});
@@ -30,5 +30,5 @@ try {
     run('git',[...git,'push','origin','gh-pages'],checkout);
   } else console.log('Published files already match this build.');
 } finally {await rm(checkout,{recursive:true,force:true});}
-console.log('GitHub Pages: https://alebo.github.io/bio-2026-11/');
-console.log('Check deployment completion with: gh run list --repo alebo/bio-2026-11 --branch gh-pages');
+console.log('GitHub Pages: https://alebo.github.io/practice-room/');
+console.log('Check deployment completion with: gh run list --repo alebo/practice-room --branch gh-pages');
