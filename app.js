@@ -1,42 +1,59 @@
-import { quiz } from './questions.js';
-import { createAttempt, isCorrect, validAttempt, validateQuiz, isFRQ, mcqSummary, buildReport } from './quiz.js';
+const { quiz: publishedQuiz } = await import(new URL('./questions.js', document.baseURI).href);
+let quiz = publishedQuiz;
+import { restoreSavedAttempt, serializeAttempt } from './storage.js';
+import { createShare } from './privatebin.js';
+import { createAttempt, isCorrect, validateQuiz, isFRQ, mcqSummary, buildReport } from './quiz.js';
 const app = document.querySelector('#app');
 const key = `lernraum:${quiz.id}`;
 const esc = text => String(text).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let state;
 let reportView = false;
+let shareInProgress = false;
 let storageAvailable = true;
+let storageReadable = true;
+let recoveryRaw = null;
 let mermaidPromise;
 let renderNumber = 0;
 try {
   validateQuiz(quiz);
-  try { const saved = JSON.parse(localStorage.getItem(key)); if (validAttempt(quiz, saved)) state = saved; }
-  catch { storageAvailable = false; }
-  state ||= createAttempt(quiz);
-  save();
-  render();
+  let raw = null;
+  try { raw = localStorage.getItem(key); }
+  catch { storageAvailable = false; storageReadable = false; }
+  const restored = restoreSavedAttempt(publishedQuiz, raw);
+  if (restored.mode === 'recovery') {
+    recoveryRaw = restored.raw;
+    renderRecovery();
+  } else {
+    quiz = restored.quiz;
+    state = restored.state;
+    save();
+    render();
+  }
 } catch (error) {
   app.innerHTML = '<h1>Die Übung konnte nicht geladen werden.</h1><p>Bitte versuche es später erneut.</p>';
   console.error(error);
 }
 function save() {
-  try { localStorage.setItem(key, JSON.stringify(state)); storageAvailable = true; }
+  try {
+    if (!storageReadable || recoveryRaw !== null) throw new Error('Saved data is protected.');
+    localStorage.setItem(key, serializeAttempt(quiz, state)); storageAvailable = true;
+  }
   catch { storageAvailable = false; }
   storageNote();
 }
 function storageNote() {
-  document.querySelector('#storage-note').textContent = storageAvailable ? 'Dein Fortschritt bleibt in diesem Browser.' : 'Speichern ist nicht verfügbar. Dieser Versuch bleibt nur bis zum Neuladen erhalten.';
+  document.querySelector('#storage-note').textContent = storageAvailable ? 'Deine Antworten bleiben gespeichert, bis du diesen Test neu startest.' : 'Speichern ist nicht verfügbar. Dieser Versuch bleibt nur bis zum Neuladen erhalten.';
 }
 function question(id) { return quiz.questions.find(q => q.id === id); }
 function missed() { return mcqSummary(quiz, state).wrong; }
 function fullAttempt() { return state.original || state; }
-function reportText() { return buildReport(quiz, fullAttempt(), new URL('./', location.href).href); }
+function reportText() { return buildReport(quiz, fullAttempt(), new URL(publishedQuiz.canonicalPath || './', location.href).href); }
 function intro() {
   return `<section class="intro"><div class="eyebrow"><span class="dot"></span>${esc(quiz.label)}</div><h1>${esc(quiz.title)}</h1><p>${esc(quiz.subtitle)}</p><div class="sample-note"><span aria-hidden="true">✧</span> ${quiz.questions.length} Fragen · ohne Zeitdruck</div></section>`;
 }
 function render(focus = false) {
   renderNumber++;
-  app.innerHTML = intro() + (state.done || reportView ? results() : exercise());
+  app.innerHTML = intro() + (quiz.version !== publishedQuiz.version ? `<aside class="retry-result"><p>Dein gespeicherter Versuch (Version ${esc(quiz.version)}) bleibt erhalten. Eine neue Testversion ist verfügbar. Du kannst deinen bisherigen Bericht weiterhin kopieren. Erst „Neu starten“ ersetzt deine Antworten.</p></aside>` : '') + (state.done || reportView ? results() : exercise());
   storageNote();
   if (!state.done && !reportView) bindExercise();
   else bindResults();
@@ -150,9 +167,56 @@ function results() {
   const frqs = full.order.filter(id => isFRQ(question(id)));
   const retryScore = state.original && state.done ? mcqSummary(quiz, state) : null;
   const wrong = state.done ? missed() : [];
-  return `<section class="workspace"><article class="result-card"><div class="eyebrow">Gesamtbericht · ursprünglicher Versuch</div><h2 id="view-title" tabindex="-1">Deine Ergebnisse auf einen Blick.</h2>${score.total ? `<div class="score">${score.correct}<span> / ${score.total}</span></div><p>MCQ richtig beantwortet · ${Math.round(score.correct/score.total*100)} %</p>` : '<p>Dieser Test enthält keine MCQs.</p>'}${frqs.length ? `<p class="muted">${frqs.length} freie Antworten · nicht bewertet</p>` : ''}<p class="muted">Ein Punkt pro vollständig richtiger MCQ-Antwort.</p><div class="actions"><button class="primary" id="copy-report">Ergebnis kopieren</button>${wrong.length ? `<button class="secondary" id="retry-missed">${wrong.length} Fehler wiederholen <span aria-hidden="true">→</span></button>` : ''}${!state.done ? '<button class="secondary" id="continue-retry">Wiederholung fortsetzen</button>' : ''}<button class="secondary" id="retry-all">Gesamten Test neu starten</button></div><p id="copy-status" role="status" aria-live="polite"></p></article>${retryScore ? `<aside class="retry-result"><h2>MCQ-Wiederholung</h2><p><strong>${retryScore.correct} / ${retryScore.total}</strong> richtig. Dieser Übungsversuch verändert den Gesamtbericht nicht.</p></aside>` : ''}<section class="report-panel"><h2>Bericht zum Weitergeben</h2><p class="muted">${frqs.length ? 'Freie Antworten kannst du unten bearbeiten. Der Bericht wird sofort aktualisiert. ' : ''}Kopiere den Bericht und sende ihn zur Prüfung.</p><details><summary>Bericht als Text ansehen / manuell kopieren</summary><label class="response-label" for="report-text">Vollständiger Bericht</label><textarea id="report-text" rows="14" readonly>${esc(reportText())}</textarea><button class="text-button" id="select-report">Gesamten Text markieren</button></details></section><section class="review"><h2>Deine Antworten im Überblick</h2><p class="muted">MCQ-Ergebnisse stammen aus dem ursprünglichen Versuch.${frqs.length ? ' Freie Antworten bleiben bearbeitbar.' : ''}</p>${full.order.map((id, i) => reviewQuestion(id, i, full)).join('')}</section></section>`;
+  return `<section class="workspace"><article class="result-card"><div class="eyebrow">Gesamtbericht · ursprünglicher Versuch</div><h2 id="view-title" tabindex="-1">Deine Ergebnisse auf einen Blick.</h2>${score.total ? `<div class="score">${score.correct}<span> / ${score.total}</span></div><p>MCQ richtig beantwortet · ${Math.round(score.correct/score.total*100)} %</p>` : '<p>Dieser Test enthält keine MCQs.</p>'}${frqs.length ? `<p class="muted">${frqs.length} freie Antworten · nicht bewertet</p>` : ''}<p class="muted">Ein Punkt pro vollständig richtiger MCQ-Antwort.</p><div class="actions"><button class="primary" id="copy-report">Ergebnis kopieren</button>${wrong.length ? `<button class="secondary" id="retry-missed">${wrong.length} Fehler wiederholen <span aria-hidden="true">→</span></button>` : ''}${!state.done ? '<button class="secondary" id="continue-retry">Wiederholung fortsetzen</button>' : ''}<button class="secondary" id="retry-all">Gesamten Test neu starten</button></div><p id="copy-status" role="status" aria-live="polite"></p></article>${retryScore ? `<aside class="retry-result"><h2>MCQ-Wiederholung</h2><p><strong>${retryScore.correct} / ${retryScore.total}</strong> richtig. Dieser Übungsversuch verändert den Gesamtbericht nicht.</p></aside>` : ''}${sharePanel()}<section class="report-panel"><h2>Bericht zum Weitergeben</h2><p class="muted">${frqs.length ? 'Freie Antworten kannst du unten bearbeiten. Der Bericht wird sofort aktualisiert. ' : ''}Kopiere den Bericht und sende ihn zur Prüfung.</p><details><summary>Bericht als Text ansehen / manuell kopieren</summary><label class="response-label" for="report-text">Vollständiger Bericht</label><textarea id="report-text" rows="14" readonly>${esc(reportText())}</textarea><button class="text-button" id="select-report">Gesamten Text markieren</button></details></section><section class="review"><h2>Deine Antworten im Überblick</h2><p class="muted">MCQ-Ergebnisse stammen aus dem ursprünglichen Versuch.${frqs.length ? ' Freie Antworten bleiben bearbeitbar.' : ''}</p>${full.order.map((id, i) => reviewQuestion(id, i, full)).join('')}</section></section>`;
+}
+function sharePanel() {
+  const share = fullAttempt().share;
+  const expired = share && Date.now() >= share.expiresAt;
+  const usable = share && !share.stale && !expired;
+  return `<section class="report-panel" id="share-panel"><h2>Ergebnis als Link teilen</h2><p class="muted">Dein Bericht wird vor dem Hochladen verschlüsselt und auf privatebin.net für drei Tage gespeichert. Wer den vollständigen Link hat, kann ihn lesen. Deine Antworten bleiben in diesem Browser erhalten.</p>${share ? `<label class="response-label" for="share-url">${usable ? 'Link für die prüfende Person' : 'Bisheriger Link'}</label><input class="share-url" id="share-url" type="text" readonly value="${esc(share.url)}"><p class="response-status">${share.stale ? 'Deine Antworten wurden geändert. Erstelle einen neuen Link für den aktuellen Bericht.' : expired ? 'Dieser Link ist abgelaufen. Du kannst einen neuen erstellen.' : `Gültig bis ${esc(new Date(share.expiresAt).toLocaleString('de-DE'))}.`}</p>` : ''}<div class="actions"><button class="primary" id="create-share" ${shareInProgress ? 'disabled' : ''}>${usable ? 'Link anzeigen' : share ? 'Neuen Link erstellen' : 'Link erstellen'}</button>${usable ? '<button class="secondary" id="copy-share">Link kopieren</button>' : ''}</div><p id="share-status" role="status" aria-live="polite"></p></section>`;
+}
+function bindSharing() {
+  const create = document.querySelector('#create-share');
+  const select = () => { const input = document.querySelector('#share-url'); input?.focus(); input?.select(); };
+  const copy = document.querySelector('#copy-share');
+  if (copy) copy.onclick = async () => {
+    try {
+      await navigator.clipboard.writeText(fullAttempt().share.url);
+      document.querySelector('#share-status').textContent = 'Link kopiert. Sende ihn innerhalb von drei Tagen an die prüfende Person.';
+    } catch {
+      select();
+      document.querySelector('#share-status').textContent = 'Link markiert. Kopiere ihn mit Strg+C, ⌘C oder dem Kopiermenü.';
+    }
+  };
+  create.onclick = async () => {
+    const original = fullAttempt();
+    if (original.share && !original.share.stale && Date.now() < original.share.expiresAt) { select(); return; }
+    const report = reportText();
+    shareInProgress = true;
+    create.disabled = true;
+    document.querySelector('#share-status').textContent = 'Bericht wird verschlüsselt und hochgeladen …';
+    try {
+      const shared = await createShare(report);
+      // A reset or navigation during upload must not resurrect the old attempt.
+      if (fullAttempt() !== original) return;
+      original.share = {...shared,stale:report !== reportText()};
+      save();
+      if (state.done || reportView) {
+        render();
+        document.querySelector('#share-status').textContent = original.share.stale ? 'Link erstellt. Deine Antworten haben sich inzwischen geändert; erstelle einen neuen Link für den aktuellen Stand.' : 'Link erstellt. Kopiere ihn und sende ihn an die prüfende Person.';
+        select();
+      }
+    } catch (error) {
+      if (fullAttempt() === original && document.querySelector('#share-status')) document.querySelector('#share-status').textContent = error.name === 'RateLimitError' ? 'PrivateBin erlaubt momentan nur einen Upload pro Minute. Warte eine Minute und versuche es erneut. Deine Antworten bleiben gespeichert.' : 'Der Link konnte nicht erstellt werden. Deine Antworten bleiben gespeichert. Versuche es später erneut oder kopiere den Bericht als Text.';
+    } finally {
+      shareInProgress = false;
+      const currentButton = document.querySelector('#create-share');
+      if (currentButton) currentButton.disabled = false;
+    }
+  };
 }
 function bindResults() {
+  bindSharing();
   document.querySelector('#retry-all').onclick = requestRestart;
   const retry = document.querySelector('#retry-missed');
   if (retry) retry.onclick = () => {
@@ -164,6 +228,11 @@ function bindResults() {
   if (resume) resume.onclick = () => { reportView = false; render(true); };
   for (const editor of document.querySelectorAll('[data-frq]')) editor.oninput = () => {
     fullAttempt().answers[editor.dataset.frq].text = editor.value;
+    if (fullAttempt().share) {
+      fullAttempt().share.stale = true;
+      document.querySelector('#share-panel').outerHTML = sharePanel();
+      bindSharing();
+    }
     save();
     editor.parentElement.querySelector('.response-status').textContent = editor.value.trim() ? 'Antwort im Bericht enthalten.' : 'Nicht beantwortet';
     document.querySelector('#report-text').value = reportText();
@@ -187,9 +256,26 @@ function selectReport() {
   text.closest('details').open = true;
   text.value = reportText(); text.focus(); text.select();
 }
+function renderRecovery() {
+  app.innerHTML = `<section class="intro"><h1 id="view-title" tabindex="-1">Deine gespeicherten Antworten bleiben erhalten.</h1><p>Dieser ältere oder beschädigte Speicherstand lässt sich nicht automatisch öffnen. Sichere die gespeicherten Daten, bevor du den Test neu startest.</p></section><section class="report-panel"><label class="response-label" for="saved-data">Gespeicherte Daten</label><textarea id="saved-data" rows="12" readonly>${esc(recoveryRaw)}</textarea><div class="actions"><button class="primary" id="copy-saved">Gespeicherte Daten kopieren</button><button class="secondary" id="reset-saved">Neu starten</button></div><p id="recovery-status" role="status"></p></section>`;
+  storageNote();
+  document.querySelector('#reset-saved').onclick = requestRestart;
+  document.querySelector('#copy-saved').onclick = async () => {
+    const data = document.querySelector('#saved-data');
+    try {
+      if (!navigator.clipboard?.writeText) throw new Error('Clipboard unavailable');
+      await navigator.clipboard.writeText(recoveryRaw);
+      document.querySelector('#recovery-status').textContent = 'Gespeicherte Daten kopiert.';
+    } catch {
+      data.focus(); data.select();
+      document.querySelector('#recovery-status').textContent = 'Daten markiert. Kopiere sie mit Strg+C, ⌘C oder dem Kopiermenü.';
+    }
+  };
+}
 function requestRestart() { document.querySelector('#restart-dialog').showModal(); }
 document.querySelector('#cancel-restart').onclick = () => document.querySelector('#restart-dialog').close();
 document.querySelector('#confirm-restart').onclick = () => {
   document.querySelector('#restart-dialog').close();
+  quiz = publishedQuiz; recoveryRaw = null; storageReadable = true;
   state = createAttempt(quiz); reportView = false; save(); render(true);
 };

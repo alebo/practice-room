@@ -1,0 +1,321 @@
+export const quiz = {
+  "id": "biology-001-basics",
+  "version": 1,
+  "language": "de",
+  "title": "Stoffwechsel und Verdauung: Grundlagen",
+  "subtitle": "Wähle bei jeder Frage genau eine richtige Antwort.",
+  "label": "Biologie · Übung 001",
+  "questions": [
+    {
+      "id": "biology-001-01",
+      "type": "mcq",
+      "topic": "Stoffwechsel",
+      "skills": [
+        "metabolism.energy"
+      ],
+      "prompt": "Wozu dient der Energiestoffwechsel hauptsächlich?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Zum Transport unverdauter Nahrung"
+        },
+        {
+          "id": "b",
+          "text": "Zur Bereitstellung von Energie für Bewegung, Denken und Körperwärme"
+        },
+        {
+          "id": "c",
+          "text": "Ausschließlich zum Aufbau von Muskeln"
+        },
+        {
+          "id": "d",
+          "text": "Zur Speicherung von Wasser im Darm"
+        }
+      ],
+      "correct": [
+        "b"
+      ],
+      "explanation": "Der Energiestoffwechsel stellt Energie für Lebensvorgänge bereit."
+    },
+    {
+      "id": "biology-001-02",
+      "type": "mcq",
+      "topic": "Stoffwechsel",
+      "skills": [
+        "metabolism.building"
+      ],
+      "prompt": "Welcher Vorgang gehört zum Baustoffwechsel?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Traubenzucker wird zur Energiegewinnung abgebaut."
+        },
+        {
+          "id": "b",
+          "text": "Unverdaute Reste werden ausgeschieden."
+        },
+        {
+          "id": "c",
+          "text": "Aus Aminosäuren werden körpereigene Eiweiße aufgebaut."
+        },
+        {
+          "id": "d",
+          "text": "Nahrung wird durch die Speiseröhre transportiert."
+        }
+      ],
+      "correct": [
+        "c"
+      ],
+      "explanation": "Beim Baustoffwechsel entstehen aus Bausteinen körpereigene Stoffe."
+    },
+    {
+      "id": "biology-001-03",
+      "type": "mcq",
+      "topic": "Nährstoffe",
+      "skills": [
+        "nutrients.roles"
+      ],
+      "prompt": "Welche Zuordnung der Nährstoffgruppen ist richtig?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Kohlenhydrate: vor allem Energie; Eiweiße: vor allem Baustoffe; Fette: Energiespeicher und Baustoffe"
+        },
+        {
+          "id": "b",
+          "text": "Kohlenhydrate: vor allem Baustoffe; Eiweiße: ausschließlich Energie; Fette: keine Energie"
+        },
+        {
+          "id": "c",
+          "text": "Kohlenhydrate: Wasserspeicher; Eiweiße: Verdauungssäfte ohne weitere Aufgabe; Fette: ausschließlich Baustoffe"
+        },
+        {
+          "id": "d",
+          "text": "Alle drei Nährstoffgruppen dienen ausschließlich der Energiegewinnung."
+        }
+      ],
+      "correct": [
+        "a"
+      ],
+      "explanation": "Die Nährstoffgruppen haben unterschiedliche Schwerpunkte ihrer Verwendung."
+    },
+    {
+      "id": "biology-001-04",
+      "type": "mcq",
+      "topic": "Nährstoffe",
+      "skills": [
+        "nutrients.building-blocks"
+      ],
+      "prompt": "Welche Zuordnung von Nährstoff und Bausteinen ist richtig?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Stärke → Aminosäuren"
+        },
+        {
+          "id": "b",
+          "text": "Eiweiße → Fettsäuren und Glycerin"
+        },
+        {
+          "id": "c",
+          "text": "Fette → Glucose"
+        },
+        {
+          "id": "d",
+          "text": "Eiweiße → Aminosäuren"
+        }
+      ],
+      "correct": [
+        "d"
+      ],
+      "explanation": "Eiweiße bestehen aus Aminosäuren."
+    },
+    {
+      "id": "biology-001-05",
+      "type": "mcq",
+      "topic": "Enzyme",
+      "skills": [
+        "enzymes.action"
+      ],
+      "prompt": "Was bedeutet „Enzyme wirken substratspezifisch“?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Jedes Enzym kann jeden Nährstoff zerlegen."
+        },
+        {
+          "id": "b",
+          "text": "Ein Enzym wirkt nur auf bestimmte, zu seiner Bindungsstelle passende Substrate."
+        },
+        {
+          "id": "c",
+          "text": "Alle Enzyme wirken ausschließlich im Magen."
+        },
+        {
+          "id": "d",
+          "text": "Enzyme werden bei jeder Reaktion vollständig verbraucht."
+        }
+      ],
+      "correct": [
+        "b"
+      ],
+      "explanation": "Enzym und Substrat müssen zusammenpassen: Schlüssel-Schloss-Modell."
+    },
+    {
+      "id": "biology-001-06",
+      "type": "mcq",
+      "topic": "Mund",
+      "skills": [
+        "digestion.mouth"
+      ],
+      "prompt": "Was geschieht bereits im Mund?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Pepsin zerlegt Eiweiße."
+        },
+        {
+          "id": "b",
+          "text": "Gallenflüssigkeit verteilt Fett in kleine Tröpfchen."
+        },
+        {
+          "id": "c",
+          "text": "Amylase beginnt, Stärke in kleinere Zuckerbestandteile zu zerlegen."
+        },
+        {
+          "id": "d",
+          "text": "Alle Nährstoffe werden vollständig ins Blut aufgenommen."
+        }
+      ],
+      "correct": [
+        "c"
+      ],
+      "explanation": "Die Stärkeverdauung beginnt durch Amylase im Speichel."
+    },
+    {
+      "id": "biology-001-07",
+      "type": "mcq",
+      "topic": "Magen",
+      "skills": [
+        "digestion.stomach"
+      ],
+      "prompt": "Welche Aussage über den Magen ist richtig?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Salzsäure schafft die Bedingungen für Pepsin; Pepsin zerlegt Eiweiße in kleinere Stücke."
+        },
+        {
+          "id": "b",
+          "text": "Im Magen werden alle Nährstoffe vollständig verdaut und aufgenommen."
+        },
+        {
+          "id": "c",
+          "text": "Der Magen bildet Gallenflüssigkeit zur Fettverdauung."
+        },
+        {
+          "id": "d",
+          "text": "Die Magenwand wird durch eine Schicht aus Stärke geschützt."
+        }
+      ],
+      "correct": [
+        "a"
+      ],
+      "explanation": "Pepsin wirkt im sauren Magen und spaltet Eiweiße zunächst in kleinere Stücke."
+    },
+    {
+      "id": "biology-001-08",
+      "type": "mcq",
+      "topic": "Galle",
+      "skills": [
+        "digestion.bile"
+      ],
+      "prompt": "Welche Aufgabe hat die Gallenflüssigkeit?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Sie spaltet als Enzym Eiweiße in Aminosäuren."
+        },
+        {
+          "id": "b",
+          "text": "Sie transportiert Glucose durch die Darmwand."
+        },
+        {
+          "id": "c",
+          "text": "Sie bildet neue Fettmoleküle aus Glucose."
+        },
+        {
+          "id": "d",
+          "text": "Sie verteilt Fett in kleine Tröpfchen, sodass Enzyme besser angreifen können."
+        }
+      ],
+      "correct": [
+        "d"
+      ],
+      "explanation": "Galle erleichtert die Fettverdauung durch Tröpfchenbildung; sie ist kein Enzym."
+    },
+    {
+      "id": "biology-001-09",
+      "type": "mcq",
+      "topic": "Dünndarm",
+      "skills": [
+        "digestion.intestines"
+      ],
+      "prompt": "Warum besitzt der Dünndarm Falten, Darmzotten und Mikrovilli?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Damit die Nahrung möglichst lange unverdaut bleibt."
+        },
+        {
+          "id": "b",
+          "text": "Sie vergrößern die Oberfläche und ermöglichen eine wirksame Aufnahme von Nährstoffbausteinen."
+        },
+        {
+          "id": "c",
+          "text": "Sie verhindern, dass Nährstoffbausteine ins Blut gelangen."
+        },
+        {
+          "id": "d",
+          "text": "Sie stellen die Salzsäure für den Magen her."
+        }
+      ],
+      "correct": [
+        "b"
+      ],
+      "explanation": "Eine größere Oberfläche verbessert die Resorption."
+    },
+    {
+      "id": "biology-001-10",
+      "type": "mcq",
+      "topic": "Dickdarm",
+      "skills": [
+        "digestion.intestines"
+      ],
+      "prompt": "Was ist eine wichtige Aufgabe des Dickdarms?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Die Stärkeverdauung zu beginnen"
+        },
+        {
+          "id": "b",
+          "text": "Pepsin herzustellen"
+        },
+        {
+          "id": "c",
+          "text": "Wasser und gelöste Salze aufzunehmen, wodurch der Darminhalt fester wird"
+        },
+        {
+          "id": "d",
+          "text": "Die meisten Aminosäuren aus der Nahrung aufzunehmen"
+        }
+      ],
+      "correct": [
+        "c"
+      ],
+      "explanation": "Durch die Rückgewinnung von Wasser wird der Darminhalt eingedickt."
+    }
+  ],
+  "canonicalPath": "./"
+};
