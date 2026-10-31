@@ -110,7 +110,7 @@ function exercise() {
     const correct = q.correct.includes(id);
     const status = answer.checked ? correct ? 'correct' : selected ? 'incorrect' : '' : '';
     return `<label class="option ${status}"><input type="${multiple ? 'checkbox' : 'radio'}" name="answer" value="${esc(id)}" ${selected ? 'checked' : ''} aria-describedby="selection-hint"><span class="option-letter" aria-hidden="true">${String.fromCharCode(65+i)}</span><span class="option-text">${esc(option.text)}</span>${answer.checked && (correct || selected) ? `<span class="answer-tag">${correct ? '✓ Richtig' : '× Falsch'}</span>` : ''}</label>`;
-  }).join('')}</div></fieldset><div id="feedback" aria-live="polite">${answer.checked ? feedback(q, answer) : ''}</div><div class="card-bottom"><span class="bottom-hint">${answer.checked ? 'Ein Schritt weiter.' : 'Nimm dir die Zeit, die du brauchst.'}</span>${answer.checked ? `<button class="primary" id="next" type="button">${state.index === state.order.length - 1 ? 'Ergebnis ansehen' : 'Nächste Frage'} <span aria-hidden="true">→</span></button>` : `<button class="secondary" id="skip" type="button">Weiß ich nicht</button><button class="primary" id="check" type="submit" ${answer.selected.length ? '' : 'disabled'}>Antwort prüfen <span aria-hidden="true">→</span></button>`}</div></form></article><div class="under-card"><span><span aria-hidden="true">✓</span> Lernen ohne Druck. Fehler gehören dazu.</span>${state.original ? '<button class="text-button" id="show-report">Gesamtbericht ansehen</button>' : ''}<button class="text-button" id="restart">Neu starten</button></div></section>`;
+  }).join('')}</div></fieldset><div id="feedback" aria-live="polite">${answer.checked ? feedback(q, answer) : ''}</div><div class="card-bottom"><span class="bottom-hint">${answer.checked ? 'Ein Schritt weiter.' : 'Nimm dir die Zeit, die du brauchst.'}</span>${answer.checked ? `<button class="primary" id="next" type="button">${state.index === state.order.length - 1 ? 'Ergebnis ansehen' : 'Nächste Frage'} <span aria-hidden="true">→</span></button>` : `<button class="secondary" id="skip" type="button">Weiß ich nicht</button><button class="primary" id="check" type="submit" ${answer.selected.length ? '' : 'disabled'}>Antwort prüfen <span aria-hidden="true">→</span></button>`}</div></form></article><div class="under-card"><span><span aria-hidden="true">✓</span> Lernen ohne Druck. Fehler gehören dazu.</span>${state.original ? '<button class="text-button" id="show-report">Gesamtbericht ansehen</button>' : ''}${state.index > 0 ? '<button class="text-button" id="previous" type="button">← Zurück</button>' : ''}<button class="text-button" id="restart">Neu starten</button></div></section>`;
 }
 function feedback(q, answer) {
   const correct = isCorrect(q, answer.selected);
@@ -119,19 +119,28 @@ function feedback(q, answer) {
 function freeResponse(q) {
   const text = state.answers[q.id]?.text || '';
   const completed = state.order.filter(id => state.answers[id]?.checked).length;
-  return `<section class="workspace"><div class="progress-row"><span>Teil 2 · Freie Antworten</span><strong>${completed} / ${state.order.length} abgeschlossen</strong></div><progress value="${completed}" max="${state.order.length}" aria-label="Abgeschlossene Fragen"></progress><article class="question-card"><div class="question-meta"><span>FRAGE ${state.index + 1} / ${state.order.length}</span><span class="topic">Freie Antwort · ${esc(q.topic || 'Übung')}</span></div><form id="answer-form"><h2 id="view-title" tabindex="-1" lang="${esc(q.language || quiz.language)}">${esc(q.prompt)}</h2><p id="frq-hint" class="selection-hint">Diese Antwort wird extern geprüft. Du kannst sie leer lassen und am Ende bearbeiten.</p>${media(q)}<label class="response-label" for="free-answer">Deine Antwort</label><textarea id="free-answer" rows="7" aria-describedby="frq-hint" lang="${esc(q.language || quiz.language)}" placeholder="Schreibe deine Gedanken hier auf …">${esc(text)}</textarea><div class="card-bottom"><span class="bottom-hint">${storageAvailable ? 'Entwurf wird automatisch gespeichert.' : 'Speichern im Browser ist nicht verfügbar.'}</span><button class="primary" type="submit">${state.index === state.order.length - 1 ? 'Ergebnis ansehen' : 'Weiter'} <span aria-hidden="true">→</span></button></div></form></article><div class="under-card"><span>Keine automatische Bewertung.</span><button class="text-button" id="restart">Neu starten</button></div></section>`;
+  return `<section class="workspace"><div class="progress-row"><span>Teil 2 · Freie Antworten</span><strong>${completed} / ${state.order.length} abgeschlossen</strong></div><progress value="${completed}" max="${state.order.length}" aria-label="Abgeschlossene Fragen"></progress><article class="question-card"><div class="question-meta"><span>FRAGE ${state.index + 1} / ${state.order.length}</span><span class="topic">Freie Antwort · ${esc(q.topic || 'Übung')}</span></div><form id="answer-form"><h2 id="view-title" tabindex="-1" lang="${esc(q.language || quiz.language)}">${esc(q.prompt)}</h2><p id="frq-hint" class="selection-hint">Diese Antwort wird extern geprüft. Du kannst sie leer lassen und später über „Zurück“ oder am Ende bearbeiten.</p>${media(q)}<label class="response-label" for="free-answer">Deine Antwort</label><textarea id="free-answer" rows="7" aria-describedby="frq-hint" lang="${esc(q.language || quiz.language)}" placeholder="Schreibe deine Gedanken hier auf …">${esc(text)}</textarea><div class="card-bottom"><span class="bottom-hint">${storageAvailable ? 'Entwurf wird automatisch gespeichert.' : 'Speichern im Browser ist nicht verfügbar.'}</span><button class="primary" type="submit">${state.index === state.order.length - 1 ? 'Ergebnis ansehen' : 'Weiter'} <span aria-hidden="true">→</span></button></div></form></article><div class="under-card"><span>Keine automatische Bewertung.</span>${state.index > 0 ? '<button class="text-button" id="previous" type="button">← Zurück</button>' : ''}<button class="text-button" id="restart">Neu starten</button></div></section>`;
 }
 function advance() {
   if (state.index === state.order.length - 1) state.done = true;
-  else state.index++;
+  else {
+    state.index++;
+    state.furthestIndex = Math.max(state.furthestIndex ?? 0, state.index);
+  }
   save(); render(true);
 }
 function bindExercise() {
   const q = question(state.order[state.index]);
   const form = document.querySelector('#answer-form');
+  const previous = document.querySelector('#previous');
+  if (previous) previous.onclick = () => {
+    state.furthestIndex = Math.max(state.furthestIndex ?? state.index, state.index);
+    state.index--;
+    save(); render(true);
+  };
   if (isFRQ(q)) {
     const textarea = document.querySelector('#free-answer');
-    textarea.oninput = () => { state.answers[q.id] = { text: textarea.value, checked: false }; save(); };
+    textarea.oninput = () => { state.answers[q.id] = { text: textarea.value, checked: state.answers[q.id]?.checked || false }; save(); };
     form.onsubmit = event => {
       event.preventDefault();
       state.answers[q.id] = { text: textarea.value, checked: true };

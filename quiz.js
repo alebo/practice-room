@@ -35,6 +35,8 @@ export function validAttempt(quiz, state, allowOriginal = true) {
   if (state.original && (!allowOriginal || state.mode !== 'missed' || state.original.mode !== 'all' || !state.original.done || !validAttempt(quiz, state.original, false))) return false;
   if (state.mode === 'missed' && !state.original) return false;
   if (Object.keys(state.answers).some(id => !state.order.includes(id))) return false;
+  const furthest = state.furthestIndex ?? state.index;
+  if (!Number.isInteger(furthest) || furthest < state.index || furthest >= state.order.length) return false;
   let sawFRQ = false;
   return state.order.every((id, i) => {
     const q = quiz.questions.find(q => q.id === id);
@@ -49,8 +51,8 @@ export function validAttempt(quiz, state, allowOriginal = true) {
       if (!Array.isArray(order) || order.length !== q.options.length || new Set(order).size !== order.length || order.some(o => !q.options.some(x => x.id === o))) return false;
       if (a && (!Array.isArray(a.selected) || new Set(a.selected).size !== a.selected.length || a.selected.some(o => !order.includes(o)) || typeof a.checked !== 'boolean' || (q.correct.length === 1 && a.selected.length > 1))) return false;
     }
-    if ((i < state.index || state.done) && !a?.checked) return false;
-    if (i > state.index && a) return false;
+    if ((i < furthest || state.done) && !a?.checked) return false;
+    if (i > furthest && a) return false;
     return true;
   });
 }
