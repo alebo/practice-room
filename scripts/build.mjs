@@ -1,0 +1,10 @@
+import { cp, mkdir, rm, writeFile } from 'node:fs/promises';
+await rm('dist', { recursive: true, force: true });
+await cp('site', 'dist', { recursive: true });
+await mkdir('dist/vendor', { recursive: true });
+await mkdir('dist/vendor/mermaid/chunks', { recursive: true });
+await cp('node_modules/mermaid/dist/mermaid.esm.min.mjs', 'dist/vendor/mermaid/mermaid.esm.min.mjs');
+await cp('node_modules/mermaid/dist/chunks/mermaid.esm.min', 'dist/vendor/mermaid/chunks/mermaid.esm.min', { recursive: true, filter: source => !source.endsWith('.map') });
+await cp('node_modules/mermaid/LICENSE', 'dist/vendor/mermaid/LICENSE');
+await writeFile('dist/.nojekyll', '');
+console.log('Built static site in dist/');

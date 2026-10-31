@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="260" viewBox="0 0 640 260" role="img" aria-labelledby="title desc">
+<title id="title">Schematische Pflanzenzelle</title><desc id="desc">A markiert die äußere Zellwand.</desc>
+<rect width="640" height="260" rx="20" fill="#f0f4ea"/>
+<rect x="185" y="30" width="270" height="200" rx="38" fill="#dbe9c9" stroke="#57784a" stroke-width="12"/>
+<rect x="198" y="43" width="244" height="174" rx="28" fill="#edf2d7" stroke="#94ad75" stroke-width="3"/>
+<path d="M266 73 Q335 48 386 86 Q420 125 381 182 Q325 208 266 173 Q243 125 266 73" fill="#c7e3e1" stroke="#82b5b1" stroke-width="2"/>
+<ellipse cx="233" cy="135" rx="22" ry="28" fill="#b7a1c4"/><circle cx="234" cy="137" r="9" fill="#88709c"/>
+<g fill="#86ad64" stroke="#638c48" stroke-width="2"><ellipse cx="235" cy="72" rx="20" ry="10" transform="rotate(-25 235 72)"/><ellipse cx="411" cy="183" rx="20" ry="10" transform="rotate(-35 411 183)"/><ellipse cx="238" cy="191" rx="20" ry="10" transform="rotate(20 238 191)"/><ellipse cx="415" cy="74" rx="18" ry="9" transform="rotate(40 415 74)"/></g>
+<path d="M531 102 L460 102 M472 94 L460 102 L472 110" fill="none" stroke="#294c3c" stroke-width="3" stroke-linecap="round"/><text x="544" y="110" font-family="sans-serif" font-size="24" fill="#294c3c">A</text>
+</svg>

@@ -1,0 +1,6 @@
+import { defineConfig } from '@playwright/test';
+export default defineConfig({
+  testDir: './tests/browser',
+  use: { baseURL: 'http://127.0.0.1:4173', browserName: 'chromium', ...(process.env.PLAYWRIGHT_CHANNEL ? { channel: process.env.PLAYWRIGHT_CHANNEL } : {}) },
+  webServer: { command: 'npm start', url: 'http://127.0.0.1:4173', reuseExistingServer: !process.env.CI },
+});

@@ -1,0 +1,14 @@
+{
+  "name": "bio-2026-11",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "start": "node scripts/serve.mjs",
+    "test": "node --test tests/quiz.test.mjs",
+    "test:browser": "playwright test"
+  },
+  "dependencies": { "mermaid": "12.2.0" },
+  "devDependencies": { "@playwright/test": "1.58.2" }
+}
