@@ -24,7 +24,7 @@ To use an installed Google Chrome instead of downloading Chromium: `PLAYWRIGHT_C
 
 ## Content
 
-Edit `site/questions.js`; put images in `site/assets/`. Each question has a stable `id`, `prompt`, optional `topic`, optional `language` (defaults to German), `options` with stable IDs, and a `correct` array containing one or more option IDs. Optional `explanation` is shown after checking. Text is rendered as text, not HTML.
+Edit `site/questions.js`; put images in `site/assets/`. Each question has a stable `id`, `prompt`, optional `topic`, and optional `language` (defaults to German). MCQs use `type: 'mcq'` (or omit the type), `options` with stable IDs, and a `correct` array containing one or more option IDs. Optional `explanation` is shown after checking. Free-response questions use `type: 'frq'` without options, correct answers, or model answers. They support the same images and Mermaid diagrams as MCQs. Text is rendered as text, not HTML.
 
 Images use `image: { src: './assets/example.svg', alt: 'Meaningful description' }`. Mermaid diagrams use `mermaid` for source and `diagramDescription` for an accessible text equivalent. Avoid options such as “all of the above”: options are shuffled. Increment the quiz `version` whenever content changes to invalidate obsolete saved attempts.
 
@@ -32,9 +32,17 @@ The sample demonstrates an SVG image and Mermaid flowchart. Mermaid is pinned an
 
 ## Behavior
 
-Questions and answer options are shuffled for every attempt. Selection is submitted with “Antwort prüfen”. Only the exact set of correct answers earns a point. Checked answers cannot be changed. Visitors can review results, restart the full test, or retry questions missed in the most recent attempt. Retry scores apply only to that subset. Restarting asks before replacing progress.
+MCQs appear first, followed by free-response questions. Questions are shuffled within each section; MCQ options are also shuffled for every attempt. Selection is submitted with “Antwort prüfen”. Only the exact set of correct answers earns a point. Checked MCQ answers cannot be changed. Free-response drafts save as the visitor types; blank answers are allowed. Free responses remain editable in the final review and receive no automatic grade. Visitors can review results, restart the full test, or retry questions missed in the most recent attempt. Retry scores apply only to that subset and remain separate from the original full-test results. The original report and free responses remain accessible during retries and after a reload. Restarting asks before replacing progress.
 
-Selections, checked answers, order and results are saved to localStorage in the current browser. Clearing browser data removes progress; if storage is blocked, the quiz still works for the current page session and shows a notice. Nothing is sent to a results server. Content and correct answers are public, as expected for a practice tool.
+Selections, free-response drafts, checked answers, order, original reports and results are saved to localStorage in the current browser. Clearing browser data removes progress; if storage is blocked, the quiz still works for the current page session and shows a notice. Nothing is sent to a results server. Content and correct answers are public, as expected for a practice tool.
+
+## Copyable report
+
+“Ergebnis kopieren” copies a German plain-text report: test title, version and link; original MCQ score and per-question selected/correct answers; every FRQ prompt and current response (or “Nicht beantwortet”); and descriptions of question images or diagrams. No name field is collected. FRQs are explicitly ungraded. The report updates when a response is edited; copy it again to send the latest text. Retry scores do not replace the original MCQ score.
+
+When clipboard access is unavailable, the report opens with all text selected for manual copying. Visitors can always inspect the report using “Bericht als Text ansehen / manuell kopieren”. Copying does not send the report anywhere: the visitor sends it to their chosen verifier.
+
+The version 2 sample adds two FRQs to the five MCQs. Earlier version 1 saved attempts are invalidated because the test content changed.
 
 ## GitHub Pages
 
