@@ -15,6 +15,10 @@ Shared code is in `app/`. Each test has `content/tests/<test>/test.json`; each e
 
 `content/active-set.json` selects the homepage exercise. Every set also builds at `/tests/<test>/<set>/`. Use `npm run sets:list`, `npm run set:new -- --test ID --set ID --title TEXT`, and `npm run set:activate -- --test ID --set ID`; do not copy question files into app code. See `README.md` for preview and publishing commands. Creating content alone does not request deployment.
 
+## Prepare and use study sources
+
+When authoring from supplied materials, read `content/tests/<test>/sources/source-content.txt` first. If it is missing, incomplete, or stale against the current source inventory/hashes, use [prepare-sources](../prepare-sources/SKILL.md) before generating questions. Use its topic index and the user's scope to select material; inspect originals for uncertain text and visual dependencies. Do not treat a missing objective in the sources as evidence that it is outside scope, or turn uncertain OCR into an answer key. Keep extraction outputs ignored and learner-specific evidence separate.
+
 ## Supported questions
 
 | Type | Input and assessment |
