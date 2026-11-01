@@ -18,7 +18,10 @@ content/
         questions.txt                 Optional author-provided handout
         solutions.txt                 Optional author-provided answer key
         assets/                       Optional published question images
-    sources/                          LOCAL ONLY: study guide and original photos
+    sources/                          LOCAL ONLY: identical structure for every test
+      README.md                       Provenance, coverage status, and reference link
+      source-content.txt              Single maintained topic-organized reference
+      originals/                      Original files, any format; preserve filenames
 private/
   learners/<learner-id>/               LOCAL ONLY: imported responses and reviews
     imports/                          Original copied reports or source notes

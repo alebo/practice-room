@@ -9,10 +9,12 @@ Maintain one reusable UTF-8 reference under `content/tests/<test>/sources/` for 
 
 ## Choose the reference and scope
 
-- Inspect existing derived references before creating a file. Improve a suitable `study-guide.txt` in place after checking its coverage and traceability; use `source-content.txt` for a new reference when none exists. For `biology-grade-8`, the existing `sources/study-guide.txt` is the reference to improve, not a reason to create a second overlapping file. An existing guide is not presumed verified merely because it exists.
+- Use the same layout for every test: `sources/README.md`, `sources/source-content.txt`, and `sources/originals/`. `source-content.txt` is the only maintained educational reference. Store all original formats under `originals/`; preserve imported filenames and nested folder structure. Learner evidence remains exclusively under `private/learners/` and is referenced from the inventory when necessary.
+- Migrate legacy `study-guide.txt` to `source-content.txt` and folders such as `images/` to `originals/`, preserving content and original file bytes. Check collisions first, update current citations and referring documentation, and verify original hashes after moves. Do not create duplicate maintained guides or rewrite historical archives merely to update their historical paths.
+- Maintain `README.md` with the same sections for each test: Reference; Originals and provenance; Coverage and status; Privacy and maintenance. Link the reference, record known acquisition details and private-file locations, and summarize coverage limits without duplicating the educational content or inventory. State unknown provenance rather than inventing it.
 - If several overlapping references exist, identify which will be maintained and reconcile unique material before retiring any duplicate. Do not silently delete or overwrite source material or human notes. Identify the chosen reference in the completion report so later authoring can find it.
 - Read the user's test topic, grade, objectives, and exclusions, plus `test.json` and any assignment or topic sheet. Record inferred scope as an assumption; ask only when ambiguity materially changes what belongs in the reference. Distinguish exclusions for one exercise set from exclusions for the whole test: do not prune the reusable reference to match one set.
-- Inventory the selected original study files recursively under `sources/`. Exclude derived guides and OCR outputs from the original-source inventory. Keep originals unchanged and respect an explicitly narrower source selection.
+- Inventory the selected original study files recursively under `sources/originals/` and any explicitly linked private source locations. Exclude derived guides and OCR outputs from the original-source inventory. Keep originals unchanged and respect an explicitly narrower source selection.
 - Keep learner answers, assessments, and identifying information exclusively under `private/learners/`. For mixed worksheets, use the printed study material but separate learner annotations; do not promote a pupil's response into an authoritative fact. An existing guide that mixes these requires separation when it is revised. Use the quiz-content skill for learner-evidence processing.
 - Confirm the reference is ignored with `git check-ignore` using its intended path. Neither originals nor the derived reference belong in Git, public assets, or a deployment.
 
@@ -30,14 +32,14 @@ Mark unreadable text, uncertain OCR, missing pages, conflicting statements, and 
 
 ## Structure and traceability
 
-Adapt the existing guide's organization where practical. Use English filenames and newly added structural labels; keep the educational content in its original language. The reference should contain:
+Within `source-content.txt`, adapt the existing guide's topic organization where practical. Use English filenames and newly added structural labels; keep the educational content in its original language. The reference should contain:
 
 - **Test scope:** topic, grade, objectives, exclusions, assumptions, and the date of the coverage check.
 - **Source inventory:** stable source IDs, relative paths, actual page/image counts, file hashes, and processing status. Compute hashes from the files; do not invent them or infer page counts from filenames.
 - **Topic-organized content:** comprehensive explanations and preserved examples/tasks, with source IDs and page/image references close to each fact group, table, or diagram description. A topic index is optional when the headings already provide navigation.
 - **Coverage and open issues:** every source page/image accounted for as covered, consolidated with cited occurrences, outside scope with a reason, or unresolved. List missing objectives, contradictions, unreadable passages, and visuals requiring direct inspection.
 
-For example, a content block can end with `[S03: images/page-03.jpg; S07: handout.pdf, PDF page 2 / printed page 8]`. Keep PDF position distinct from printed page numbering. A bibliography alone is insufficient if an author cannot trace a particular explanation or numerical claim to its source.
+For example, a content block can end with `[S03: originals/page-03.jpg; S07: handout.pdf, PDF page 2 / printed page 8]`. Keep PDF position distinct from printed page numbering. A bibliography alone is insufficient if an author cannot trace a particular explanation or numerical claim to its source.
 
 ## Verify and maintain
 

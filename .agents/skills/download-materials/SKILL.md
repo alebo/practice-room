@@ -9,7 +9,7 @@ Use an existing rclone remote to copy the requested folder's contents locally. K
 
 ## Choose the destination
 
-- Store original study materials in `content/tests/<test>/sources/`, optionally in a named subfolder. Infer the test from the request and existing project structure; ask if it is ambiguous.
+- Store original study materials in `content/tests/<test>/sources/originals/`, optionally in a named batch subfolder. Preserve original filenames and nested directories. Infer the test from the request and existing project structure; ask if it is ambiguous.
 - Store learner answers, reviews, and other learner evidence exclusively in `private/learners/`.
 - Respect an explicit destination when it complies with those project rules. If it conflicts, explain the required private location and resolve the destination before copying.
 - Confirm the destination is ignored with `git check-ignore` using a prospective file path. Do not place downloads in public set assets or commit them automatically.
@@ -49,4 +49,6 @@ Report the destination, downloaded file count and size from actual output, verif
 
 ## Prepare study sources after downloading
 
-For study materials, follow [prepare-sources](../prepare-sources/SKILL.md) after download verification to maintain one comprehensive, topic-organized reference under the ignored `content/tests/<test>/sources/`. Improve an existing `study-guide.txt` when available; otherwise create `source-content.txt`. Preserve distinct relevant content with source/page references and an explicit coverage check, rather than creating parallel transcription and summary files. If the user explicitly requests download only, stop after verification and report the preparation step as outstanding. Learner-evidence downloads stay under `private/learners/` and must not enter this study reference. Neither workflow creates or publishes exercise sets automatically.
+For study materials, follow [prepare-sources](../prepare-sources/SKILL.md) after download verification to maintain one comprehensive, topic-organized reference under the ignored `content/tests/<test>/sources/`. Use the standard `sources/README.md`, `sources/source-content.txt`, and `sources/originals/` layout for every test. Migrate a legacy guide rather than retaining a second maintained filename. Preserve distinct relevant content with source/page references and an explicit coverage check, rather than creating parallel transcription and summary files. If the user explicitly requests download only, stop after verification and report the preparation step as outstanding. Learner-evidence downloads stay under `private/learners/` and must not enter this study reference. Neither workflow creates or publishes exercise sets automatically.
+
+For download-only requests, still create or update `sources/README.md` with provenance and verification status; mark reference preparation as pending rather than creating a placeholder `source-content.txt`.
