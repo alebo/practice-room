@@ -71,6 +71,13 @@ test('subject selector opens latest sets and retains progress across subjects an
   await expect(page.locator('input:checked')).toHaveCount(1);
   await page.setViewportSize({width:375,height:812});
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+  for (const width of [320,375,768,1280]) {
+    await page.setViewportSize({width,height:812});
+    const brand=await page.locator('.brand').boundingBox();
+    const selector=await page.getByRole('combobox').boundingBox();
+    expect(Math.abs(brand.y+brand.height/2-selector.y-selector.height/2)).toBeLessThan(2);
+  }
+  await expect(page.locator('link[rel="stylesheet"]')).toHaveAttribute('href', /styles\.css\?v=[a-f0-9]{12}$/);
   await page.screenshot({path:'.playwright/results/subject-selector-mobile.png'});
   await page.getByRole('link',{name:'Lernraum – aktuelle Übung'}).click();
   await expect(page).toHaveURL('http://127.0.0.1:4173/');

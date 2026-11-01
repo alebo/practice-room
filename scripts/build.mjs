@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto';
 import { cp, mkdir, rm, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { parseArgs } from 'node:util';
@@ -16,11 +17,12 @@ const dist = path.join(root,'dist');
 await rm(dist,{recursive:true,force:true});
 await mkdir(dist,{recursive:true});
 for (const file of ['app.js','quiz.js','storage.js','privatebin.js','styles.css']) await cp(path.join(root,'app',file),path.join(dist,file));
+const styleVersion = createHash('sha256').update(await readFile(path.join(root,'app/styles.css'))).digest('hex').slice(0,12);
 const template = await readFile(path.join(root,'app/index.html'),'utf8');
 const escape = value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 async function renderSet(item, destination, prefix, canonicalPath) {
   await mkdir(destination,{recursive:true});
-  const html = template.replace('./styles.css',`${prefix}styles.css`).replace('./app.js',`${prefix}app.js`)
+  const html = template.replace('./styles.css',`${prefix}styles.css?v=${styleVersion}`).replace('./app.js',`${prefix}app.js`)
     .replace(/<title>.*?<\/title>/,`<title>${escape(item.quiz.title)} · Lernraum</title>`)
     .replace('href="./"',`href="${prefix}"`)
     .replace('<select class="subject" id="subject-select" aria-label="Fach auswählen"></select>', `<select class="subject" id="subject-select" aria-label="Fach auswählen">${subjects.map(subject=>`<option value="${prefix}tests/${subject.test}/${subject.set}/"${subject.test===item.test ? ' selected' : ''}>${escape(subject.metadata.title)}</option>`).join('')}</select>`)
