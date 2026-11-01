@@ -2,7 +2,7 @@
 
 - Use English for repository paths, code identifiers, commands, and documentation. German UI and multilingual exercise content are intentional. Preserve existing published quiz/question IDs unless explicitly migrating them.
 - Shared application code lives in `app/`. The canonical exercise data is `content/tests/<test>/sets/<set>/quiz.json`; do not recreate a shared questions file inside `app/`.
-- Use `.agents/skills/prepare-sources/SKILL.md` to extract study materials into an ignored, traceable `sources/source-content.txt` before source-based exercise generation.
+- Use `.agents/skills/prepare-sources/SKILL.md` before source-based exercise generation to maintain one comprehensive, traceable reference under ignored `sources/`: improve an existing `study-guide.txt`, or create `source-content.txt` when no suitable reference exists. Do not require parallel transcription and summary files.
 - Use `.agents/skills/quiz-content/SKILL.md` when preparing exercises or working with learner evidence.
 - Learner answers, reviews, and knowledge-gap notes belong exclusively in ignored `private/learners/`. Never commit them or include them in site deployments. The learner may explicitly share an encrypted result through the PrivateBin button; never upload results automatically. Original study materials belong in ignored `content/tests/<test>/sources/`.
 - `quiz.json` and explicitly selected set images are public content. Text handouts may be committed, but the site is built from JSON only.

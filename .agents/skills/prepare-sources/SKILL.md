@@ -1,64 +1,50 @@
 ---
 name: prepare-sources
-description: Extract downloaded or existing study materials into a complete, traceable text reference organized around a test topic. Use for preparing PDFs, scans, photographs, documents, and notes before authoring exercise sets; does not generate questions or publish source material.
+description: Prepare downloaded or existing study materials as one comprehensive, traceable reference organized around a test topic. Use for PDFs, scans, photographs, documents, and notes before authoring exercises, or to improve an existing study guide; does not generate questions or publish source material.
 ---
 
 # Prepare study sources
 
-Create `content/tests/<test>/sources/source-content.txt` as a reusable UTF-8 reference for exercise generation. Preserve the complete readable educational content, with a topic index that helps authors find relevant material. This is a local derived source, not a replacement for the originals or a short study summary.
+Maintain one reusable UTF-8 reference under `content/tests/<test>/sources/` for exercise generation. It should preserve the distinct educational content needed for the test and its prerequisites, organized by topic with references to the originals. It is a comprehensive working reference, not a brief revision sheet. A separate complete transcription and summary are not required.
 
-## Establish scope and inputs
+## Choose the reference and scope
 
-- Read the user's test topic, grade, learning objectives, and exclusions, plus `content/tests/<test>/test.json` and any assignment or topic sheet. Record inferred scope as an assumption; ask only when ambiguity would materially change the extraction or classification.
-- Inventory the study files recursively under the selected test's `sources/`. Exclude generated extraction outputs from the input inventory. Keep originals unchanged and respect an explicitly narrower source selection.
-- Keep learner answers, marked learner work, assessments, and identifying information exclusively under `private/learners/`. Do not merge that evidence into the shared study reference. Use the quiz-content skill for learner-evidence processing.
-- Confirm the output is ignored with `git check-ignore` using its intended path. Neither originals nor extracted text belong in Git, public assets, or a deployment.
+- Inspect existing derived references before creating a file. Improve a suitable `study-guide.txt` in place after checking its coverage and traceability; use `source-content.txt` for a new reference when none exists. For `biology-grade-8`, the existing `sources/study-guide.txt` is the reference to improve, not a reason to create a second overlapping file. An existing guide is not presumed verified merely because it exists.
+- If several overlapping references exist, identify which will be maintained and reconcile unique material before retiring any duplicate. Do not silently delete or overwrite source material or human notes. Identify the chosen reference in the completion report so later authoring can find it.
+- Read the user's test topic, grade, objectives, and exclusions, plus `test.json` and any assignment or topic sheet. Record inferred scope as an assumption; ask only when ambiguity materially changes what belongs in the reference. Distinguish exclusions for one exercise set from exclusions for the whole test: do not prune the reusable reference to match one set.
+- Inventory the selected original study files recursively under `sources/`. Exclude derived guides and OCR outputs from the original-source inventory. Keep originals unchanged and respect an explicitly narrower source selection.
+- Keep learner answers, assessments, and identifying information exclusively under `private/learners/`. For mixed worksheets, use the printed study material but separate learner annotations; do not promote a pupil's response into an authoritative fact. An existing guide that mixes these requires separation when it is revised. Use the quiz-content skill for learner-evidence processing.
+- Confirm the reference is ignored with `git check-ignore` using its intended path. Neither originals nor the derived reference belong in Git, public assets, or a deployment.
 
-## Extract and inspect
+## Read, extract, and consolidate
 
-Use the available local tools appropriate to each format. Prefer embedded PDF/document text when readable; use OCR or direct visual transcription for scans and photographs. Preserve the source language, terminology, examples, questions, instructions, definitions, numbers, units, formulas, and meaningful annotations. Normalize layout artifacts only when meaning remains clear. Do not answer unsolved worksheet questions during extraction.
+Use available local tools appropriate to the format. Prefer readable embedded text; use OCR or visual transcription for scans and photographs. Inspect every selected page/image, including automatically extracted text, to establish coverage and check reading order, columns, captions, and easily confused symbols.
 
-Inspect every page/image, including text extracted automatically. Check reading order, columns, captions, and easily confused symbols against the original. For diagrams, describe visible labels, arrows, relationships, and captions. For tables, preserve row/column headings and cell associations. Record the original location when a visual cannot be represented adequately as text; exercise authors must inspect it directly.
+Organize by topic and consolidate repetitions without losing distinct facts, definitions, conditions, exceptions, examples, instructions, worksheet tasks, quantities, units, formulas, or relationships. Preserve the source language and terminology. Faithful paraphrase is appropriate when meaning is unchanged; retain exact wording when it affects interpretation or an exercise, including negations and task constraints. Do not answer unsolved worksheet tasks during preparation.
 
-Mark unreadable text, uncertain OCR, missing pages, conflicting statements, and unsupported formats explicitly. Do not guess missing words or silently correct a source's factual claims. Keep transcription separate from any clearly labeled interpretation or suspected correction. Do not use outside knowledge to fill gaps as if it came from the supplied material.
+For diagrams, describe visible labels, arrows, relationships, and captions. For tables, preserve headings and cell associations. Reference the original location when a visual cannot be adequately represented as text so an author can inspect it directly.
 
-## Write the reference
+Account for material outside the test scope with a brief description, source location, and reason for exclusion; a full transcription of it is unnecessary. Retain prerequisites and borderline material rather than excluding it on an uncertain inference. A topic's absence from existing exercise sets is not evidence that it is outside scope. Keep references to all source occurrences when consolidating repeated material.
 
-Use English section labels and filenames; retain source-language content. A useful layout is:
+Mark unreadable text, uncertain OCR, missing pages, conflicting statements, and unsupported formats. Do not guess missing words, silently resolve disagreements, or correct factual claims without labeling the interpretation separately. Do not fill source gaps with outside knowledge presented as extracted content.
 
-```text
-TEST SCOPE
-Test ID, topic, grade, objectives, exclusions, and assumptions.
+## Structure and traceability
 
-SOURCE INVENTORY
-S01 | relative/path.pdf | page count | SHA-256 | extraction method | status
-S02 | relative/image.jpg | one image | SHA-256 | visual transcription | status
+Adapt the existing guide's organization where practical. Use English filenames and newly added structural labels; keep the educational content in its original language. The reference should contain:
 
-TOPIC INDEX
-Topic or learning objective -> source IDs and page/image references.
-Include prerequisites, material outside the stated scope, and scope gaps.
+- **Test scope:** topic, grade, objectives, exclusions, assumptions, and the date of the coverage check.
+- **Source inventory:** stable source IDs, relative paths, actual page/image counts, file hashes, and processing status. Compute hashes from the files; do not invent them or infer page counts from filenames.
+- **Topic-organized content:** comprehensive explanations and preserved examples/tasks, with source IDs and page/image references close to each fact group, table, or diagram description. A topic index is optional when the headings already provide navigation.
+- **Coverage and open issues:** every source page/image accounted for as covered, consolidated with cited occurrences, outside scope with a reason, or unresolved. List missing objectives, contradictions, unreadable passages, and visuals requiring direct inspection.
 
-EXTRACTED CONTENT
-[S01 | relative/path.pdf | PDF page 1 | printed page 7, if present]
-Source heading and complete readable content ...
-[Diagram description; location and unresolved visual details ...]
-
-[S02 | relative/image.jpg | image 1]
-...
-
-OPEN ISSUES AND COVERAGE
-Unreadable passages, missing or unsupported inputs, contradictions,
-visuals requiring inspection, and objectives not covered by the sources.
-```
-
-Record hashes and page counts from actual files/tools, not estimates presented as facts. Source IDs plus paths and page/image references must make every passage traceable. Preserve the distinction between PDF page position and printed page numbering.
-
-The topic index prioritizes what matters for the test; it does not filter away unrelated readable content from the selected files. Mark such sections as outside scope. Preserve prerequisites and boundary cases. Do not assume that a topic absent from existing exercise sets is outside the test scope. If identical pages are deduplicated, retain a reference for every original occurrence.
+For example, a content block can end with `[S03: images/page-03.jpg; S07: handout.pdf, PDF page 2 / printed page 8]`. Keep PDF position distinct from printed page numbering. A bibliography alone is insufficient if an author cannot trace a particular explanation or numerical claim to its source.
 
 ## Verify and maintain
 
-Account for every selected file and every page/image as extracted, explicitly referenced duplicate, or unresolved. Compare the reference with the inventory and original material, especially negations, quantities, diagrams, and tables. State coverage limits rather than claiming a complete extraction while inputs remain unreadable.
+Compare the reference with all selected originals, particularly negations, quantities, conditions, diagrams, and tables. Check that consolidation has retained distinct details and that scope exclusions are explicit. Describe it as comprehensive for the recorded scope only when the coverage check supports that claim; otherwise identify the remaining limits.
 
-When sources change, compare their hashes with the recorded inventory. Refresh affected passages and topic references; preserve unrelated material and any clearly labeled human notes. Treat changed/deleted sources and unresolved conflicts explicitly. Avoid overwriting an existing reference until the revised extraction has been checked.
+When sources change, compare their hashes with the inventory and refresh affected topics, citations, and coverage notes. Preserve unrelated content and clearly labeled human notes. Stage and check a revision before replacing the maintained reference. Do not create another permanent guide merely to refresh extraction.
 
-Report the output path, covered files/pages, test scope, and remaining issues. For subsequent exercise generation, use [quiz-content](../quiz-content/SKILL.md): read this reference first, then inspect originals for uncertain or visually dependent material. Preparing sources alone does not authorize generating exercises, committing source content, or publishing.
+A full verbatim transcription is optional when explicitly requested or when exact wording is the object of study. A separate short learner-facing revision sheet is optional when requested; derive it from the maintained reference and do not treat it as the source of truth. Temporary OCR output is a processing aid, not a second maintained authority.
+
+Report the reference path, covered files/pages, scope, and remaining issues. For subsequent exercise generation, use [quiz-content](../quiz-content/SKILL.md): read the maintained reference first, then inspect originals for uncertain or visually dependent material. Preparing sources alone does not authorize generating exercises, committing source content, or publishing.

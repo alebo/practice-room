@@ -17,7 +17,7 @@ Shared code is in `app/`. Each test has `content/tests/<test>/test.json`; each e
 
 ## Prepare and use study sources
 
-When authoring from supplied materials, read `content/tests/<test>/sources/source-content.txt` first. If it is missing, incomplete, or stale against the current source inventory/hashes, use [prepare-sources](../prepare-sources/SKILL.md) before generating questions. Use its topic index and the user's scope to select material; inspect originals for uncertain text and visual dependencies. Do not treat a missing objective in the sources as evidence that it is outside scope, or turn uncertain OCR into an answer key. Keep extraction outputs ignored and learner-specific evidence separate.
+When authoring from supplied materials, identify and read the maintained reference under `content/tests/<test>/sources/` first: an existing `study-guide.txt` (including biology-grade-8), or `source-content.txt` when created for a new test. Do not require both files or treat a short revision sheet as the source of truth. If the reference is missing, lacks verified coverage/traceability, or is stale against the source inventory/hashes, use [prepare-sources](../prepare-sources/SKILL.md) to improve it before generating source-dependent questions. Use its topic organization and the user's scope to select material; inspect originals for uncertain text and visual dependencies. Do not treat a missing objective in the sources as evidence that it is outside scope, or turn uncertain OCR into an answer key. Keep extraction outputs ignored and learner-specific evidence separate.
 
 ## Supported questions
 
