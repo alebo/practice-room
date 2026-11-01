@@ -20,6 +20,7 @@ content/
         assets/                       Optional published question images
     sources/                          LOCAL ONLY: identical structure for every test
       README.md                       Provenance, coverage status, and reference link
+      test-scope.txt                  Original announced topics and separate interpretations
       source-content.txt              Single maintained topic-organized reference
       originals/                      Original files, any format; preserve filenames
 private/
