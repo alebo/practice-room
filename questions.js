@@ -1,390 +1,284 @@
 export const quiz = {
-  "id": "biology-grade-8-004-surfaces-and-building-blocks",
+  "id": "biology-grade-8-005-explain-digestion",
   "version": 1,
   "language": "de",
-  "title": "Oberflächen und Nährstoffbausteine verstehen",
-  "subtitle": "Wähle bei jeder Auswahlfrage alle richtigen Aussagen. Prüfe jede Aussage einzeln. Danach folgen fünf kurze Antworten. Ein MCQ-Punkt nur für die vollständig richtige Auswahl; Kurzantworten werden separat geprüft.",
-  "label": "Biologie · Übung 004",
+  "title": "Verdauung erklären und Zusammenhänge verstehen",
+  "subtitle": "5 Mehrfachauswahlfragen, 5 Kurzantworten und 5 Erklärungsaufgaben. Bei MCQs alle richtigen Aussagen auswählen. Freie Antworten werden anschließend geprüft.",
+  "label": "Biologie · Übungsset 005",
   "questions": [
     {
-      "id": "bio004-cracker-pieces",
+      "id": "bio005-cutting-without-saliva",
       "type": "mcq",
-      "topic": "Kauen und Oberfläche",
+      "topic": "Mechanische Zerkleinerung",
       "skills": [
         "digestion.mouth",
         "enzymes.action"
       ],
-      "prompt": "Ein unzerkleinerter Zwieback und dieselbe Menge fein zerbröselter Zwieback werden jeweils mit gleich viel Speichel vermischt. Temperatur und Einwirkzeit sind gleich. Welche Aussagen treffen zu?",
+      "prompt": "Ein gekochtes Nudelstück wird mit einem Messer in viele kleine Stücke geschnitten. Es wird kein Speichel oder Verdauungsenzym hinzugegeben. Welche Aussagen stimmen?",
       "options": [
         {
           "id": "surface",
-          "text": "Die Brösel besitzen zusammen eine größere zugängliche Oberfläche."
+          "text": "Die insgesamt zugängliche Oberfläche der Nahrung wird größer."
         },
         {
-          "id": "new-enzyme",
-          "text": "Durch das Zerbröseln entsteht zusätzliches Amylase-Enzym."
+          "id": "enzyme",
+          "text": "Durch die Messerschnitte entstehen Amylasemoleküle."
+        },
+        {
+          "id": "chains",
+          "text": "Die Messerschnitte ersetzen die enzymatische Spaltung der Stärkeketten."
         },
         {
           "id": "access",
-          "text": "Amylase kann bei den Bröseln an mehr Stellen der Nahrung angreifen."
-        },
-        {
-          "id": "amino",
-          "text": "Zerbröseln allein wandelt Stärke in Aminosäuren um."
+          "text": "Später hinzugegebene Amylase kann die Stärke an mehr Stellen erreichen."
         }
       ],
       "correct": [
         "surface",
         "access"
       ],
-      "explanation": "Zerkleinern schafft zusätzliche Oberflächen und erleichtert den Kontakt zwischen Stärke und Amylase. Es bildet weder Enzyme noch Aminosäuren. Mechanisches Zerkleinern und enzymatisches Spalten sind verschiedene Vorgänge."
+      "explanation": "Zerschneiden verkleinert die Nahrungsstücke und vergrößert die zugängliche Oberfläche. Es erzeugt keine Verdauungsenzyme und ersetzt nicht deren Spaltung von Nährstoffmolekülen."
     },
     {
-      "id": "bio004-villi-comparison",
+      "id": "bio005-starch-description",
       "type": "mcq",
-      "topic": "Dünndarmoberfläche",
+      "topic": "Stärke und Zucker",
       "skills": [
-        "digestion.intestines"
-      ],
-      "prompt": "Zwei gleich lange Dünndarmabschnitte werden als Modell verglichen. Einer besitzt viele Falten und Zotten, der andere ist innen glatt. Alle übrigen Bedingungen sind gleich. Welche Aussagen passen?",
-      "options": [
-        {
-          "id": "same-area",
-          "text": "Gleiche Länge bedeutet zwangsläufig gleiche innere Oberfläche."
-        },
-        {
-          "id": "more-area",
-          "text": "Der Abschnitt mit Falten und Zotten besitzt die größere innere Oberfläche."
-        },
-        {
-          "id": "uptake",
-          "text": "Die größere Oberfläche bietet mehr Fläche zur Aufnahme von Nährstoffbausteinen."
-        },
-        {
-          "id": "grinding",
-          "text": "Die Zotten übernehmen im Darm die Aufgabe der Zähne und zermahlen die Nahrung."
-        }
-      ],
-      "correct": [
-        "more-area",
-        "uptake"
-      ],
-      "explanation": "Falten und Zotten vergrößern die Oberfläche, ohne dass der Abschnitt länger sein muss. Damit steht mehr Aufnahmefläche zur Verfügung. Sie sind keine Kauwerkzeuge."
-    },
-    {
-      "id": "bio004-shared-principle",
-      "type": "mcq",
-      "topic": "Oberflächenvergrößerung",
-      "skills": [
-        "digestion.mouth",
-        "digestion.intestines"
-      ],
-      "prompt": "Welche Aussagen vergleichen gründliches Kauen mit den Falten und Zotten des Dünndarms richtig?",
-      "options": [
-        {
-          "id": "food",
-          "text": "Beim Kauen wird die Oberfläche der Nahrung vergrößert."
-        },
-        {
-          "id": "wall",
-          "text": "Im Dünndarm vergrößern Falten und Zotten die Oberfläche der Darmwand."
-        },
-        {
-          "id": "same-function",
-          "text": "Beide Vorgänge nehmen die Nährstoffbausteine direkt ins Blut auf."
-        },
-        {
-          "id": "different-use",
-          "text": "Die größere Nahrungsoberfläche erleichtert den Enzymangriff; die größere Darmoberfläche erleichtert die Aufnahme."
-        }
-      ],
-      "correct": [
-        "food",
-        "wall",
-        "different-use"
-      ],
-      "explanation": "Das gemeinsame Prinzip ist eine größere Oberfläche. Die Wirkung unterscheidet sich: Kauen erleichtert den Angriff von Verdauungsenzymen, während Falten und Zotten mehr Fläche für die Resorption bereitstellen. Kauen selbst ist keine Aufnahme ins Blut."
-    },
-    {
-      "id": "bio004-digestion-versus-uptake",
-      "type": "mcq",
-      "topic": "Verdauung und Resorption",
-      "skills": [
-        "digestion.intestines",
-        "digestion.proteins"
-      ],
-      "prompt": "Bei der Verdauung von Bohnen entstehen einzelne Aminosäuren. Danach gelangen sie durch die Dünndarmwand in den Körper. Welche Aussagen sind richtig?",
-      "options": [
-        {
-          "id": "reverse",
-          "text": "Die Aufnahme durch die Darmwand ist die Spaltung der Eiweißketten."
-        },
-        {
-          "id": "breakdown",
-          "text": "Die Zerlegung von Eiweißketten in Aminosäuren gehört zur Verdauung."
-        },
-        {
-          "id": "absorption",
-          "text": "Die Aufnahme der Aminosäuren durch die Darmwand heißt Resorption."
-        },
-        {
-          "id": "whole",
-          "text": "Damit der Körper Eiweiß nutzen kann, müssen ganze Bohnen durch die Darmwand gelangen."
-        }
-      ],
-      "correct": [
-        "breakdown",
-        "absorption"
-      ],
-      "explanation": "Verdauung zerlegt große Nährstoffmoleküle in kleinere Bausteine. Resorption ist deren Aufnahme durch die Darmschleimhaut. Aufgenommen werden die Bausteine, nicht ganze Lebensmittel."
-    },
-    {
-      "id": "bio004-three-fat-models",
-      "type": "mcq",
-      "topic": "Fettbausteine zählen",
-      "skills": [
-        "nutrients.fats",
         "nutrients.building-blocks"
       ],
-      "prompt": "In einer Modellkiste liegen drei Glycerinbausteine und neun Fettsäurebausteine. Welche Aussagen zum Bau vollständiger Triglyceridmodelle stimmen?",
+      "prompt": "Auf einem Lernplakat soll der Aufbau von Stärke beschrieben werden. Welche Aussagen gehören darauf?",
       "options": [
         {
-          "id": "three",
-          "text": "Damit lassen sich genau drei vollständige Triglyceridmodelle bauen."
-        },
-        {
-          "id": "nine",
-          "text": "Damit lassen sich neun vollständige Triglyceridmodelle bauen."
-        },
-        {
-          "id": "none-left",
-          "text": "Beim Bau der größtmöglichen Zahl vollständiger Modelle bleiben keine Bausteine übrig."
+          "id": "many",
+          "text": "Ein Stärkemolekül enthält viele miteinander verbundene Glucosebausteine."
         },
         {
           "id": "protein",
-          "text": "Für jedes Triglyceridmodell müssen zusätzlich Aminosäuren eingebaut werden."
+          "text": "Die Bausteine der Stärke heißen Aminosäuren."
+        },
+        {
+          "id": "carbohydrate",
+          "text": "Stärke gehört zu den Kohlenhydraten."
+        },
+        {
+          "id": "single",
+          "text": "Ein einzelnes Glucosemolekül ist bereits ein vollständiges Stärkemolekül."
         }
       ],
       "correct": [
-        "three",
-        "none-left"
+        "many",
+        "carbohydrate"
       ],
-      "explanation": "Für jedes Triglycerid benötigt man ein Glycerin und drei Fettsäuren. Drei Glycerin und neun Fettsäuren reichen genau für drei Modelle. Aminosäuren gehören zu Eiweißen, nicht zum Triglyceridmodell."
+      "explanation": "Stärke ist ein Vielfachzucker aus vielen verbundenen Glucosebausteinen. Glucose ist ein Einfachzucker. Aminosäuren bilden Eiweiße."
     },
     {
-      "id": "bio004-incomplete-model",
+      "id": "bio005-stomach-roles",
       "type": "mcq",
-      "topic": "Fettmodell ergänzen",
-      "skills": [
-        "nutrients.fats"
-      ],
-      "prompt": "Ein unvollständiges Triglyceridmodell besteht aus einem Glycerinbaustein und zwei daran befestigten Fettsäuren. Welche Aussagen sind richtig?",
-      "options": [
-        {
-          "id": "amino",
-          "text": "Eine Aminosäure kann die fehlende Fettsäure ersetzen."
-        },
-        {
-          "id": "one-more",
-          "text": "Zum vollständigen Modell fehlt eine Fettsäure."
-        },
-        {
-          "id": "add-glycerin",
-          "text": "Zum vollständigen Modell fehlt ein zweiter Glycerinbaustein."
-        },
-        {
-          "id": "three-total",
-          "text": "Im vollständigen Modell sind insgesamt drei Fettsäuren an ein Glycerin gebunden."
-        }
-      ],
-      "correct": [
-        "one-more",
-        "three-total"
-      ],
-      "explanation": "Das vollständige Modell enthält ein Glycerin und drei Fettsäuren. Sind zwei Fettsäuren vorhanden, fehlt noch eine. Ein zusätzliches Glycerin oder eine Aminosäure vervollständigt dieses Modell nicht."
-    },
-    {
-      "id": "bio004-sort-building-blocks",
-      "type": "mcq",
-      "topic": "Nährstoffe unterscheiden",
-      "skills": [
-        "nutrients.fats",
-        "nutrients.building-blocks"
-      ],
-      "prompt": "Bausteinkarten sollen den drei Nährstoffgruppen zugeordnet werden. Welche Zuordnungen stimmen?",
-      "options": [
-        {
-          "id": "fat",
-          "text": "Glycerin und Fettsäuren → Fette"
-        },
-        {
-          "id": "protein",
-          "text": "Aminosäuren → Eiweiße"
-        },
-        {
-          "id": "wrong-fat",
-          "text": "Aminosäuren → Fette"
-        },
-        {
-          "id": "starch",
-          "text": "Viele verbundene Glucosebausteine → Stärke"
-        }
-      ],
-      "correct": [
-        "fat",
-        "protein",
-        "starch"
-      ],
-      "explanation": "Fette bestehen im Unterrichtsmodell aus Glycerin und Fettsäuren, Eiweiße aus Aminosäuren. Stärke ist eine lange Verbindung vieler Glucosebausteine. Die Bausteinarten sind nicht beliebig austauschbar."
-    },
-    {
-      "id": "bio004-stomach-after-meal",
-      "type": "mcq",
-      "topic": "Magen und Enzyme",
+      "topic": "Arbeitsteilung im Magen",
       "skills": [
         "digestion.stomach",
         "enzymes.action"
       ],
-      "prompt": "Eiweiß aus einem Stück Fisch gelangt in den Magen. Welche Aussagen beschreiben die dortige Verdauung richtig?",
+      "prompt": "Nach dem Essen von Quark arbeiten verschiedene Bestandteile des Magensafts zusammen. Welche Beschreibungen sind richtig?",
       "options": [
         {
-          "id": "acid-replaces",
-          "text": "Salzsäure ersetzt Pepsin vollständig, weil beide dasselbe Enzym sind."
-        },
-        {
           "id": "acid",
-          "text": "Das saure Milieu schafft günstige Bedingungen für Pepsin."
+          "text": "Salzsäure sorgt für ein saures Milieu, in dem Pepsin gut wirken kann."
         },
         {
-          "id": "complete",
-          "text": "Die gesamte Eiweißverdauung ist beendet, sobald die Nahrung den Magen erreicht."
+          "id": "pepsin",
+          "text": "Pepsin spaltet Eiweißketten in kleinere Eiweißstücke."
         },
         {
-          "id": "peptides",
-          "text": "Pepsin zerlegt Eiweißketten zunächst in kleinere Eiweißstücke."
+          "id": "mucus",
+          "text": "Eine Schleimschicht schützt die Magenwand vor dem Magensaft."
+        },
+        {
+          "id": "same",
+          "text": "Salzsäure und Pepsin sind zwei Namen für dasselbe Enzym."
+        },
+        {
+          "id": "finished",
+          "text": "Nach der Wirkung von Pepsin ist die gesamte Eiweißverdauung bereits abgeschlossen."
         }
       ],
       "correct": [
         "acid",
-        "peptides"
+        "pepsin",
+        "mucus"
       ],
-      "explanation": "Pepsin ist das eiweißspaltende Enzym im Magen. Salzsäure ist kein Enzym, sondern schafft unter anderem das passende saure Milieu. Die Zerlegung zu einzelnen Aminosäuren wird im Dünndarm fortgesetzt."
+      "explanation": "Salzsäure schafft geeignete Bedingungen, Pepsin spaltet Eiweiß, und Schleim schützt die Magenwand. Im Dünndarm wird die Eiweißverdauung bis zu einzelnen Aminosäuren fortgesetzt."
     },
     {
-      "id": "bio004-growth-and-warmth",
+      "id": "bio005-fat-model-leftovers",
       "type": "mcq",
-      "topic": "Energie- und Baustoffwechsel",
+      "topic": "Fettbausteine anwenden",
+      "skills": [
+        "nutrients.fats",
+        "nutrients.building-blocks"
+      ],
+      "prompt": "Für Triglyceridmodelle stehen zwei Glycerinbausteine und sieben Fettsäurebausteine bereit. Es sollen möglichst viele vollständige Modelle entstehen. Welche Aussagen stimmen?",
+      "options": [
+        {
+          "id": "two",
+          "text": "Es können zwei vollständige Triglyceridmodelle gebaut werden."
+        },
+        {
+          "id": "three",
+          "text": "Es können drei vollständige Triglyceridmodelle gebaut werden."
+        },
+        {
+          "id": "left",
+          "text": "Eine Fettsäure bleibt übrig."
+        },
+        {
+          "id": "substitute",
+          "text": "Die übrige Fettsäure kann einen fehlenden Glycerinbaustein ersetzen."
+        }
+      ],
+      "correct": [
+        "two",
+        "left"
+      ],
+      "explanation": "Jedes Triglyceridmodell braucht ein Glycerin und drei Fettsäuren. Zwei Modelle verbrauchen zwei Glycerin und sechs Fettsäuren; eine Fettsäure bleibt übrig. Die Bausteinarten sind nicht austauschbar."
+    },
+    {
+      "id": "bio005-intestinal-functions",
+      "type": "mcq",
+      "topic": "Dünndarm und Dickdarm",
+      "skills": [
+        "digestion.intestines"
+      ],
+      "prompt": "Welche Aussagen beschreiben die Aufgaben von Dünndarm und Dickdarm richtig?",
+      "options": [
+        {
+          "id": "villi",
+          "text": "Falten und Zotten vergrößern die Fläche der Dünndarmwand für die Aufnahme von Nährstoffbausteinen."
+        },
+        {
+          "id": "absorb",
+          "text": "Glucose und Aminosäuren können durch die Dünndarmwand ins Blut aufgenommen werden."
+        },
+        {
+          "id": "water",
+          "text": "Im Dickdarm wird dem verbleibenden Darminhalt Wasser entzogen."
+        },
+        {
+          "id": "whole",
+          "text": "Die Darmzotten nehmen normalerweise ganze, unzerlegte Stärkemoleküle ins Blut auf."
+        },
+        {
+          "id": "chew",
+          "text": "Die Hauptaufgabe der Darmzotten ist das mechanische Zerkauen der Nahrung."
+        }
+      ],
+      "correct": [
+        "villi",
+        "absorb",
+        "water"
+      ],
+      "explanation": "Im Dünndarm werden kleine Nährstoffbausteine aufgenommen. Falten und Zotten schaffen dafür eine große Fläche. Im Dickdarm wird Wasser zurückgewonnen; der Darminhalt wird dadurch eingedickt."
+    },
+    {
+      "id": "bio005-starch-unit",
+      "type": "frq",
+      "topic": "Kurzantwort · Stärke",
+      "skills": [
+        "nutrients.building-blocks"
+      ],
+      "prompt": "Wie heißt der einzelne Zuckerbaustein, der in Stärke sehr oft miteinander verbunden vorkommt? Antworte mit einem Wort."
+    },
+    {
+      "id": "bio005-protein-enzyme",
+      "type": "frq",
+      "topic": "Kurzantwort · Magen",
+      "skills": [
+        "digestion.stomach",
+        "enzymes.action"
+      ],
+      "prompt": "Welches Enzym beginnt im Magen die Spaltung von Eiweißketten? Nenne nur den Namen."
+    },
+    {
+      "id": "bio005-stomach-products",
+      "type": "frq",
+      "topic": "Kurzantwort · Eiweißstücke",
+      "skills": [
+        "digestion.stomach",
+        "digestion.proteins"
+      ],
+      "prompt": "Wie nennt man die kleineren Eiweißstücke, die Pepsin aus langen Eiweißketten bildet? Antworte mit dem Fachbegriff."
+    },
+    {
+      "id": "bio005-uptake-name",
+      "type": "frq",
+      "topic": "Kurzantwort · Aufnahme",
+      "skills": [
+        "digestion.intestines"
+      ],
+      "prompt": "Glucose gelangt aus dem Dünndarminhalt durch die Darmwand ins Blut. Wie heißt dieser Aufnahmevorgang? Nenne den Fachbegriff."
+    },
+    {
+      "id": "bio005-building-name",
+      "type": "frq",
+      "topic": "Kurzantwort · Stoffwechsel",
+      "skills": [
+        "metabolism.building",
+        "nutrients.roles"
+      ],
+      "prompt": "Eine Körperzelle setzt aufgenommene Aminosäuren zu körpereigenem Eiweiß zusammen. Zu welchem der beiden Bereiche Energie- oder Aufbaustoffwechsel gehört dieser Aufbau? Antworte mit einem Begriff."
+    },
+    {
+      "id": "bio005-explain-chewing",
+      "type": "frq",
+      "topic": "Erklärung · Kauen",
+      "skills": [
+        "digestion.mouth",
+        "enzymes.action"
+      ],
+      "prompt": "Jemand behauptet: „Wenn ich gründlicher kaue, helfen mir die kleineren Stücke nur deshalb bei der Verdauung, weil das Zerkleinern neue Enzyme erzeugt.“ Prüfe diese Behauptung und erkläre in 3–4 Sätzen, wie Zähne und Speichel tatsächlich zusammenwirken. Gehe auf Oberfläche und Enzymwirkung ein."
+    },
+    {
+      "id": "bio005-explain-starch",
+      "type": "frq",
+      "topic": "Erklärung · Stärke nutzen",
+      "skills": [
+        "nutrients.building-blocks",
+        "metabolism.energy",
+        "digestion.intestines"
+      ],
+      "prompt": "Ein Reiskorn enthält Stärke. Erkläre in 3–4 Sätzen, wie Stärke aufgebaut ist und warum sie vor der Aufnahme ins Blut zerlegt werden muss. Beschreibe außerdem eine mögliche Verwendung ihrer aufgenommenen Bausteine in Körperzellen."
+    },
+    {
+      "id": "bio005-explain-stomach",
+      "type": "frq",
+      "topic": "Erklärung · Salzsäure und Pepsin",
+      "skills": [
+        "digestion.stomach",
+        "enzymes.action",
+        "digestion.proteins"
+      ],
+      "prompt": "„Im Magen reicht Salzsäure allein; Pepsin hat keine eigene Aufgabe.“ Erkläre in 3–4 Sätzen, warum das nicht stimmt. Nenne die unterschiedlichen Aufgaben von Salzsäure und Pepsin und beschreibe, was mit den entstandenen Eiweißstücken anschließend im Dünndarm geschieht."
+    },
+    {
+      "id": "bio005-define-enzyme",
+      "type": "frq",
+      "topic": "Erklärung · Enzyme",
+      "skills": [
+        "enzymes.action"
+      ],
+      "prompt": "Erkläre in 3–4 Sätzen, was ein Enzym ist. Erläutere mit dem Schlüssel-Schloss-Modell, weshalb ein Verdauungsenzym nicht jeden Nährstoff spaltet, und beschreibe, ob es nach einer Reaktion erneut wirken kann."
+    },
+    {
+      "id": "bio005-explain-metabolism",
+      "type": "frq",
+      "topic": "Erklärung · Energie und Aufbau",
       "skills": [
         "metabolism.energy",
         "metabolism.building",
         "nutrients.roles"
       ],
-      "prompt": "An einem kalten Tag hält der Körper seine Temperatur aufrecht. Gleichzeitig wachsen die Fingernägel weiter. Welche Aussagen passen zu diesen Vorgängen?",
-      "options": [
-        {
-          "id": "warmth",
-          "text": "Für die Aufrechterhaltung der Körperwärme wird Energie benötigt."
-        },
-        {
-          "id": "building",
-          "text": "Der Aufbau körpereigener Eiweiße für das Nagelwachstum gehört zum Baustoffwechsel."
-        },
-        {
-          "id": "no-energy",
-          "text": "Nagelwachstum benötigt Baustoffe, aber überhaupt keine Energie."
-        },
-        {
-          "id": "amino",
-          "text": "Aufgenommene Aminosäuren können zum Aufbau körpereigener Eiweiße dienen."
-        }
-      ],
-      "correct": [
-        "warmth",
-        "building",
-        "amino"
-      ],
-      "explanation": "Körperwärme benötigt Energie. Beim Wachstum werden körpereigene Stoffe aufgebaut, unter anderem Eiweiße aus Aminosäuren. Auch solche Aufbauvorgänge benötigen Energie."
-    },
-    {
-      "id": "bio004-matching-enzymes",
-      "type": "mcq",
-      "topic": "Substratspezifität",
-      "skills": [
-        "enzymes.action",
-        "digestion.mouth"
-      ],
-      "prompt": "Amylase wird zu einer Mischung aus Stärke und Eiweiß gegeben. Für Amylase herrschen geeignete Bedingungen. Welche Aussagen sind richtig?",
-      "options": [
-        {
-          "id": "protein",
-          "text": "Amylase zerlegt das Eiweiß genauso wie die Stärke."
-        },
-        {
-          "id": "starch",
-          "text": "Amylase kann mit der Spaltung der Stärke beginnen."
-        },
-        {
-          "id": "reuse",
-          "text": "Nach einer Reaktion kann Amylase erneut an einem passenden Substrat wirken."
-        },
-        {
-          "id": "consumed",
-          "text": "Jedes Amylasemolekül wird nach einer einzigen Reaktion vollständig verbraucht."
-        }
-      ],
-      "correct": [
-        "starch",
-        "reuse"
-      ],
-      "explanation": "Amylase wirkt auf Stärke und ist kein eiweißspaltendes Enzym. Enzyme wirken substratspezifisch und werden bei der Reaktion nicht verbraucht."
-    },
-    {
-      "id": "bio004-surface-term",
-      "type": "frq",
-      "topic": "Oberfläche",
-      "skills": [
-        "digestion.mouth"
-      ],
-      "prompt": "Ein Stück Nahrung wird in viele kleine Stücke geteilt. Welche Größe nimmt dabei insgesamt zu und ermöglicht Enzymen mehr Kontakt mit der Nahrung? Antworte mit einem Begriff."
-    },
-    {
-      "id": "bio004-villi-name",
-      "type": "frq",
-      "topic": "Dünndarm",
-      "skills": [
-        "digestion.intestines"
-      ],
-      "prompt": "Wie heißen die fingerförmigen Ausstülpungen der Dünndarmschleimhaut, die auf den Falten sitzen und die Aufnahmefläche vergrößern? Nenne nur den Fachbegriff."
-    },
-    {
-      "id": "bio004-four-fat-molecules",
-      "type": "frq",
-      "topic": "Fettbausteine zählen",
-      "skills": [
-        "nutrients.fats"
-      ],
-      "prompt": "Vier Triglyceridmoleküle werden im Unterrichtsmodell vollständig in ihre Bausteine zerlegt. Wie viele Fettsäuren entstehen insgesamt? Antworte nur mit einer Zahl."
-    },
-    {
-      "id": "bio004-identify-building-block",
-      "type": "frq",
-      "topic": "Nährstoffbausteine",
-      "skills": [
-        "nutrients.fats",
-        "nutrients.building-blocks"
-      ],
-      "prompt": "Drei Karten tragen die Wörter „Glycerin“, „Fettsäuren“ und „Aminosäuren“. Welche Karte bezeichnet die Bausteine von Eiweißen statt die Bestandteile eines Triglycerids? Schreibe nur dieses Wort."
-    },
-    {
-      "id": "bio004-acid-name",
-      "type": "frq",
-      "topic": "Magen",
-      "skills": [
-        "digestion.stomach",
-        "enzymes.action"
-      ],
-      "prompt": "Welche Säure im Magensaft schafft das saure Milieu für Pepsin? Nenne nur den Stoffnamen."
+      "prompt": "Nach einer kleinen Schürfwunde bildet der Körper neues Hautgewebe. Erkläre in 3–5 Sätzen den Unterschied zwischen Energie- und Aufbaustoffwechsel an diesem Beispiel. Nenne einen geeigneten Nährstoffbaustein für den Aufbau körpereigener Eiweiße und erkläre, warum Baustoffe allein für die Heilung nicht ausreichen."
     }
   ],
-  "canonicalPath": "./tests/biology-grade-8/004-surfaces-and-building-blocks/"
+  "canonicalPath": "./tests/biology-grade-8/005-explain-digestion/"
 };
