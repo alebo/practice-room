@@ -9,3 +9,5 @@ textarea{display:block;width:100%;min-width:0;resize:vertical;border:1px solid #
 
 .card-bottom #previous{margin-right:auto;white-space:nowrap}
 @media(max-width:640px){.card-bottom{flex-direction:row;flex-wrap:wrap;align-items:center;gap:10px}.card-bottom button{padding:10px 12px}.card-bottom .bottom-hint{flex-basis:100%}}
+
+.subject-navigation{display:flex;align-items:center;gap:12px;min-width:0}.subject-navigation .brand{flex-shrink:0}.subject-navigation .brand-divider{margin:0}.subject-navigation select{font:inherit;font-size:14px;color:var(--green);background:#fff;border:1px solid var(--border);border-radius:8px;padding:8px;min-width:0;max-width:100%;cursor:pointer}.subject-navigation select:focus-visible{outline:3px solid #678cba;outline-offset:3px}@media(max-width:640px){.subject-navigation{gap:8px;width:100%}.subject-navigation select{flex:1;font-size:12px;padding:8px 4px}}
