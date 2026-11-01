@@ -48,3 +48,31 @@ test('each exercise has a permanent route and separate saved progress',async({pa
   await page.goto('/');
   await expect(page.locator('h1')).toHaveText(activeQuiz.title);
 });
+
+test('subject selector opens latest sets and retains progress across subjects and direct links',async({page})=>{
+  const {listSets}=await import('../../scripts/lib/content.mjs');
+  const sets=await listSets();
+  const latest=test=>sets.filter(s=>s.test===test).sort((a,b)=>a.set.localeCompare(b.set,'en',{numeric:true})).at(-1);
+  const biology=latest('biology-grade-8'),politics=latest('politik-grade-8');
+  await page.goto('/tests/biology-grade-8/001-basics/');
+  await expect(page.getByRole('combobox',{name:'Fach auswählen'}).locator('option:checked')).toHaveText(biology.metadata.title);
+  await page.locator('input[name="answer"]').first().check();
+  await page.getByRole('combobox').selectOption({label:politics.metadata.title});
+  await expect(page).toHaveURL(new RegExp(`/tests/${politics.test}/${politics.set}/$`));
+  const prompt=await page.locator('#view-title').textContent();
+  await page.locator('input[name="answer"]').first().check();
+  await page.getByRole('combobox').selectOption({label:biology.metadata.title});
+  await expect(page).toHaveURL(new RegExp(`/tests/${biology.test}/${biology.set}/$`));
+  await expect(page.locator('h1')).toHaveText(biology.quiz.title);
+  await page.getByRole('combobox').selectOption({label:politics.metadata.title});
+  await expect(page.locator('#view-title')).toHaveText(prompt);
+  await expect(page.locator('input:checked')).toHaveCount(1);
+  await page.goto('/tests/biology-grade-8/001-basics/');
+  await expect(page.locator('input:checked')).toHaveCount(1);
+  await page.setViewportSize({width:375,height:812});
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+  await page.screenshot({path:'.playwright/results/subject-selector-mobile.png'});
+  await page.getByRole('link',{name:'Lernraum – aktuelle Übung'}).click();
+  await expect(page).toHaveURL('http://127.0.0.1:4173/');
+  await expect(page.getByRole('combobox')).toBeVisible();
+});

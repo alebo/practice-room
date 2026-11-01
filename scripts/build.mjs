@@ -8,6 +8,10 @@ const active = values.test ? {test:values.test,set:values.set} : await readJSON(
 const sets = await listSets();
 const selected = sets.find(s=>s.test===active.test && s.set===active.set);
 if (!selected) throw new Error(`Unknown active set: ${active.test}/${active.set}`);
+// Numbered set directories define chronological order, independent of the homepage selection.
+const latestBySubject = new Map();
+for (const item of [...sets].sort((a,b)=>a.set.localeCompare(b.set,'en',{numeric:true}))) latestBySubject.set(item.test,item);
+const subjects = [...latestBySubject.values()].sort((a,b)=>a.metadata.title.localeCompare(b.metadata.title,'de'));
 const dist = path.join(root,'dist');
 await rm(dist,{recursive:true,force:true});
 await mkdir(dist,{recursive:true});
@@ -18,7 +22,8 @@ async function renderSet(item, destination, prefix, canonicalPath) {
   await mkdir(destination,{recursive:true});
   const html = template.replace('./styles.css',`${prefix}styles.css`).replace('./app.js',`${prefix}app.js`)
     .replace(/<title>.*?<\/title>/,`<title>${escape(item.quiz.title)} · Lernraum</title>`)
-    .replace(/<span class="subject">.*?<\/span>/,`<span class="subject">${escape(item.metadata.title)}</span>`)
+    .replace('href="./"',`href="${prefix}"`)
+    .replace('<select class="subject" id="subject-select" aria-label="Fach auswählen"></select>', `<select class="subject" id="subject-select" aria-label="Fach auswählen">${subjects.map(subject=>`<option value="${prefix}tests/${subject.test}/${subject.set}/"${subject.test===item.test ? ' selected' : ''}>${escape(subject.metadata.title)}</option>`).join('')}</select>`)
     .replace(/<meta name="description" content="[^"]*">/,`<meta name="description" content="${escape(item.quiz.subtitle || item.quiz.title)}">`);
   await writeFile(path.join(destination,'index.html'),html);
   await writeFile(path.join(destination,'questions.js'),`export const quiz = ${JSON.stringify({...item.quiz,canonicalPath},null,2)};\n`);

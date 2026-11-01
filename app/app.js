@@ -4,6 +4,8 @@ import { restoreSavedAttempt, serializeAttempt } from './storage.js';
 import { createShare } from './privatebin.js';
 import { createAttempt, isCorrect, validateQuiz, isFRQ, mcqSummary, buildReport } from './quiz.js';
 const app = document.querySelector('#app');
+const subjectSelect = document.querySelector('#subject-select');
+subjectSelect.onchange = () => { location.assign(new URL(subjectSelect.value, document.baseURI).href); };
 const key = `lernraum:${quiz.id}`;
 const esc = text => String(text).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let state;

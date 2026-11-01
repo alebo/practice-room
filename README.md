@@ -158,3 +158,5 @@ The repository uses branch-based GitHub Pages publishing from `gh-pages`. The op
 MCQs can be left unanswered with **Weiß ich nicht**. The solution is shown before continuing; unanswered questions earn no point, persist across reloads, appear as **Nicht beantwortet** in reports, and remain available for retry. Imported evidence identifies unanswered MCQs separately from incorrect selections.
 
 During an attempt, **Zurück** revisits earlier questions. FRQ responses remain editable, later drafts survive navigation and reloads, and checked MCQs stay locked after solutions have been shown.
+
+The header subject selector lists each test collection by its display title and opens its latest exercise set (highest numbered set directory). This is independent of the configured homepage set. Older sets remain available through their permanent URLs; switching subjects preserves each quiz’s saved progress.
