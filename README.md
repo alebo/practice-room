@@ -160,3 +160,5 @@ MCQs can be left unanswered with **Weiß ich nicht**. The solution is shown befo
 During an attempt, **Zurück** revisits earlier questions. FRQ responses remain editable, later drafts survive navigation and reloads, and checked MCQs stay locked after solutions have been shown.
 
 The header subject selector lists each test collection by its display title and opens its latest exercise set (highest numbered set directory). This is independent of the configured homepage set. Older sets remain available through their permanent URLs; switching subjects preserves each quiz’s saved progress.
+
+The **Neueste Übung laden** button checks the published `latest-sets.json` for the current subject and opens its newest set. It requests a fresh manifest and uses a refresh token for the page and question data, so an already-open older page can discover a newly published set. Saved answers stay attached to their quiz ID; loading the same set does not reset an attempt or replace its saved version. If the lookup fails, the current attempt remains open and the button can be retried.

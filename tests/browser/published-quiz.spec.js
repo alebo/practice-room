@@ -83,3 +83,39 @@ test('subject selector opens latest sets and retains progress across subjects an
   await expect(page).toHaveURL('http://127.0.0.1:4173/');
   await expect(page.getByRole('combobox')).toBeVisible();
 });
+
+test('latest button fetches current subject destination and preserves answers across refreshes', async ({page}) => {
+  await page.goto('/tests/biology-grade-8/001-basics/');
+  await page.locator('input[name="answer"]').first().check();
+  const saved = await page.evaluate(() => localStorage.getItem('lernraum:biology-001-basics'));
+  expect(saved).not.toBeNull();
+  // Simulate a deployment newer than the already-open page's subject selector.
+  await page.route('**/latest-sets.json?*', route => route.fulfill({json:{'biology-grade-8':'tests/biology-grade-8/002-nutrients-and-digestion/'}}));
+  const manifest = page.waitForRequest('**/latest-sets.json?*');
+  await page.getByRole('button',{name:'Neueste Übung laden'}).click();
+  expect((await manifest).url()).toContain('refresh=');
+  await expect(page).toHaveURL(/002-nutrients-and-digestion\/\?refresh=\d+$/);
+  await expect(page.locator('h1')).toHaveText(quiz.title);
+  await page.locator('input[name="answer"]').first().check();
+  const prompt = await page.locator('#view-title').textContent();
+  const questions = page.waitForRequest('**/questions.js?refresh=*');
+  await page.getByRole('button',{name:'Neueste Übung laden'}).click();
+  await questions;
+  await expect(page.locator('#view-title')).toHaveText(prompt);
+  await expect(page.locator('input:checked')).toHaveCount(1);
+  expect(await page.evaluate(() => localStorage.getItem('lernraum:biology-001-basics'))).toBe(saved);
+  await page.goto('/tests/biology-grade-8/001-basics/');
+  await expect(page.locator('input:checked')).toHaveCount(1);
+});
+
+test('latest button handles network failure without leaving the attempt', async ({page}) => {
+  await page.goto('/');
+  await page.locator('input[name="answer"]').first().check();
+  await page.route('**/latest-sets.json?*', route => route.abort());
+  await page.getByRole('button',{name:'Neueste Übung laden'}).click();
+  await expect(page.locator('#latest-status')).toContainText('Bitte versuche es erneut');
+  await expect(page.getByRole('button',{name:'Neueste Übung laden'})).toBeEnabled();
+  await expect(page.locator('input:checked')).toHaveCount(1);
+  await page.setViewportSize({width:320,height:812});
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+});

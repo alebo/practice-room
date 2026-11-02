@@ -1,4 +1,7 @@
-const { quiz: publishedQuiz } = await import(new URL('./questions.js', document.baseURI).href);
+const questionURL = new URL('./questions.js', document.baseURI);
+const refreshToken = new URL(location.href).searchParams.get('refresh');
+if (refreshToken) questionURL.searchParams.set('refresh', refreshToken);
+const { quiz: publishedQuiz } = await import(questionURL.href);
 let quiz = publishedQuiz;
 import { restoreSavedAttempt, serializeAttempt } from './storage.js';
 import { createShare } from './privatebin.js';
@@ -35,6 +38,30 @@ try {
   app.innerHTML = '<h1>Die Übung konnte nicht geladen werden.</h1><p>Bitte versuche es später erneut.</p>';
   console.error(error);
 }
+const latestButton = document.querySelector('#load-latest');
+latestButton.onclick = async () => {
+  if (!storageAvailable && !confirm('Deine Antworten konnten nicht gespeichert werden. Beim Neuladen gehen sie verloren. Trotzdem fortfahren?')) return;
+  const status = document.querySelector('#latest-status');
+  latestButton.disabled = true;
+  status.textContent = 'Neueste Übung wird gesucht …';
+  try {
+    const root = new URL('./', import.meta.url);
+    const manifestURL = new URL('latest-sets.json', root);
+    const token = String(Date.now());
+    manifestURL.searchParams.set('refresh', token);
+    const response = await fetch(manifestURL, { cache: 'no-store' });
+    if (!response.ok) throw new Error('Latest set unavailable');
+    const sets = await response.json();
+    const route = sets[latestButton.dataset.test];
+    if (typeof route !== 'string' || !/^tests\/[a-z0-9-]+\/[a-z0-9-]+\/$/.test(route)) throw new Error('Invalid latest set');
+    const target = new URL(route, root);
+    target.searchParams.set('refresh', token);
+    location.assign(target.href);
+  } catch {
+    status.textContent = 'Die neueste Übung konnte nicht geladen werden. Bitte versuche es erneut.';
+    latestButton.disabled = false;
+  }
+};
 function save() {
   try {
     if (!storageReadable || recoveryRaw !== null) throw new Error('Saved data is protected.');
