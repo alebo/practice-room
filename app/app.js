@@ -7,6 +7,7 @@ import { restoreSavedAttempt, serializeAttempt } from './storage.js';
 import { createShare } from './privatebin.js';
 import { createAttempt, isCorrect, validateQuiz, isFRQ, mcqSummary, buildReport } from './quiz.js';
 const app = document.querySelector('#app');
+const latestNavigation = document.querySelector('.latest-navigation');
 const subjectSelect = document.querySelector('#subject-select');
 subjectSelect.onchange = () => { location.assign(new URL(subjectSelect.value, document.baseURI).href); };
 const key = `lernraum:${quiz.id}`;
@@ -82,12 +83,20 @@ function intro() {
 }
 function render(focus = false) {
   renderNumber++;
+  latestNavigation.remove();
   app.innerHTML = intro() + (quiz.version !== publishedQuiz.version ? `<aside class="retry-result"><p>Dein gespeicherter Versuch (Version ${esc(quiz.version)}) bleibt erhalten. Eine neue Testversion ist verfügbar. Du kannst deinen bisherigen Bericht weiterhin kopieren. Erst „Neu starten“ ersetzt deine Antworten.</p></aside>` : '') + (state.done || reportView ? results() : exercise());
   storageNote();
   if (!state.done && !reportView) bindExercise();
   else bindResults();
   const restart = document.querySelector('#restart');
   if (restart) restart.onclick = requestRestart;
+  const restartAction = restart || document.querySelector('#retry-all');
+  if (restartAction) {
+    const actions = document.createElement('div');
+    actions.className = 'attempt-actions';
+    restartAction.before(actions);
+    actions.append(restartAction, latestNavigation);
+  }
   const showReport = document.querySelector('#show-report');
   if (showReport) showReport.onclick = () => { reportView = true; render(true); };
   if (focus) document.querySelector('#view-title').focus();
