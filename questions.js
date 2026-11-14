@@ -1,291 +1,286 @@
 export const quiz = {
-  "id": "biology-grade-8-006-digestion-stages-and-enzymes",
+  "id": "biology-grade-8-007-precise-explanations",
   "version": 1,
   "language": "de",
-  "title": "Verdauungsschritte und Enzyme sicher erklären",
-  "subtitle": "5 Mehrfachauswahlfragen, 5 Kurzantworten und 5 Erklärungsaufgaben. Wähle bei MCQs alle richtigen Aussagen. Gehe bei Erklärungen auf jeden genannten Punkt ein.",
-  "label": "Biologie · Übungsset 006",
+  "title": "Enzyme unterscheiden und Vorgänge vollständig erklären",
+  "subtitle": "5 Mehrfachauswahlfragen, 5 Kurzantworten und 5 Erklärungen. Wähle alle richtigen Aussagen. Prüfe bei freien Antworten, ob du jeden Teil der Aufgabe beantwortet hast.",
+  "label": "Biologie · Übungsset 007",
   "questions": [
     {
-      "id": "bio006-protein-route",
+      "id": "bio007-label-the-reaction",
       "type": "mcq",
-      "topic": "Eiweißverdauung",
+      "topic": "Enzym und Produkt",
       "skills": [
+        "enzymes.action",
         "digestion.stomach",
-        "digestion.proteins",
-        "digestion.intestines"
+        "digestion.proteins"
       ],
-      "prompt": "Eiweiß aus einem Stück Tofu wird verdaut. Welche Aussagen beschreiben die aufeinanderfolgenden Schritte richtig?",
+      "prompt": "Bei einer Eiweißspaltung im Magen werden drei Karten beschriftet: „Enzym“, „Ausgangsstoff“ und „entstandene kleinere Stücke“. Welche Zuordnungen passen?",
       "options": [
         {
-          "id": "pieces",
-          "text": "Im Magen entstehen durch Pepsin kleinere Eiweißstücke, die Peptide."
+          "id": "enzyme",
+          "text": "Pepsin gehört auf die Karte „Enzym“."
         },
         {
-          "id": "finished",
-          "text": "Pepsin zerlegt das gesamte Eiweiß bereits im Magen vollständig in einzelne Aminosäuren."
+          "id": "substrate",
+          "text": "Die lange Eiweißkette gehört auf die Karte „Ausgangsstoff“."
         },
         {
-          "id": "continue",
-          "text": "Im Dünndarm setzen weitere Enzyme die Zerlegung bis zu einzelnen Aminosäuren fort."
+          "id": "products",
+          "text": "Peptide gehören auf die Karte „entstandene kleinere Stücke“."
         },
         {
-          "id": "uptake",
-          "text": "Die entstandenen Aminosäuren können durch die Dünndarmwand ins Blut gelangen."
+          "id": "swap",
+          "text": "Peptide gehören auf die Karte „Enzym“."
         },
         {
-          "id": "starch",
-          "text": "Im Dünndarm werden die Peptide zu Stärke zusammengesetzt."
+          "id": "used-up",
+          "text": "Pepsin ist nach einer Spaltung vollständig verbraucht."
         }
       ],
       "correct": [
-        "pieces",
-        "continue",
-        "uptake"
+        "enzyme",
+        "substrate",
+        "products"
       ],
-      "explanation": "Pepsin beginnt die Eiweißspaltung im Magen und bildet Peptide. Weitere Enzyme zerlegen diese im Dünndarm bis zu Aminosäuren. Danach können die Bausteine aufgenommen werden. Verdauung und Aufnahme sind unterschiedliche Schritte."
+      "explanation": "Pepsin ist das Enzym, das eine Eiweißkette spaltet. Die kleineren Eiweißstücke heißen Peptide. Enzym und Produkte haben verschiedene Rollen; das Enzym wird bei seiner Reaktion nicht verbraucht."
     },
     {
-      "id": "bio006-enzyme-examples",
+      "id": "bio007-second-starch-portion",
       "type": "mcq",
-      "topic": "Enzyme einordnen",
+      "topic": "Enzyme wiederverwenden",
       "skills": [
-        "enzymes.action"
+        "enzymes.action",
+        "digestion.mouth"
       ],
-      "prompt": "In einem Heft stehen Amylase, Pepsin und Lipase als Beispiele für Enzyme. Welche Aussagen darf man daraus und aus dem Wissen über Enzyme ableiten?",
+      "prompt": "Amylase hat in einer Probe Stärke gespalten. Danach wird neue Stärke zugegeben. Die Amylase ist weiterhin funktionsfähig und die Bedingungen bleiben geeignet. Welche Aussagen stimmen?",
       "options": [
         {
-          "id": "only",
-          "text": "Im menschlichen Körper gibt es insgesamt genau diese drei Enzyme."
-        },
-        {
-          "id": "examples",
-          "text": "Die drei Namen sind Beispiele; im Körper gibt es viele weitere Enzyme."
+          "id": "again",
+          "text": "Die bereits vorhandene Amylase kann auch an der neu zugegebenen Stärke wirken."
         },
         {
           "id": "speed",
-          "text": "Enzyme beschleunigen chemische Reaktionen."
+          "text": "Amylase beschleunigt die passende Spaltungsreaktion."
         },
         {
-          "id": "universal",
-          "text": "Alle Enzyme können dieselben Nährstoffe spalten."
+          "id": "once",
+          "text": "Für jede neue Spaltung muss zwingend ein neues Amylasemolekül hergestellt werden."
         },
         {
-          "id": "reuse",
-          "text": "Ein Enzym kann nach einer Reaktion erneut wirken, weil es dabei nicht verbraucht wird."
+          "id": "anything",
+          "text": "Nach der ersten Spaltung kann Amylase auch beliebige Eiweiße und Fette spalten."
         }
       ],
       "correct": [
-        "examples",
-        "speed",
-        "reuse"
+        "again",
+        "speed"
       ],
-      "explanation": "Enzyme sind biologische Reaktionsbeschleuniger. Sie wirken an passenden Substraten und werden bei der Reaktion nicht verbraucht. Drei Beispiele sind keine vollständige Liste aller Enzyme."
+      "explanation": "Amylase wird bei der Reaktion nicht verbraucht und kann erneut Stärke umsetzen. Sie beschleunigt die Reaktion und bleibt substratspezifisch; Wiederverwendung macht sie nicht zu einem Enzym für alle Stoffe."
     },
     {
-      "id": "bio006-stomach-cards",
+      "id": "bio007-uptake-or-energy",
       "type": "mcq",
-      "topic": "Magenwand und Magensaft",
+      "topic": "Aufnahme und Energiegewinnung",
       "skills": [
-        "digestion.stomach"
+        "metabolism.energy",
+        "digestion.intestines"
       ],
-      "prompt": "Für ein Magenmodell werden Funktionskarten geschrieben. Welche Karten sind fachlich richtig?",
+      "prompt": "Zuerst gelangt Glucose aus dem Dünndarm ins Blut. Später wird Glucose in einer Körperzelle abgebaut und nutzbare Energie wird frei. Welche Aussagen unterscheiden diese Vorgänge richtig?",
       "options": [
-        {
-          "id": "mucus",
-          "text": "Schleimschicht: schützt die Magenwand vor dem Magensaft."
-        },
-        {
-          "id": "acid",
-          "text": "Salzsäure: schafft das saure Milieu für Pepsin."
-        },
-        {
-          "id": "replace",
-          "text": "Schleimschicht: ersetzt Pepsin bei der Spaltung von Eiweiß."
-        },
-        {
-          "id": "amylase",
-          "text": "Salzsäure: ist ein anderer Name für Amylase."
-        }
-      ],
-      "correct": [
-        "mucus",
-        "acid"
-      ],
-      "explanation": "Schleim schützt die Magenwand. Salzsäure sorgt unter anderem für passende saure Bedingungen. Die enzymatische Eiweißspaltung übernimmt Pepsin; weder Schleim noch Salzsäure ersetzen es."
-    },
-    {
-      "id": "bio006-fat-components",
-      "type": "mcq",
-      "topic": "Fettbausteine und Verwendung",
-      "skills": [
-        "nutrients.fats",
-        "nutrients.roles"
-      ],
-      "prompt": "Ein Triglycerid aus Speiseöl wird im Unterrichtsmodell vollständig in seine Bestandteile zerlegt. Welche Aussagen stimmen?",
-      "options": [
-        {
-          "id": "glycerin",
-          "text": "Dabei entsteht ein Glycerinbaustein."
-        },
-        {
-          "id": "acids",
-          "text": "Dabei entstehen drei Fettsäurebausteine."
-        },
-        {
-          "id": "amino",
-          "text": "Dabei entstehen drei Aminosäuren."
-        },
-        {
-          "id": "reserve",
-          "text": "Fette können dem Körper als Energiereserve dienen."
-        },
-        {
-          "id": "only-acids",
-          "text": "Das Modell besteht ausschließlich aus Fettsäuren."
-        }
-      ],
-      "correct": [
-        "glycerin",
-        "acids",
-        "reserve"
-      ],
-      "explanation": "Ein Triglycerid enthält ein Glycerin und drei Fettsäuren. Aminosäuren gehören zu Eiweißen. Neben ihrer Zusammensetzung ist die Funktion wichtig: Fette können Energie liefern und als Energiereserve gespeichert werden."
-    },
-    {
-      "id": "bio006-surfaces-transfer",
-      "type": "mcq",
-      "topic": "Oberfläche und Verdauung",
-      "skills": [
-        "digestion.mouth",
-        "digestion.intestines",
-        "enzymes.action"
-      ],
-      "prompt": "Zwei Beobachtungen: Beim Kauen wird ein Bissen in viele Stücke geteilt. Die Dünndarmwand besitzt zahlreiche Falten und Zotten. Welche Erklärungen passen dazu?",
-      "options": [
-        {
-          "id": "contact",
-          "text": "Kleinere Nahrungsstücke bieten insgesamt mehr zugängliche Oberfläche für Verdauungsenzyme."
-        },
         {
           "id": "uptake",
-          "text": "Falten und Zotten vergrößern die Fläche für die Aufnahme von Nährstoffbausteinen."
+          "text": "Der Weg durch die Dünndarmwand ins Blut heißt Resorption."
         },
         {
-          "id": "production",
-          "text": "Durch das Zerbeißen entstehen neue Verdauungsenzyme aus den Zähnen."
+          "id": "energy",
+          "text": "Der Abbau zur Bereitstellung von Energie gehört zum Energiestoffwechsel."
         },
         {
           "id": "same",
-          "text": "Darmzotten und Zähne haben dieselbe Aufgabe: Sie zerbeißen Nahrung."
+          "text": "Die Aufnahme ins Blut und der Abbau in einer Körperzelle sind derselbe Vorgang."
+        },
+        {
+          "id": "building",
+          "text": "Beim beschriebenen Abbau wird aus vielen Glucosebausteinen eine Stärkekette aufgebaut."
         }
       ],
       "correct": [
-        "contact",
-        "uptake"
+        "uptake",
+        "energy"
       ],
-      "explanation": "Beide Beispiele nutzen eine große Oberfläche, aber für unterschiedliche Aufgaben. Zerkleinerte Nahrung bietet Enzymen mehr Kontaktfläche; Falten und Zotten schaffen mehr Aufnahmefläche in der Darmwand."
+      "explanation": "Resorption ist die Aufnahme von Nährstoffbausteinen durch die Darmwand. Beim Energiestoffwechsel werden Stoffe in Körperzellen abgebaut; dabei wird nutzbare Energie frei. Aufnahme und Nutzung sind unterschiedliche Schritte."
     },
     {
-      "id": "bio006-peptide-term",
-      "type": "frq",
-      "topic": "Kurzantwort · Eiweißstücke",
+      "id": "bio007-missing-glycerin",
+      "type": "mcq",
+      "topic": "Fettmodelle ergänzen",
       "skills": [
-        "digestion.proteins",
-        "digestion.stomach"
+        "nutrients.fats",
+        "nutrients.building-blocks"
       ],
-      "prompt": "Eine kurze Kette aus mehreren verbundenen Aminosäuren ist noch keine einzelne Aminosäure. Wie heißt ein solches kleineres Eiweißstück, wie es bei der Pepsinwirkung entsteht? Nenne den Fachbegriff."
+      "prompt": "Für zwei vollständige Triglyceridmodelle liegen sechs Fettsäurebausteine und ein Glycerinbaustein bereit. Welche Aussagen stimmen?",
+      "options": [
+        {
+          "id": "missing",
+          "text": "Es fehlt noch ein Glycerinbaustein."
+        },
+        {
+          "id": "enough",
+          "text": "Die sechs Fettsäuren reichen für zwei vollständige Modelle."
+        },
+        {
+          "id": "amino",
+          "text": "Eine Aminosäure kann den fehlenden Glycerinbaustein ersetzen."
+        },
+        {
+          "id": "six",
+          "text": "Aus den sechs Fettsäuren allein lassen sich sechs vollständige Triglyceridmodelle bauen."
+        }
+      ],
+      "correct": [
+        "missing",
+        "enough"
+      ],
+      "explanation": "Jedes Triglyceridmodell enthält ein Glycerin und drei Fettsäuren. Für zwei Modelle braucht man zwei Glycerin und sechs Fettsäuren. Die Fettsäuren sind vollständig vorhanden; ein Glycerin fehlt."
     },
     {
-      "id": "bio006-completion-organ",
-      "type": "frq",
-      "topic": "Kurzantwort · Verdauungsort",
+      "id": "bio007-two-different-surfaces",
+      "type": "mcq",
+      "topic": "Kauen und Dünndarm",
       "skills": [
-        "digestion.proteins",
+        "digestion.mouth",
         "digestion.intestines"
       ],
-      "prompt": "In welchem Darmabschnitt werden die aus dem Magen kommenden Eiweißstücke durch weitere Enzyme bis zu einzelnen Aminosäuren zerlegt? Nenne nur den Darmabschnitt."
-    },
-    {
-      "id": "bio006-mucus-term",
-      "type": "frq",
-      "topic": "Kurzantwort · Schutz",
-      "skills": [
-        "digestion.stomach"
+      "prompt": "Beim Essen eines Apfelstücks zerkleinern die Zähne die Nahrung. Später werden aufnehmbare Nährstoffbausteine durch die Dünndarmwand aufgenommen. Welche Aussagen sind richtig?",
+      "options": [
+        {
+          "id": "food",
+          "text": "Das Zerkleinern vergrößert die insgesamt zugängliche Oberfläche der Nahrung."
+        },
+        {
+          "id": "wall",
+          "text": "Falten und Zotten vergrößern die Oberfläche der Dünndarmwand."
+        },
+        {
+          "id": "contact",
+          "text": "Eine größere Nahrungsoberfläche erleichtert den Kontakt mit passenden Verdauungsenzymen."
+        },
+        {
+          "id": "enzyme",
+          "text": "Das Zerbeißen erzeugt zusätzliche Enzyme aus dem Apfelstück."
+        },
+        {
+          "id": "blood",
+          "text": "Die Zähne nehmen die Nährstoffbausteine direkt ins Blut auf."
+        }
       ],
-      "prompt": "Welche schützende Schicht liegt auf der Innenseite der Magenwand und schützt sie vor dem Magensaft? Antworte mit einem Wort."
-    },
-    {
-      "id": "bio006-speed-verb",
-      "type": "frq",
-      "topic": "Kurzantwort · Enzymwirkung",
-      "skills": [
-        "enzymes.action"
+      "correct": [
+        "food",
+        "wall",
+        "contact"
       ],
-      "prompt": "Ergänze mit genau einem passenden Verb: „Enzyme ______ chemische Reaktionen, ohne dabei selbst verbraucht zu werden.“"
+      "explanation": "Kauen schafft mehr zugängliche Nahrungsoberfläche für Enzyme. Falten und Zotten schaffen eine große Aufnahmefläche in der Darmwand. Zerkleinern erzeugt keine Verdauungsenzyme und ist keine Resorption."
     },
     {
-      "id": "bio006-energy-process",
+      "id": "bio007-name-active-enzyme",
       "type": "frq",
-      "topic": "Kurzantwort · Stoffwechsel",
-      "skills": [
-        "metabolism.energy"
-      ],
-      "prompt": "In einer Muskelzelle wird Glucose abgebaut, wobei nutzbare Energie frei wird. Zu welchem Bereich des Stoffwechsels gehört dieser Vorgang? Nenne einen Begriff."
-    },
-    {
-      "id": "bio006-trace-protein",
-      "type": "frq",
-      "topic": "Erklärung · Eiweiß auf dem Weg",
+      "topic": "Kurzantwort · Enzymname",
       "skills": [
         "digestion.stomach",
-        "digestion.proteins",
-        "digestion.intestines"
+        "enzymes.action"
       ],
-      "prompt": "Eine Mitschülerin sagt: „Nach dem Magen sind alle Eiweiße schon in einzelne Aminosäuren zerlegt; der Dünndarm muss sie nur noch aufnehmen.“ Korrigiere diese Aussage in 3–4 Sätzen. Beschreibe den Schritt im Magen mit Enzym und Produkt, die weitere Zerlegung im Dünndarm und die anschließende Aufnahme."
+      "prompt": "„Pepsin“ und „Peptide“ stehen auf zwei Karten. Welche Karte nennt das Enzym, das im Magen lange Eiweißketten spaltet? Schreibe nur den passenden Namen."
     },
     {
-      "id": "bio006-enzyme-repeat",
+      "id": "bio007-name-starch-unit",
       "type": "frq",
-      "topic": "Erklärung · Enzyme erneut nutzen",
+      "topic": "Kurzantwort · Stärkeaufbau",
+      "skills": [
+        "nutrients.building-blocks"
+      ],
+      "prompt": "Ein Stärkemodell besteht aus sehr vielen gleichen, verbundenen Zuckerbausteinen. Wie heißt diese Bausteinart? Antworte mit einem Wort."
+    },
+    {
+      "id": "bio007-name-protective-coating",
+      "type": "frq",
+      "topic": "Kurzantwort · Magenschutz",
+      "skills": [
+        "digestion.stomach"
+      ],
+      "prompt": "Gesucht ist die schützende Auflage auf der Magenschleimhaut, nicht das Gewebe selbst. Wie heißt diese Auflage, die die Magenwand vor dem Magensaft schützt? Antworte mit einem Begriff."
+    },
+    {
+      "id": "bio007-name-energy-metabolism",
+      "type": "frq",
+      "topic": "Kurzantwort · Energieversorgung",
+      "skills": [
+        "metabolism.energy"
+      ],
+      "prompt": "Auch beim ruhigen Sitzen benötigt der Körper Energie, etwa für die Körperwärme. Wie heißt der Bereich des Stoffwechsels, bei dem Nährstoffe abgebaut werden und nutzbare Energie frei wird? Nenne den Fachbegriff."
+    },
+    {
+      "id": "bio007-enzyme-examples-list",
+      "type": "frq",
+      "topic": "Kurzantwort · Beispiele einordnen",
       "skills": [
         "enzymes.action"
       ],
-      "prompt": "Ein Modell zeigt, wie ein Enzym ein passendes Substrat bindet, es spaltet und die Produkte freigibt. Danach trifft ein weiteres passendes Substrat ein. Erkläre in 3–4 Sätzen, was das Enzym grundsätzlich mit der Reaktionsgeschwindigkeit macht, ob dasselbe Enzym wieder wirken kann und weshalb ein beliebiges anderes Substrat nicht unbedingt passt."
+      "prompt": "Amylase, Pepsin und Lipase: Sind das „alle Enzyme des Körpers“ oder „Beispiele für Enzyme“? Schreibe nur die passende Wortgruppe."
     },
     {
-      "id": "bio006-oat-starch-journey",
+      "id": "bio007-enzyme-explainer",
       "type": "frq",
-      "topic": "Erklärung · Stärke verwerten",
+      "topic": "Erklärung · Was Enzyme leisten",
+      "skills": [
+        "enzymes.action"
+      ],
+      "prompt": "Du sollst einem jüngeren Kind erklären, warum der Körper Enzyme braucht. Schreibe 3–4 Sätze und beantworte alle drei Fragen: Wie verändern Enzyme die Geschwindigkeit einer chemischen Reaktion? Warum passt nicht jeder Stoff zu jedem Enzym? Warum kann dasselbe Enzym mehrere passende Stoffteilchen nacheinander umsetzen?"
+    },
+    {
+      "id": "bio007-repair-protein-caption",
+      "type": "frq",
+      "topic": "Erklärung · Eine Beschriftung berichtigen",
+      "skills": [
+        "digestion.proteins",
+        "digestion.stomach",
+        "digestion.intestines",
+        "enzymes.action"
+      ],
+      "prompt": "Unter einem Bild zur Verdauung von Eiweiß aus Joghurt steht: „Peptide sind Enzyme. Sie zerlegen Pepsin im Magen zu Aminosäuren.“ Schreibe eine richtige Bildunterschrift aus 3–4 Sätzen. Verwende Pepsin, Eiweiß, Peptide und Aminosäuren richtig und beschreibe auch, wie die Verdauung im Dünndarm weitergeht."
+    },
+    {
+      "id": "bio007-complete-potato-account",
+      "type": "frq",
+      "topic": "Erklärung · Vom Aufbau zur Verwendung",
       "skills": [
         "nutrients.building-blocks",
-        "digestion.mouth",
-        "digestion.intestines",
-        "metabolism.energy"
+        "metabolism.energy",
+        "digestion.intestines"
       ],
-      "prompt": "Haferflocken enthalten Stärke. Beschreibe in 4–5 Sätzen ihren Weg bis zur Nutzung in einer Muskelzelle. Gehe auf alle vier Punkte ein: Aufbau der Stärke; Beginn und Fortsetzung ihrer Zerlegung; Aufnahme ins Blut; Verwendung in der Muskelzelle."
+      "prompt": "Eine Erklärung lautet: „Die Stärke aus Kartoffeln wird bei der Verdauung zerlegt. Am Ende wird Glucose durch die Dünndarmwand ins Blut aufgenommen.“ Ergänze diese Erklärung in 2–4 eigenen Sätzen um die beiden fehlenden Punkte: Wie ist Stärke aufgebaut? Was kann mit der aufgenommenen Glucose in einer Muskelzelle geschehen, und wozu dient das?"
     },
     {
-      "id": "bio006-growth-metabolism",
+      "id": "bio007-stomach-three-jobs",
       "type": "frq",
-      "topic": "Erklärung · Energie und Aufbau",
+      "topic": "Erklärung · Schutz und Verdauung",
+      "skills": [
+        "digestion.stomach",
+        "enzymes.action"
+      ],
+      "prompt": "Der Magen soll Eiweiß verdauen und gleichzeitig seine eigene Wand schützen. Erkläre in 3–4 Sätzen, welchen Beitrag Salzsäure, Pepsin und die Schleimschicht dazu leisten. Begründe dabei, warum die schützende Schleimschicht das eiweißspaltende Enzym nicht ersetzen kann."
+    },
+    {
+      "id": "bio007-compare-cell-processes",
+      "type": "frq",
+      "topic": "Erklärung · Zwei Vorgänge in Zellen",
       "skills": [
         "metabolism.energy",
         "metabolism.building",
         "nutrients.roles"
       ],
-      "prompt": "Beim Wachstum werden neue Muskelproteine gebildet. Erkläre in 3–5 Sätzen den Energie- und den Aufbaustoffwechsel an diesem Beispiel. Beschreibe ausdrücklich, was mit den Stoffen in beiden Bereichen geschieht, nenne den Baustein der Muskelproteine und erkläre, warum beide Bereiche zusammenarbeiten müssen."
-    },
-    {
-      "id": "bio006-stomach-division",
-      "type": "frq",
-      "topic": "Erklärung · Drei Aufgaben im Magen",
-      "skills": [
-        "digestion.stomach",
-        "enzymes.action"
-      ],
-      "prompt": "In einer Beschreibung steht: „Salzsäure, Pepsin und Schleim machen im Magen alle dasselbe.“ Erkläre in 3–4 Sätzen, warum das falsch ist. Ordne jedem der drei Bestandteile seine Aufgabe zu und erläutere, weshalb ein saures Milieu allein die Aufgabe des Enzyms nicht ersetzt."
+      "prompt": "In Körperzellen laufen zwei Vorgänge ab: A – Glucose wird abgebaut und nutzbare Energie wird frei. B – Aus Aminosäuren entstehen neue körpereigene Eiweiße. Ordne A und B den Bereichen des Stoffwechsels zu und erkläre in 3–4 Sätzen ihren Unterschied. Begründe auch, warum Vorgang B Energie benötigt."
     }
   ],
-  "canonicalPath": "./tests/biology-grade-8/006-digestion-stages-and-enzymes/"
+  "canonicalPath": "./tests/biology-grade-8/007-precise-explanations/"
 };
