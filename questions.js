@@ -1,295 +1,287 @@
 export const quiz = {
-  "id": "biology-grade-8-008-essential-connections",
+  "id": "biology-grade-8-009-explain-the-missing-steps",
   "version": 1,
   "language": "de",
-  "title": "Grundwissen anwenden: Nährstoffe, Enzyme und Verdauung",
-  "subtitle": "5 Mehrfachauswahlfragen, 5 Kurzantworten und 5 Erklärungen. Wähle alle richtigen Aussagen. Beantworte freie Fragen möglichst ohne Hilfsmittel und in eigenen Worten.",
-  "label": "Biologie · Übungsset 008",
+  "title": "Vorgänge erklären: vom Nährstoff zur Körperzelle",
+  "subtitle": "5 Mehrfachauswahlfragen, 5 Lückentexte und 5 Erklärungen. Wähle alle richtigen Aussagen. Trage bei Lückentexten nur die fehlenden Wörter in der angegebenen Reihenfolge ins Antwortfeld ein.",
+  "label": "Biologie · Übungsset 009",
   "questions": [
     {
-      "id": "bio008-nutrient-jobs",
+      "id": "bio009-enzyme-speed",
       "type": "mcq",
-      "topic": "Nährstoffe verwenden",
+      "topic": "Enzymwirkung",
       "skills": [
-        "nutrients.roles",
-        "metabolism.building",
-        "metabolism.energy"
-      ],
-      "prompt": "Eine Lerngruppe ordnet den Nährstoffgruppen Aufgaben zu. Welche Aussagen sind fachlich richtig?",
-      "options": [
-        {
-          "id": "carbs",
-          "text": "Kohlenhydrate sind wichtige Energielieferanten."
-        },
-        {
-          "id": "protein",
-          "text": "Aminosäuren aus Nahrungseiweißen können zum Aufbau körpereigener Eiweiße dienen."
-        },
-        {
-          "id": "fat",
-          "text": "Fette können als Energiereserve gespeichert werden."
-        },
-        {
-          "id": "only",
-          "text": "Eiweiße können grundsätzlich niemals zur Energieversorgung beitragen."
-        },
-        {
-          "id": "vitamins",
-          "text": "Vitamine ersetzen die Aminosäuren beim Aufbau von Eiweißketten."
-        }
-      ],
-      "correct": [
-        "carbs",
-        "protein",
-        "fat"
-      ],
-      "explanation": "Kohlenhydrate liefern Energie; Fette dienen unter anderem als Energiereserve. Aus Aminosäuren baut der Körper eigene Eiweiße. Eiweiße können auch zur Energieversorgung beitragen. Vitamine sind lebenswichtig, aber keine Bausteine von Eiweißketten."
-    },
-    {
-      "id": "bio008-cracker-in-mouth",
-      "type": "mcq",
-      "topic": "Verdauung im Mund",
-      "skills": [
-        "digestion.mouth",
         "enzymes.action"
       ],
-      "prompt": "Ein ungesüßtes, stärkehaltiges Knäckebrot wird gründlich gekaut und mit Speichel vermischt. Welche Vorgänge gehören dazu?",
+      "prompt": "In einem Gedankenversuch läuft dieselbe Spaltungsreaktion unter passenden Bedingungen mit einem Enzym schneller ab als ohne dieses Enzym. Welche Aussagen passen dazu?",
       "options": [
         {
-          "id": "surface",
-          "text": "Die Zähne schaffen kleinere Stücke mit insgesamt größerer zugänglicher Oberfläche."
+          "id": "speed",
+          "text": "Das Enzym beschleunigt die Reaktion."
         },
         {
-          "id": "amylase",
-          "text": "Amylase beginnt, Stärkemoleküle zu spalten."
+          "id": "reuse",
+          "text": "Das Enzym wird bei der Reaktion nicht verbraucht und kann erneut wirken."
         },
         {
-          "id": "glucose",
-          "text": "Die Zähne verwandeln Stärkemoleküle unmittelbar in einzelne Glucosemoleküle."
+          "id": "fuel",
+          "text": "Das Enzym muss als Brennstoff verbraucht werden, damit die Reaktion schneller wird."
         },
         {
-          "id": "new",
-          "text": "Durch das Zerbrechen entstehen zusätzliche Amylasemoleküle."
-        },
-        {
-          "id": "complete",
-          "text": "Die gesamte Stärkeverdauung muss schon im Mund abgeschlossen sein."
+          "id": "all",
+          "text": "Ein schneller wirkendes Enzym kann automatisch jede beliebige Stoffart spalten."
         }
       ],
       "correct": [
-        "surface",
-        "amylase"
+        "speed",
+        "reuse"
       ],
-      "explanation": "Kauen zerkleinert die Nahrung mechanisch und vergrößert die zugängliche Oberfläche. Amylase im Speichel beginnt die chemische Spaltung der Stärke. Weitere Verdauung erfolgt im Dünndarm; Zähne erzeugen weder Glucose durch enzymatische Spaltung noch neue Enzyme."
+      "explanation": "Enzyme beschleunigen passende chemische Reaktionen und werden dabei nicht verbraucht. Sie bleiben auf bestimmte Substrate spezialisiert. Schnelleres Arbeiten bedeutet nicht, dass jedes Substrat passt."
     },
     {
-      "id": "bio008-intestinal-jobs",
+      "id": "bio009-protein-stations",
       "type": "mcq",
-      "topic": "Dünndarm und Dickdarm",
+      "topic": "Eiweißverdauung zuordnen",
       "skills": [
+        "digestion.proteins",
+        "digestion.stomach",
         "digestion.intestines"
       ],
-      "prompt": "Welche Aussagen beschreiben die unterschiedlichen Aufgaben von Dünndarm und Dickdarm richtig?",
+      "prompt": "Für ein Ablaufmodell werden Stationen der Eiweißverdauung beschriftet. Welche Beschriftungen stimmen?",
       "options": [
         {
-          "id": "finish",
-          "text": "Im Dünndarm werden Nährstoffe weiter in aufnehmbare Bausteine zerlegt."
+          "id": "stomach",
+          "text": "Magen: Pepsin spaltet Eiweiß in kleinere Eiweißstücke, die Peptide."
         },
         {
-          "id": "uptake",
-          "text": "Glucose und Aminosäuren können durch die Dünndarmwand ins Blut aufgenommen werden."
+          "id": "intestine",
+          "text": "Dünndarm: Weitere Enzyme zerlegen Eiweißstücke bis zu einzelnen Aminosäuren."
         },
         {
-          "id": "water",
-          "text": "Im Dickdarm wird dem verbliebenen Darminhalt Wasser entzogen; er wird dadurch eingedickt."
+          "id": "blood",
+          "text": "Dünndarmwand: Aminosäuren werden ins Blut aufgenommen."
         },
         {
           "id": "swap",
-          "text": "Die Aufnahme von Glucose findet normalerweise erst nach der Ausscheidung statt."
+          "text": "Dünndarm: Pepsin übernimmt dort die abschließende Zerlegung zu Aminosäuren."
         },
         {
-          "id": "energy",
-          "text": "Darmzotten wandeln aufgenommene Glucose unmittelbar in Muskelbewegungen um."
+          "id": "product",
+          "text": "Peptide sind ein anderer Name für das Enzym Pepsin."
         }
       ],
       "correct": [
-        "finish",
-        "uptake",
-        "water"
+        "stomach",
+        "intestine",
+        "blood"
       ],
-      "explanation": "Der Dünndarm dient der weiteren Verdauung und Aufnahme von Bausteinen. Im Dickdarm wird unter anderem Wasser zurückgewonnen. Aufnahme ist vom späteren Stoffwechsel in Körperzellen zu unterscheiden; Darmzotten vergrößern die Aufnahmefläche."
+      "explanation": "Pepsin wirkt im Magen und erzeugt kleinere Eiweißstücke. Andere Enzyme setzen die Verdauung im Dünndarm bis zu Aminosäuren fort. Die Aufnahme ins Blut folgt auf die Zerlegung; Enzym und Spaltprodukte sind verschiedene Dinge."
     },
     {
-      "id": "bio008-three-fat-models",
+      "id": "bio009-surface-matching",
       "type": "mcq",
-      "topic": "Fettbausteine",
+      "topic": "Oberflächen und Aufgaben",
       "skills": [
-        "nutrients.fats",
-        "nutrients.building-blocks"
+        "digestion.mouth",
+        "digestion.intestines",
+        "enzymes.action"
       ],
-      "prompt": "Drei vollständige Triglyceridmodelle sollen in ihre einzelnen Bausteine zerlegt werden. Welche Angaben passen zur gesamten Sammlung danach?",
+      "prompt": "Zwei Karten zeigen „Nahrung in viele kleine Stücke zerteilt“ und „Dünndarmwand mit vielen Zotten“. Welche Erklärungen passen?",
       "options": [
         {
-          "id": "glycerin",
-          "text": "Drei Glycerinbausteine."
+          "id": "food",
+          "text": "Die kleinen Nahrungsstücke bieten zusammen mehr zugängliche Oberfläche für Verdauungsenzyme."
         },
         {
-          "id": "acids",
-          "text": "Neun Fettsäurebausteine."
+          "id": "wall",
+          "text": "Die Darmzotten bieten eine große Fläche für die Aufnahme von Nährstoffbausteinen."
         },
         {
-          "id": "three",
-          "text": "Nur drei Fettsäurebausteine."
+          "id": "same",
+          "text": "Beide Karten zeigen ausschließlich eine Vergrößerung der Nahrungsoberfläche."
         },
         {
-          "id": "amino",
-          "text": "Neun Aminosäuren statt Fettsäuren."
+          "id": "enzymes",
+          "text": "Beim Zerteilen der Nahrung entstehen neue Enzymmoleküle."
+        },
+        {
+          "id": "teeth",
+          "text": "Durch das Kauen werden Bausteine unmittelbar durch die Zähne ins Blut aufgenommen."
         }
       ],
       "correct": [
-        "glycerin",
-        "acids"
+        "food",
+        "wall"
       ],
-      "explanation": "Ein Triglycerid enthält ein Glycerin und drei Fettsäuren. Drei Modelle ergeben daher drei Glycerin und neun Fettsäuren. Aminosäuren sind Eiweißbausteine."
+      "explanation": "Die Nahrungsoberfläche erleichtert den Kontakt mit Enzymen. Die Oberfläche der Dünndarmwand erleichtert die Aufnahme. Kauen vergrößert keine Darmwand und stellt keine Enzyme her."
     },
     {
-      "id": "bio008-enzyme-comparison",
+      "id": "bio009-glucose-use",
       "type": "mcq",
-      "topic": "Enzyme richtig zuordnen",
+      "topic": "Glucose in der Muskelzelle",
       "skills": [
-        "enzymes.action",
-        "digestion.proteins",
-        "digestion.stomach"
-      ],
-      "prompt": "Für ein Lernplakat werden Aussagen über Verdauungsenzyme gesammelt. Welche dürfen stehen bleiben?",
-      "options": [
-        {
-          "id": "specific",
-          "text": "Amylase und Pepsin wirken an unterschiedlichen Arten von Ausgangsstoffen."
-        },
-        {
-          "id": "lipase",
-          "text": "Lipase ist ein Beispiel für ein fettspaltendes Enzym."
-        },
-        {
-          "id": "peptides",
-          "text": "Peptide sind die Enzyme, die im Magen Pepsin herstellen."
-        },
-        {
-          "id": "acid",
-          "text": "Salzsäure und Pepsin sind zwei Namen für dasselbe Enzym."
-        },
-        {
-          "id": "three",
-          "text": "Im menschlichen Körper existieren insgesamt genau drei Enzyme."
-        }
-      ],
-      "correct": [
-        "specific",
-        "lipase"
-      ],
-      "explanation": "Amylase spaltet Stärke, Pepsin spaltet Eiweiß und Lipase spaltet Fett. Das sind Beispiele unter vielen Enzymen. Peptide sind kleinere Eiweißstücke. Salzsäure ist kein Enzym; sie schafft im Magen geeignete saure Bedingungen für Pepsin."
-    },
-    {
-      "id": "bio008-absorption-term",
-      "type": "frq",
-      "topic": "Fachbegriff zur Aufnahme",
-      "skills": [
+        "metabolism.energy",
         "digestion.intestines"
       ],
-      "prompt": "Wie heißt die Aufnahme verdauter Nährstoffbausteine durch die Darmwand in den Körper? Nenne den Fachbegriff mit einem Wort."
-    },
-    {
-      "id": "bio008-stomach-pieces",
-      "type": "frq",
-      "topic": "Eiweißstücke im Magen",
-      "skills": [
-        "digestion.stomach",
-        "digestion.proteins"
+      "prompt": "Eine Muskelzelle nutzt Glucose beim Radfahren zur Energieversorgung. Welche Aussagen erklären diesen Vorgang richtig?",
+      "options": [
+        {
+          "id": "breakdown",
+          "text": "Glucose wird in der Muskelzelle abgebaut."
+        },
+        {
+          "id": "release",
+          "text": "Dabei wird nutzbare Energie für die Muskelarbeit frei."
+        },
+        {
+          "id": "transport",
+          "text": "Allein der Transport von Glucose im Blut ist bereits ihr Abbau in der Muskelzelle."
+        },
+        {
+          "id": "identity",
+          "text": "Glucose und Energie sind zwei Wörter für denselben Stoff."
+        }
       ],
-      "prompt": "Wie heißen die kleineren Eiweißketten, die bei der Eiweißspaltung im Magen entstehen? Gesucht ist der Fachbegriff, nicht das Enzym. Antworte mit einem Wort."
-    },
-    {
-      "id": "bio008-starch-building-block",
-      "type": "frq",
-      "topic": "Stärke aufbauen",
-      "skills": [
-        "nutrients.building-blocks"
+      "correct": [
+        "breakdown",
+        "release"
       ],
-      "prompt": "Für ein Modell einer Stärkekette brauchst du viele Bausteine derselben Zuckerart. Welche Zuckerart ist das? Antworte mit einem Wort."
+      "explanation": "Glucose ist ein Stoff, dessen Abbau nutzbare Energie bereitstellt. Transport und Aufnahme bringen Glucose zur Zelle; sie sind vom anschließenden Abbau zu unterscheiden."
     },
     {
-      "id": "bio008-building-process",
-      "type": "frq",
-      "topic": "Körpereigene Stoffe bilden",
+      "id": "bio009-building-after-uptake",
+      "type": "mcq",
+      "topic": "Bausteine verwenden",
       "skills": [
         "metabolism.building",
         "nutrients.roles"
       ],
-      "prompt": "Eine Hautzelle verbindet Aminosäuren zu einem körpereigenen Eiweiß. Zu welchem Bereich des Stoffwechsels gehört dieser Aufbau? Antworte mit einem Fachbegriff."
+      "prompt": "Aminosäuren aus einer Mahlzeit sind über das Blut zu Körperzellen gelangt. Welche Aussagen über ihre Verwendung stimmen?",
+      "options": [
+        {
+          "id": "own",
+          "text": "Zellen können daraus neue körpereigene Eiweiße aufbauen."
+        },
+        {
+          "id": "energy",
+          "text": "Der Aufbau körpereigener Eiweiße benötigt Energie."
+        },
+        {
+          "id": "finished",
+          "text": "Mit der Aufnahme ins Blut ist der Aufbau neuer Eiweiße bereits vollständig abgeschlossen."
+        },
+        {
+          "id": "fat",
+          "text": "Jede Aminosäure ist ein vollständiges Fettmolekül aus Glycerin und drei Fettsäuren."
+        }
+      ],
+      "correct": [
+        "own",
+        "energy"
+      ],
+      "explanation": "Aufnahme und Transport liefern Bausteine. Erst in den Körperzellen können daraus neue körpereigene Eiweiße entstehen. Dieser Aufbaustoffwechsel benötigt Energie."
     },
     {
-      "id": "bio008-protective-layer",
+      "id": "bio009-speed-blank",
       "type": "frq",
-      "topic": "Magenschutz",
+      "topic": "Lücke: Enzymdefinition",
+      "skills": [
+        "enzymes.action"
+      ],
+      "prompt": "Ergänze das fehlende Verb: „Enzyme ___ chemische Reaktionen.“ Schreibe nur das fehlende Wort."
+    },
+    {
+      "id": "bio009-protein-blanks",
+      "type": "frq",
+      "topic": "Lücken: Magen und Dünndarm",
+      "skills": [
+        "digestion.proteins",
+        "digestion.stomach",
+        "digestion.intestines"
+      ],
+      "prompt": "Ergänze die drei Lücken: „Im Magen spaltet das Enzym (1) ___ Eiweiß in kleinere Stücke, die (2) ___. Im Dünndarm entstehen bei der weiteren Zerlegung einzelne (3) ___.“ Schreibe nur 1–3 mit den passenden Wörtern."
+    },
+    {
+      "id": "bio009-surface-blanks",
+      "type": "frq",
+      "topic": "Lücken: Welche Oberfläche?",
+      "skills": [
+        "digestion.mouth",
+        "digestion.intestines"
+      ],
+      "prompt": "Ergänze jeweils, wessen Oberfläche gemeint ist: „Kauen vergrößert die zugängliche Oberfläche der (1) ___. Darmzotten vergrößern die Oberfläche der (2) ___.“ Schreibe nur 1 und 2 mit je einem oder wenigen Wörtern."
+    },
+    {
+      "id": "bio009-energy-blanks",
+      "type": "frq",
+      "topic": "Lücken: Energie bereitstellen",
+      "skills": [
+        "metabolism.energy"
+      ],
+      "prompt": "Ergänze: „Zur Energieversorgung wird Glucose in Muskelzellen (1) ___. Dabei wird nutzbare (2) ___ frei.“ Schreibe nur 1 und 2 mit den passenden Wörtern."
+    },
+    {
+      "id": "bio009-protection-blank",
+      "type": "frq",
+      "topic": "Lücke: Magenschutz",
       "skills": [
         "digestion.stomach"
       ],
-      "prompt": "Welche Schicht liegt schützend auf der Magenschleimhaut und hält den Magensaft von der Magenwand fern? Nenne die schützende Auflage mit einem Begriff."
+      "prompt": "Ergänze den Namen der schützenden Auflage, nicht des Gewebes: „Die ___ liegt auf der Magenschleimhaut und schützt die Magenwand vor dem Magensaft.“ Schreibe nur den fehlenden Begriff."
     },
     {
-      "id": "bio008-enzyme-definition-transfer",
+      "id": "bio009-enzyme-explanation",
       "type": "frq",
-      "topic": "Enzyme erklären",
+      "topic": "Enzymwirkung begründen",
       "skills": [
         "enzymes.action"
       ],
-      "prompt": "Erkläre in eigenen Worten, was ein Enzym bei einer chemischen Reaktion bewirkt. Begründe außerdem, warum viele Teilchen eines passenden Stoffes nacheinander von demselben Enzym umgesetzt werden können, während ein unpassender Stoff nicht umgesetzt wird. Etwa 3–4 Sätze genügen."
+      "prompt": "Ein Enzym hat ein passendes Stoffteilchen umgesetzt. Danach trifft es auf ein weiteres passendes und auf ein unpassendes Teilchen. Erkläre in etwa 3–4 Sätzen, wie das Enzym die Reaktionsgeschwindigkeit beeinflusst, warum es erneut wirken kann und warum es den unpassenden Stoff nicht umsetzt."
     },
     {
-      "id": "bio008-stomach-to-building",
+      "id": "bio009-protein-to-cell",
       "type": "frq",
-      "topic": "Vom Nahrungseiweiß zum Körperbaustoff",
+      "topic": "Vom Eiweiß zum körpereigenen Stoff",
       "skills": [
-        "digestion.stomach",
         "digestion.proteins",
+        "digestion.stomach",
         "digestion.intestines",
         "metabolism.building"
       ],
-      "prompt": "Erkläre den Weg des Eiweißes aus einem gekochten Ei: Was geschieht damit im Magen und anschließend im Dünndarm? Wie gelangen seine Bausteine zu den Körperzellen, und wofür können die Zellen sie beim Aufbau verwenden? Schreibe etwa 4–5 Sätze und nenne die wichtigen Stoffe und das Enzym im Magen."
+      "prompt": "Beschreibe den Weg von Eiweiß aus Quark bis zum Aufbau eines körpereigenen Eiweißes. Beginne im Magen und gehe über den Dünndarm und das Blut bis zur Körperzelle. Nenne, welche Stoffe an den einzelnen Stationen entstehen und wo Pepsin wirkt. Etwa 4–5 Sätze genügen."
     },
     {
-      "id": "bio008-rice-to-movement",
+      "id": "bio009-compare-two-changes",
       "type": "frq",
-      "topic": "Von Stärke zu Bewegung",
-      "skills": [
-        "nutrients.building-blocks",
-        "digestion.intestines",
-        "metabolism.energy"
-      ],
-      "prompt": "Nach einer Reismahlzeit nutzt eine Muskelzelle aufgenommene Glucose beim Treppensteigen. Erkläre in etwa 3–4 Sätzen den Zusammenhang zwischen Stärke, Glucose und der Energie für die Bewegung. Beschreibe dabei auch, wie Glucose aus dem Dünndarm zur Muskelzelle gelangt."
-    },
-    {
-      "id": "bio008-stomach-acid-claim",
-      "type": "frq",
-      "topic": "Aufgaben im Magen begründen",
-      "skills": [
-        "digestion.stomach",
-        "enzymes.action"
-      ],
-      "prompt": "Jemand behauptet: „Für die Eiweißverdauung im Magen reicht Salzsäure allein. Pepsin und die Schleimschicht haben keine eigene Aufgabe.“ Erkläre, warum diese Aussage falsch ist. Beschreibe die unterschiedlichen Aufgaben aller drei Bestandteile in etwa 3–4 Sätzen."
-    },
-    {
-      "id": "bio008-two-surfaces",
-      "type": "frq",
-      "topic": "Zwei Oberflächen vergleichen",
+      "topic": "Zwei Veränderungen erklären",
       "skills": [
         "digestion.mouth",
         "digestion.intestines",
         "enzymes.action"
       ],
-      "prompt": "Warum helfen sowohl gründliches Kauen als auch die vielen Darmzotten bei der Verarbeitung der Nahrung? Vergleiche in etwa 3–4 Sätzen, welche Oberfläche jeweils größer wird und welcher Vorgang dadurch erleichtert wird."
+      "prompt": "Vergleiche zwei Veränderungen: Ein großes Brotstück wird in viele kleine Stücke zerkaut. Eine Dünndarmwand besitzt viele Zotten statt einer glatten Oberfläche. Erkläre für jede Veränderung, wessen Oberfläche größer ist und welcher Vorgang dadurch erleichtert wird. Schreibe etwa 3–4 Sätze."
+    },
+    {
+      "id": "bio009-after-glucose-arrives",
+      "type": "frq",
+      "topic": "Nach der Aufnahme",
+      "skills": [
+        "metabolism.energy",
+        "digestion.intestines"
+      ],
+      "prompt": "Glucose aus einer Mahlzeit ist bereits durch die Dünndarmwand ins Blut und von dort in eine Muskelzelle gelangt. Erkläre, was mit ihr zur Energieversorgung der Zelle geschieht und wofür die frei werdende Energie dienen kann. Warum erklärt der Satz „Die Glucose ist im Blut“ allein noch keine Energieversorgung der Muskelarbeit? Etwa 3 Sätze genügen."
+    },
+    {
+      "id": "bio009-building-needs-energy",
+      "type": "frq",
+      "topic": "Aufbau und Energie verbinden",
+      "skills": [
+        "metabolism.building",
+        "metabolism.energy",
+        "nutrients.roles"
+      ],
+      "prompt": "Eine Zelle bekommt Aminosäuren und Glucose über das Blut. Erkläre, wie sie die Aminosäuren zum Aufbau nutzen und durch den Abbau von Glucose Energie dafür bereitstellen kann. Benenne die beiden Bereiche des Stoffwechsels und begründe, warum die Zelle für den Aufbau nicht nur Bausteine braucht. Etwa 3–4 Sätze genügen."
     }
   ],
-  "canonicalPath": "./tests/biology-grade-8/008-essential-connections/"
+  "canonicalPath": "./tests/biology-grade-8/009-explain-the-missing-steps/"
 };
