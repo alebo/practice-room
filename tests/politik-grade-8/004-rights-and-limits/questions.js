@@ -253,5 +253,5 @@ export const quiz = {
       "prompt": "Ein privater Elektronikhändler verlangt von einer erwachsenen Kundin den Kaufpreis für einen gelieferten Laptop. Das Finanzamt verlangt von ihr eine Steuerzahlung. Ordne beide Forderungen dem Privatrecht oder dem öffentlichen Recht zu und begründe den Unterschied anhand der Rolle der Beteiligten. Erkläre außerdem, warum ein Gerichtsverfahren den Kaufpreisanspruch nicht allein deshalb zu öffentlichem Recht macht. Antworte in 3–5 Sätzen."
     }
   ],
-  "canonicalPath": "./"
+  "canonicalPath": "../../../tests/politics-grade-8-2026-11/004-rights-and-limits/"
 };

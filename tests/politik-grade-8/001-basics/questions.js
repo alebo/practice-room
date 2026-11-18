@@ -627,5 +627,5 @@ export const quiz = {
       "explanation": "Staatliche Hoheitsgewalt bedeutet keine Freiheit von rechtlichen Grenzen. Gerade der Rechtsstaat bindet die Ausübung staatlicher Macht an das Recht."
     }
   ],
-  "canonicalPath": "./"
+  "canonicalPath": "../../../tests/politics-grade-8-2026-11/001-basics/"
 };

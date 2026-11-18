@@ -335,5 +335,5 @@ export const quiz = {
       ]
     }
   ],
-  "canonicalPath": "./"
+  "canonicalPath": "../../../tests/biology-grade-8-2026-11/002-nutrients-and-digestion/"
 };

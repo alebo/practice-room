@@ -253,5 +253,5 @@ export const quiz = {
       "prompt": "Jemand behauptet: „Mit einer ausreichend großen Mehrheit darf man die Demokratie durch eine Änderung des Grundgesetzes abschaffen.“ Beurteile diese Aussage und erkläre die Bedeutung der Ewigkeitsklausel. Erläutere außerdem, warum dieser Schutz nicht bedeutet, dass jedes Grundrecht in jeder Situation grenzenlos ausgeübt werden darf. Antworte in 3–5 Sätzen."
     }
   ],
-  "canonicalPath": "./"
+  "canonicalPath": "../../../tests/politics-grade-8-2026-11/002-state-powers-and-law/"
 };

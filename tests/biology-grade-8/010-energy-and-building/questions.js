@@ -295,5 +295,5 @@ export const quiz = {
       "prompt": "Eine Erklärung endet so: „Darmzotten vergrößern die Oberfläche der Dünndarmwand. Dadurch kann Glucose gut aufgenommen werden.“ Erkläre zuerst, warum die große Oberfläche bei der Aufnahme hilft. Ergänze dann, welche weiteren Schritte nötig sind, damit Glucose einer Muskelzelle Energie für Bewegung bereitstellt. Etwa 3–4 Sätze genügen."
     }
   ],
-  "canonicalPath": "./"
+  "canonicalPath": "../../../tests/biology-grade-8-2026-11/010-energy-and-building/"
 };

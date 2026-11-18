@@ -386,5 +386,5 @@ export const quiz = {
       "prompt": "Welche Säure im Magensaft schafft das saure Milieu für Pepsin? Nenne nur den Stoffnamen."
     }
   ],
-  "canonicalPath": "./"
+  "canonicalPath": "../../../tests/biology-grade-8-2026-11/004-surfaces-and-building-blocks/"
 };

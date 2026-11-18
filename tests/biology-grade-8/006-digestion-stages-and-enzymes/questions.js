@@ -287,5 +287,5 @@ export const quiz = {
       "prompt": "In einer Beschreibung steht: „Salzsäure, Pepsin und Schleim machen im Magen alle dasselbe.“ Erkläre in 3–4 Sätzen, warum das falsch ist. Ordne jedem der drei Bestandteile seine Aufgabe zu und erläutere, weshalb ein saures Milieu allein die Aufgabe des Enzyms nicht ersetzt."
     }
   ],
-  "canonicalPath": "./"
+  "canonicalPath": "../../../tests/biology-grade-8-2026-11/006-digestion-stages-and-enzymes/"
 };

@@ -252,5 +252,5 @@ export const quiz = {
       "prompt": "Ein Fahrradladen fordert nach einem Kauf die vereinbarte Zahlung. Die Kundin widerspricht und der Streit kommt vor Gericht. Erkläre in 3–4 Sätzen, welchem Rechtsbereich der Zahlungsanspruch zuzuordnen ist, warum das Gericht daran nichts ändert und weshalb ein unabhängiges Gericht für beide Seiten wichtig ist."
     }
   ],
-  "canonicalPath": "./"
+  "canonicalPath": "../../../tests/politics-grade-8-2026-11/005-explain-constitutional-protection/"
 };
