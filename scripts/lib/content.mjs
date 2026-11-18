@@ -7,12 +7,22 @@ export function slug(value, label = 'identifier') {
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(value || '')) throw new Error(`Invalid ${label}: use lowercase English letters, digits and hyphens.`);
   return value;
 }
+export function testId(value) {
+  slug(value, 'test');
+  if (!/^[a-z0-9]+(?:-[a-z0-9]+)*-\d{4}-(?:0[1-9]|1[0-2])(?:-[a-z0-9]+)*$/.test(value)) throw new Error('Test ID must include a year-month suffix, for example biology-grade-8-2026-11.');
+  return value;
+}
+export function latestSubjects(sets) {
+  const latest = new Map();
+  for (const item of [...sets].sort((a,b) => a.test.localeCompare(b.test,'en',{numeric:true}) || a.set.localeCompare(b.set,'en',{numeric:true}))) latest.set(item.metadata.subject,item);
+  return [...latest.values()].sort((a,b)=>a.metadata.title.localeCompare(b.metadata.title,'de'));
+}
 export async function readJSON(file) { return JSON.parse(await readFile(file, 'utf8')); }
 export async function loadSet(test, set) {
-  slug(test, 'test'); slug(set, 'set');
+  testId(test); slug(set, 'set');
   const directory = path.join(root, 'content/tests', test, 'sets', set);
   const metadata = await readJSON(path.join(root, 'content/tests', test, 'test.json'));
-  if (metadata.id !== test || !metadata.title) throw new Error(`Invalid test metadata: ${test}`);
+  if (metadata.id !== test || !metadata.title || !metadata.subject || !/^\d{4}-(0[1-9]|1[0-2])$/.test(metadata.month) || !test.startsWith(`${metadata.subject}-${metadata.month}`)) throw new Error(`Invalid test metadata: ${test}`);
   const quiz = await readJSON(path.join(directory, 'quiz.json'));
   validateQuiz(quiz);
   if (!quiz.id || !Number.isInteger(quiz.version) || quiz.version < 1 || !quiz.title || !quiz.label || !quiz.language) throw new Error(`Missing quiz metadata in ${test}/${set}`);
@@ -30,7 +40,9 @@ export async function loadSet(test, set) {
 export async function listSets() {
   const sets = [];
   for (const test of (await readdir(path.join(root, 'content/tests'), { withFileTypes: true })).filter(d => d.isDirectory()).sort((a,b)=>a.name.localeCompare(b.name))) {
-    slug(test.name, 'test');
+    testId(test.name);
+    // Source preparation may precede the first exercise and its metadata.
+    try { await lstat(path.join(root, 'content/tests', test.name, 'test.json')); } catch (error) { if (error.code === 'ENOENT') continue; throw error; }
     for (const set of (await readdir(path.join(root, 'content/tests', test.name, 'sets'), { withFileTypes: true })).filter(d => d.isDirectory()).sort((a,b)=>a.name.localeCompare(b.name))) {
       sets.push(await loadSet(test.name, set.name));
     }

@@ -9,8 +9,8 @@ app/                                  Shared quiz UI, scoring, reports, and styl
 scripts/                              Content, build, publishing, and evidence tools
 content/
   active-set.json                     Exercise shown at the homepage
-  tests/biology-grade-8/
-    test.json                         Test metadata
+  tests/biology-grade-8-2026-11/
+    test.json                         Test metadata: subject, month, display title, legacy routes
     sets/
       001-basics/quiz.json             Original single-answer exercise
       002-nutrients-and-digestion/
@@ -30,7 +30,7 @@ private/
       report.txt                      Original imported report
       attempt.json                    Answers plus exact quiz snapshot and provenance
       review.json                     Verifier assessments and notes
-    knowledge-gaps.json               Evidence grouped by skill
+    knowledge-gaps.json               Evidence for this test only, grouped by skill
 .agents/skills/quiz-content/           Project-local question-authoring skill
 tests/                                Unit/browser checks and sample fixtures
 deployment/pages-workflow.yml         Optional Actions workflow template
@@ -57,8 +57,8 @@ npm start
 Open http://127.0.0.1:4173. The homepage opens the active set; each set also has a stable route:
 
 ```text
-/tests/biology-grade-8/001-basics/
-/tests/biology-grade-8/002-nutrients-and-digestion/
+/tests/biology-grade-8-2026-11/001-basics/
+/tests/biology-grade-8-2026-11/002-nutrients-and-digestion/
 ```
 
 Copied reports use the stable set URL even when a visitor starts at the homepage. All sets share the same app and Mermaid bundle. Browser progress is keyed by quiz ID, so sets do not overwrite one another.
@@ -79,19 +79,19 @@ Browser checks explicitly build with sample assets; ordinary builds and publishi
 1. Create a set with English slugs:
 
    ```sh
-   npm run set:new -- --test biology-grade-8 --set 003-targeted-practice --title "Gezielt weiterüben"
+   npm run set:new -- --test biology-grade-8-2026-11 --set 003-targeted-practice --title "Gezielt weiterüben"
    ```
 
-2. Replace the scaffold in `content/tests/biology-grade-8/sets/003-targeted-practice/quiz.json`. This JSON is the only app input; optional text handouts are reference documents, not a second runtime source. Put selected images in the set's `assets/`. Use the local `$quiz-content` skill for authoring conventions.
+2. Replace the scaffold in `content/tests/biology-grade-8-2026-11/sets/003-targeted-practice/quiz.json`. This JSON is the only app input; optional text handouts are reference documents, not a second runtime source. Put selected images in the set's `assets/`. Use the local `$quiz-content` skill for authoring conventions.
 3. Choose the homepage set:
 
    ```sh
-   npm run set:activate -- --test biology-grade-8 --set 003-targeted-practice
+   npm run set:activate -- --test biology-grade-8-2026-11 --set 003-targeted-practice
    npm test
    npm run build
    ```
 
-   To preview a different homepage without saving that selection, use `npm run build -- --test biology-grade-8 --set 003-targeted-practice`.
+   To preview a different homepage without saving that selection, use `npm run build -- --test biology-grade-8-2026-11 --set 003-targeted-practice`.
 
 4. Review locally, run relevant browser checks, and commit the app/content changes. Push source to `main` when sharing the changes.
 5. When publication is requested, run:
@@ -119,11 +119,11 @@ The UI remains German and content is rendered as plain text, except explicitly s
 
 ## Import answers and prepare targeted follow-up questions
 
-Visitors finish a test and can either copy the report text or explicitly create an encrypted sharing link. The site does not automatically upload answers or collect identities. Save a received report in `private/learners/<learner-id>/imports/`, then:
+Visitors finish a test and can either copy the report text or explicitly create an encrypted sharing link. The site does not automatically upload answers or collect identities. Save a received report in `private/learners/<learner-id>/tests/<test>/imports/`, then:
 
 ```sh
-npm run answers:import -- --learner learner-001 --test biology-grade-8 --set 002-nutrients-and-digestion --file private/learners/learner-001/imports/set-002-report.txt
-npm run answers:gaps -- --learner learner-001
+npm run answers:import -- --learner learner-001 --test biology-grade-8-2026-11 --set 002-nutrients-and-digestion --file private/learners/learner-001/tests/biology-grade-8-2026-11/imports/set-002-report.txt
+npm run answers:gaps -- --learner learner-001 --test biology-grade-8-2026-11
 ```
 
 Import checks the title/version and matches every question and selected option to that quiz. It rejects mismatches and duplicate reports, preserves raw text and the quiz snapshot, and recalculates MCQ correctness. An ambiguous text report is rejected for manual clarification rather than guessed. The literal FRQ response “Nicht beantwortet” is treated as skipped because the copied text does not distinguish it from a blank answer.
@@ -135,8 +135,8 @@ At the end of a test, **Link erstellen** encrypts the current full-test report i
 The selected instance currently allows three-day pastes and enforces a one-minute interval between uploads. The page reuses an existing unexpired link for unchanged answers. Editing an FRQ marks the existing link as outdated; creating a new link shares a new snapshot. Old links are not silently updated. Burn-after-reading and discussions are disabled. The app's report limit is 512 KiB.
 
 ```sh
-npm run answers:import -- --learner learner-001 --test biology-grade-8 --set 002-nutrients-and-digestion --url 'https://privatebin.net/?PASTE_ID#KEY'
-npm run answers:gaps -- --learner learner-001
+npm run answers:import -- --learner learner-001 --test biology-grade-8-2026-11 --set 002-nutrients-and-digestion --url 'https://privatebin.net/?PASTE_ID#KEY'
+npm run answers:gaps -- --learner learner-001 --test biology-grade-8-2026-11
 ```
 
 Supply the complete URL, including the fragment after `#`. That fragment is the decryption key: anyone holding the complete link can read the report. The importer fetches ciphertext without sending the key, decrypts locally, and uses the same validated report import as `--file`. It accepts only `privatebin.net` HTTPS links; password-protected pastes are not supported. Full secret links are not written to import provenance or printed by the importer.
@@ -147,7 +147,7 @@ Protocol reference: https://github.com/PrivateBin/PrivateBin/wiki/Encryption-for
 
 For FRQs, edit the attempt's `review.json`: `assessment` is `unreviewed`, `correct`, `partial`, or `incorrect`; add `notes` explaining the evidence. MCQ scores remain derived from the selected answers; review notes may supplement them. Run `answers:gaps` again after review.
 
-The resulting local `knowledge-gaps.json` groups evidence by `skills` (or `topic` as a fallback), recording the original prompt, missed correct options, incorrect selections, verifier notes, and attempt references. Unreviewed FRQs are listed separately and do not count as gaps. Import timestamps are not the dates when the learner took the test. Repeated attempts are retained as separate observations, not treated as independent proof of knowledge.
+The resulting local `private/learners/<learner-id>/tests/<test>/knowledge-gaps.json` groups evidence by `skills` (or `topic` as a fallback), recording the original prompt, missed correct options, incorrect selections, verifier notes, and attempt references. Unreviewed FRQs are listed separately and do not count as gaps. Import timestamps are not the dates when the learner took the test. Repeated attempts are retained as separate observations, not treated as independent proof of knowledge.
 
 To create the next exercise, read this evidence, choose the concepts needing practice, and author a new set using those skill tags. Keep learner-specific rationale and attempt references in `private/`; publish only the resulting questions. This workflow supports evidence-based authoring; it does not automatically invent questions or infer mastery from a single answer.
 
@@ -159,6 +159,14 @@ MCQs can be left unanswered with **Weiß ich nicht**. The solution is shown befo
 
 During an attempt, **Zurück** revisits earlier questions. FRQ responses remain editable, later drafts survive navigation and reloads, and checked MCQs stay locked after solutions have been shown.
 
-The header subject selector lists each test collection by its display title and opens its latest exercise set (highest numbered set directory). This is independent of the configured homepage set. Older sets remain available through their permanent URLs; switching subjects preserves each quiz’s saved progress.
+The header subject selector groups dated tests by `test.json` → `subject` and opens the newest test, then its latest exercise set (highest numbered set directory). This is independent of the configured homepage set. Older sets remain available through their permanent URLs; switching subjects preserves each quiz’s saved progress.
 
 The **Neueste Übung laden** button checks the published `latest-sets.json` for the current subject and opens its newest set. It requests a fresh manifest and uses a refresh token for the page and question data, so an already-open older page can discover a newly published set. Saved answers stay attached to their quiz ID; loading the same set does not reset an attempt or replace its saved version. If the lookup fails, the current attempt remains open and the button can be retried.
+
+## Dated tests and isolated learner evidence
+
+A test is a specific assessment, not an entire school subject. Use IDs such as `biology-grade-8-2026-11` and `politics-grade-8-2026-11`; append an additional identifier for multiple tests in one month. Each test owns its sources and numbered exercise sets. A source-only test folder may exist before its first exercise is authored.
+
+`test.json` separates the stable subject key (`biology-grade-8`) from the test ID and month (`2026-11`). The build orders test IDs naturally and then set numbers; a later month takes precedence over a higher exercise number in an older month. `legacyIds` preserves former public paths, without duplicating canonical content. Published quiz/question IDs remain unchanged so browser answers survive the folder migration.
+
+All learner material belongs under `private/learners/<learner-id>/tests/<test>/`: `imports/`, `attempts/`, `reviews/`, `planning/`, `feedback/`, `practice/`, and the test's own `knowledge-gaps.json` as needed. Even unassigned evidence uses `private/learners/unassigned/tests/<test>/`. Never create a learner-wide answer or gap aggregate. `answers:gaps` requires `--test`; cross-test evidence is rejected. For a new assessment, create a new dated test instead of appending unrelated material to the previous assessment.

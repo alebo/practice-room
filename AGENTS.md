@@ -10,3 +10,6 @@
 - Publishing is an external action: use `npm run publish:pages` when the user requests publication. Do not hand-copy files or force-push the deployment branch. Verify the resulting Pages deployment and live page.
 - Standing user preference: automatically publish newly requested exercise sets after preparation and successful checks, unless the user explicitly asks for an unpublished draft. This does not authorize publishing learner evidence or source materials.
 - Preserve unrelated user files. Include generic code, scripts, documentation, tests, and project-local skills in Git when asked to commit workspace changes.
+
+- Test IDs identify a dated assessment: `<subject>-grade-<n>-YYYY-MM`, with an optional suffix for another test in the same month. `test.json` records `subject`, `month`, and optional `legacyIds`; keep existing public URLs working.
+- Separate all learner material by test under `private/learners/<learner-id>/tests/<test>/`, including imports, attempts, reviews, authoring notes, and knowledge-gaps.json. Never combine tests in a learner-wide evidence file. `answers:gaps` requires `--test`.

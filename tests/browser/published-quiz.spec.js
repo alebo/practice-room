@@ -2,11 +2,11 @@ import { test, expect } from '@playwright/test';
 import { readJSON, loadSet } from '../../scripts/lib/content.mjs';
 const active = await readJSON(new URL('../../content/active-set.json', import.meta.url));
 const {quiz: activeQuiz} = await loadSet(active.test, active.set);
-const {quiz} = await loadSet('biology-grade-8','002-nutrients-and-digestion');
+const {quiz} = await loadSet('biology-grade-8-2026-11','002-nutrients-and-digestion');
 test('published set: all ten multi-answer questions, explanations and copyable results', async ({page,context}) => {
   await context.grantPermissions(['clipboard-read','clipboard-write']);
   const errors=[]; page.on('pageerror',e=>errors.push(e.message));
-  await page.goto('/tests/biology-grade-8/002-nutrients-and-digestion/');
+  await page.goto('/tests/biology-grade-8-2026-11/002-nutrients-and-digestion/');
   await expect(page.locator('h1')).toHaveText(quiz.title);
   await expect(page.locator('.intro')).not.toContainText('Beispieltest');
   const seen=new Set();
@@ -36,13 +36,13 @@ test('published set: all ten multi-answer questions, explanations and copyable r
 });
 
 test('each exercise has a permanent route and separate saved progress',async({page})=>{
-  await page.goto('/tests/biology-grade-8/001-basics/');
+  await page.goto('/tests/biology-grade-8-2026-11/001-basics/');
   const title=await page.locator('#view-title').textContent();
   await page.locator('input').first().check();
-  await page.goto('/tests/biology-grade-8/002-nutrients-and-digestion/');
+  await page.goto('/tests/biology-grade-8-2026-11/002-nutrients-and-digestion/');
   await expect(page.locator('h1')).toHaveText(quiz.title);
   await expect(page.locator('input:checked')).toHaveCount(0);
-  await page.goto('/tests/biology-grade-8/001-basics/');
+  await page.goto('/tests/biology-grade-8-2026-11/001-basics/');
   await expect(page.locator('#view-title')).toHaveText(title);
   await expect(page.locator('input:checked')).toHaveCount(1);
   await page.goto('/');
@@ -53,8 +53,8 @@ test('subject selector opens latest sets and retains progress across subjects an
   const {listSets}=await import('../../scripts/lib/content.mjs');
   const sets=await listSets();
   const latest=test=>sets.filter(s=>s.test===test).sort((a,b)=>a.set.localeCompare(b.set,'en',{numeric:true})).at(-1);
-  const biology=latest('biology-grade-8'),politics=latest('politik-grade-8');
-  await page.goto('/tests/biology-grade-8/001-basics/');
+  const biology=latest('biology-grade-8-2026-11'),politics=latest('politics-grade-8-2026-11');
+  await page.goto('/tests/biology-grade-8-2026-11/001-basics/');
   await expect(page.getByRole('combobox',{name:'Fach auswählen'}).locator('option:checked')).toHaveText(biology.metadata.title);
   await page.locator('input[name="answer"]').first().check();
   await page.getByRole('combobox').selectOption({label:politics.metadata.title});
@@ -67,7 +67,7 @@ test('subject selector opens latest sets and retains progress across subjects an
   await page.getByRole('combobox').selectOption({label:politics.metadata.title});
   await expect(page.locator('#view-title')).toHaveText(prompt);
   await expect(page.locator('input:checked')).toHaveCount(1);
-  await page.goto('/tests/biology-grade-8/001-basics/');
+  await page.goto('/tests/biology-grade-8-2026-11/001-basics/');
   await expect(page.locator('input:checked')).toHaveCount(1);
   await page.setViewportSize({width:375,height:812});
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
@@ -85,12 +85,12 @@ test('subject selector opens latest sets and retains progress across subjects an
 });
 
 test('latest button fetches current subject destination and preserves answers across refreshes', async ({page}) => {
-  await page.goto('/tests/biology-grade-8/001-basics/');
+  await page.goto('/tests/biology-grade-8-2026-11/001-basics/');
   await page.locator('input[name="answer"]').first().check();
   const saved = await page.evaluate(() => localStorage.getItem('lernraum:biology-001-basics'));
   expect(saved).not.toBeNull();
   // Simulate a deployment newer than the already-open page's subject selector.
-  await page.route('**/latest-sets.json?*', route => route.fulfill({json:{'biology-grade-8':'tests/biology-grade-8/002-nutrients-and-digestion/'}}));
+  await page.route('**/latest-sets.json?*', route => route.fulfill({json:{'biology-grade-8-2026-11':'tests/biology-grade-8-2026-11/002-nutrients-and-digestion/'}}));
   const manifest = page.waitForRequest('**/latest-sets.json?*');
   await page.getByRole('button',{name:'Neueste Übung laden'}).click();
   expect((await manifest).url()).toContain('refresh=');
@@ -104,7 +104,7 @@ test('latest button fetches current subject destination and preserves answers ac
   await expect(page.locator('#view-title')).toHaveText(prompt);
   await expect(page.locator('input:checked')).toHaveCount(1);
   expect(await page.evaluate(() => localStorage.getItem('lernraum:biology-001-basics'))).toBe(saved);
-  await page.goto('/tests/biology-grade-8/001-basics/');
+  await page.goto('/tests/biology-grade-8-2026-11/001-basics/');
   await expect(page.locator('input:checked')).toHaveCount(1);
 });
 
@@ -118,4 +118,19 @@ test('latest button handles network failure without leaving the attempt', async 
   await expect(page.locator('input:checked')).toHaveCount(1);
   await page.setViewportSize({width:320,height:812});
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+});
+
+test('legacy test URLs retain progress and report the dated canonical URL',async({page})=>{
+  await page.goto('/tests/biology-grade-8/001-basics/');
+  await expect(page.locator('#view-title')).toBeVisible();
+  await page.locator('input[name=answer]').first().check();
+  const selected=await page.locator('input:checked').getAttribute('value');
+  await page.goto('/tests/biology-grade-8-2026-11/001-basics/');
+  await expect(page.locator('input:checked')).toHaveAttribute('value',selected);
+  const quiz=await page.evaluate(async()=> (await import('./questions.js')).quiz);
+  expect(quiz.canonicalPath).toBe('./');
+  await page.goto('/tests/biology-grade-8/001-basics/');
+  const legacy=await page.evaluate(async()=> (await import('./questions.js')).quiz);
+  expect(legacy.id).toBe(quiz.id);
+  expect(legacy.canonicalPath).toBe('../../../tests/biology-grade-8-2026-11/001-basics/');
 });

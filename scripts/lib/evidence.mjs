@@ -48,6 +48,8 @@ export function parseReport(raw, quiz) {
   return answers;
 }
 export function summarizeEvidence(attempts) {
+  const tests = new Set(attempts.map(({attempt})=>attempt.test));
+  if (tests.size > 1) throw new Error('Cannot combine evidence from different tests. Generate one summary per test.');
   const skills=new Map();
   for(const {attempt,review} of attempts) {
     for(const q of attempt.quiz.questions) {
@@ -70,5 +72,5 @@ export function summarizeEvidence(attempts) {
       }
     }
   }
-  return { generatedAt:new Date().toISOString(), interpretation:'Observed answers only. Unreviewed FRQs are not knowledge gaps. Evidence includes dates and attempts; repeated attempts are not independent measurements.', skills:[...skills.values()].sort((a,b)=>(b.incorrect+b.partial)-(a.incorrect+a.partial) || a.skill.localeCompare(b.skill)) };
+  return { test:attempts[0]?.attempt.test, generatedAt:new Date().toISOString(), interpretation:'Observed answers only. Unreviewed FRQs are not knowledge gaps. Evidence includes dates and attempts; repeated attempts are not independent measurements.', skills:[...skills.values()].sort((a,b)=>(b.incorrect+b.partial)-(a.incorrect+a.partial) || a.skill.localeCompare(b.skill)) };
 }

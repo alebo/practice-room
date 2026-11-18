@@ -2,13 +2,14 @@ import { parseArgs } from 'node:util';
 import { readFile, writeFile, mkdir, readdir } from 'node:fs/promises';
 import path from 'node:path';
 import { randomUUID, createHash } from 'node:crypto';
-import { root, slug, loadSet, readJSON } from './lib/content.mjs';
+import { root, slug, testId, loadSet, readJSON } from './lib/content.mjs';
 import { parseReport, summarizeEvidence } from './lib/evidence.mjs';
 import { fetchSharedReport } from '../app/privatebin.js';
 const action=process.argv[2];
 const {values}=parseArgs({args:process.argv.slice(3),options:{learner:{type:'string'},file:{type:'string'},url:{type:'string'},test:{type:'string'},set:{type:'string'}}});
 const learner=slug(values.learner,'learner');
-const directory=path.join(root,'private/learners',learner);
+const selectedTest=testId(values.test);
+const directory=path.join(root,'private/learners',learner,'tests',selectedTest);
 const attemptsDirectory=path.join(directory,'attempts');
 async function readAttempts() {
   let entries;
@@ -17,6 +18,7 @@ async function readAttempts() {
   for(const entry of entries.filter(e=>e.isDirectory())) {
     const folder=path.join(attemptsDirectory,entry.name);
     const attempt=await readJSON(path.join(folder,'attempt.json'));
+    if (attempt.test !== selectedTest) throw new Error(`Attempt ${attempt.id} belongs to another test: ${attempt.test}`);
     const review=await readJSON(path.join(folder,'review.json'));
     result.push({attempt,review});
   }
@@ -44,9 +46,9 @@ if(action==='import') {
   console.log('Edit review.json to assess FRQs or record observations; then run answers:gaps.');
 } else if(action==='gaps') {
   const attempts=await readAttempts();
-  if(!attempts.length) throw new Error('No imported attempts for this learner.');
+  if(!attempts.length) throw new Error('No imported attempts for this learner and test.');
   const summary=summarizeEvidence(attempts);
   await writeFile(path.join(directory,'knowledge-gaps.json'),JSON.stringify(summary,null,2)+'\n');
   for(const item of summary.skills) console.log(`${item.skill}: ${item.incorrect} incorrect, ${item.partial} partial, ${item.correct} correct, ${item.unreviewed} unreviewed`);
-  console.log(`Saved locally: private/learners/${learner}/knowledge-gaps.json`);
-} else throw new Error('Usage: answers.mjs import --learner ID --test ID --set ID (--file REPORT | --url PRIVATEBIN_LINK) | gaps --learner ID');
+  console.log(`Saved locally: private/learners/${learner}/tests/${selectedTest}/knowledge-gaps.json`);
+} else throw new Error('Usage: answers.mjs import --learner ID --test ID --set ID (--file REPORT | --url PRIVATEBIN_LINK) | gaps --learner ID --test ID');

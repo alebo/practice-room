@@ -95,19 +95,19 @@ No name field or central result collection exists. Visitors send the copied repo
 
 ## Use learner evidence for follow-up sets
 
-Learner data belongs only in ignored `private/learners/<learner-id>/`. Never commit responses, verifier notes, or knowledge-gap files or include them in site deployments. A learner may explicitly share an encrypted result through the PrivateBin button; never upload answers automatically. Raw source material belongs in ignored `content/tests/<test>/sources/`; selected published question images go in the set's `assets/`.
+Learner data belongs only in ignored `private/learners/<learner-id>/tests/<test>/`. Never commit responses, verifier notes, or knowledge-gap files or include them in site deployments. A learner may explicitly share an encrypted result through the PrivateBin button; never upload answers automatically. Raw source material belongs in ignored `content/tests/<test>/sources/`; selected published question images go in the set's `assets/`.
 
 Import a copied report with:
 
 ```sh
-npm run answers:import -- --learner learner-001 --test biology-grade-8 --set 002-nutrients-and-digestion --file private/learners/learner-001/imports/report.txt
-npm run answers:gaps -- --learner learner-001
+npm run answers:import -- --learner learner-001 --test biology-grade-8-2026-11 --set 002-nutrients-and-digestion --file private/learners/learner-001/tests/biology-grade-8-2026-11/imports/report.txt
+npm run answers:gaps -- --learner learner-001 --test biology-grade-8-2026-11
 ```
 
 For a learner's PrivateBin link, use `--url` instead of `--file`:
 
 ```sh
-npm run answers:import -- --learner learner-001 --test biology-grade-8 --set 002-nutrients-and-digestion --url 'https://privatebin.net/?PASTE_ID#KEY'
+npm run answers:import -- --learner learner-001 --test biology-grade-8-2026-11 --set 002-nutrients-and-digestion --url 'https://privatebin.net/?PASTE_ID#KEY'
 ```
 
 The full link including `#KEY` is required and grants access to the report; keep it out of Git and public messages. The importer accepts only the configured `privatebin.net` HTTPS service, retrieves ciphertext without transmitting the key, decrypts locally, and imports the original full-test report. Password-protected pastes are unsupported. Do not claim a successful import if the link expired, decryption failed, or the quiz version does not match. Use the retained browser report or original quiz version to resolve the issue.
@@ -125,3 +125,7 @@ For FRQs, the verifier records `unreviewed`, `correct`, `partial`, or `incorrect
 Run `npm test` and `npm run build` after editing question data. Use browser checks for new media or interaction changes; see `README.md`. The mixed-question sample lives in `tests/fixtures/` and is used only for regression coverage. Keep it independent of published content.
 
 `npm run publish:pages` publishes all sets and the selected homepage, using committed code/content and a clean build. Use it when publication is requested, then verify the Pages deployment and live URL. Do not manually synchronize duplicate question files. Ordinary builds exclude private evidence, source materials, text handouts, and test-only assets.
+
+## Dated test ownership
+
+Use a specific assessment ID such as `biology-grade-8-2026-11` or `politics-grade-8-2026-11`, with an optional distinguishing suffix for another test in the same month. Keep sources and exercise sets within that dated test. Test metadata separates `subject` and `month` from its full `id`; preserve published quiz IDs and any `legacyIds` routes. Store every learner artifact under `private/learners/<learner-id>/tests/<test>/` (also for `unassigned` evidence). Read only that test’s `knowledge-gaps.json`, attempts, and reviews when preparing targeted practice. Never create or use a learner-wide aggregate across tests. Run `npm run answers:gaps -- --learner ID --test TEST_ID` after importing or reviewing evidence.

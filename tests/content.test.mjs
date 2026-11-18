@@ -12,7 +12,7 @@ test('content paths and quiz identities are distinct',async()=>{
   assert.throws(()=>slug('../private'),/Invalid/);
 });
 test('private evidence and original sources are ignored by git',()=>{
-  for(const file of ['private/learners/test/attempt.json','content/tests/biology-grade-8/sources/study-guide.txt']) {
+  for(const file of ['private/learners/test/attempt.json','content/tests/biology-grade-8-2026-11/sources/study-guide.txt']) {
     assert.equal(execFileSync('git',['check-ignore',file],{cwd:root,encoding:'utf8'}).trim(),file);
   }
 });
@@ -27,4 +27,15 @@ test('asset copy only includes supported images',async()=>{
     assert.deepEqual(await readdir(destination),['diagram.svg']);
     assert.equal(await readFile(path.join(destination,'diagram.svg'),'utf8'),'<svg/>');
   } finally {await rm(folder,{recursive:true,force:true});}
+});
+
+test('dated tests and latest subject selection distinguish tests from exercise sets',async()=>{
+  const {testId,latestSubjects}=await import('../scripts/lib/content.mjs');
+  assert.equal(testId('biology-grade-8-2026-11'),'biology-grade-8-2026-11');
+  assert.equal(testId('biology-grade-8-2026-11-second'),'biology-grade-8-2026-11-second');
+  assert.throws(()=>testId('biology-grade-8'),/year-month/);
+  assert.throws(()=>testId('biology-grade-8-2026-13'),/year-month/);
+  const item=(test,set)=>({test,set,metadata:{subject:'biology-grade-8',title:'Biologie'}});
+  const latest=item('biology-grade-8-2026-12','002-practice');
+  assert.deepEqual(latestSubjects([latest,item('biology-grade-8-2026-11','099-old'),item('biology-grade-8-2026-12','001-basics')]),[latest]);
 });

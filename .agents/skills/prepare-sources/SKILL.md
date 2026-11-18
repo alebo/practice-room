@@ -58,3 +58,7 @@ When sources change, compare their hashes with the inventory and refresh affecte
 A full verbatim transcription is optional when explicitly requested or when exact wording is the object of study. A separate short learner-facing revision sheet is optional when requested; derive it from the maintained reference and do not treat it as the source of truth. Temporary OCR output is a processing aid, not a second maintained authority.
 
 Report the reference path, covered files/pages, scope, and remaining issues. For subsequent exercise generation, use [quiz-content](../quiz-content/SKILL.md): read the maintained reference first, then inspect originals for uncertain or visually dependent material. Preparing sources alone does not authorize generating exercises, committing source content, or publishing.
+
+## Dated test ownership
+
+Use a specific assessment ID such as `biology-grade-8-2026-11` or `politics-grade-8-2026-11`, with an optional distinguishing suffix for another test in the same month. Keep sources and exercise sets within that dated test. Test metadata separates `subject` and `month` from its full `id`; preserve published quiz IDs and any `legacyIds` routes. Store every learner artifact under `private/learners/<learner-id>/tests/<test>/` (also for `unassigned` evidence). Read only that test’s `knowledge-gaps.json`, attempts, and reviews when preparing targeted practice. Never create or use a learner-wide aggregate across tests. Run `npm run answers:gaps -- --learner ID --test TEST_ID` after importing or reviewing evidence.
