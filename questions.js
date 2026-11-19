@@ -1,299 +1,303 @@
 export const quiz = {
-  "id": "biology-grade-8-010-energy-and-building",
+  "id": "geography-grade-8-2026-11-001-basics",
   "version": 1,
   "language": "de",
-  "title": "Energie erklären: Aufnahme, Abbau und Aufbau",
-  "subtitle": "5 Mehrfachauswahlfragen, 5 Lückentexte und 5 Erklärungen. Wähle alle richtigen Aussagen. Schreibe bei Lückentexten nur die fehlenden Wörter in Reihenfolge. Erkläre bei längeren Antworten, was geschieht und wozu es dient.",
-  "label": "Biologie · Übungsset 010",
+  "title": "Klima, Wind und Leben in der Savanne",
+  "subtitle": "7 Multiple-Choice-Fragen: Wähle jeweils genau eine Antwort. Danach 8 Kurzantworten: Schreibe nur ein bis zwei Wörter, eine Zahl oder die gesuchte Abkürzung. Bei Lückensätzen genügt das fehlende Wort. Kurzantworten werden extern geprüft.",
+  "label": "Geographie · Klasse 8 · Übung 001",
   "questions": [
     {
-      "id": "bio010-three-stages",
+      "id": "geography-2026-11-001-solar-angle",
       "type": "mcq",
-      "topic": "Aufnahme, Transport, Nutzung",
+      "topic": "Beleuchtungszonen",
       "skills": [
-        "digestion.intestines",
-        "metabolism.energy"
+        "illumination.solar-angle"
       ],
-      "prompt": "Drei Stationen werden beschrieben: A – Glucose gelangt durch die Dünndarmwand ins Blut. B – Das Blut bringt Glucose zur Muskelzelle. C – Die Muskelzelle baut Glucose zur Energieversorgung ab. Welche Zuordnungen stimmen?",
+      "prompt": "Warum wird eine gleich große Bodenfläche bei steil einfallenden Sonnenstrahlen stärker erwärmt als bei flach einfallenden Sonnenstrahlen?",
       "options": [
         {
-          "id": "absorption",
-          "text": "A beschreibt Resorption."
+          "id": "a",
+          "text": "Die gleiche Strahlungsenergie verteilt sich auf eine kleinere Fläche."
         },
         {
-          "id": "transport",
-          "text": "B beschreibt Transport."
+          "id": "b",
+          "text": "Die gleiche Strahlungsenergie verteilt sich auf eine größere Fläche."
         },
         {
-          "id": "energy",
-          "text": "Bei C wird nutzbare Energie frei."
+          "id": "c",
+          "text": "Bei steilem Einfallswinkel dreht sich die Erde langsamer."
         },
         {
-          "id": "same",
-          "text": "A und C sind derselbe Vorgang am selben Ort."
-        },
-        {
-          "id": "blood",
-          "text": "Schon das Mitführen im Blut bedeutet, dass die Glucose vollständig abgebaut ist."
+          "id": "d",
+          "text": "Bei steilem Einfallswinkel verschwindet die Erdachsenneigung."
         }
       ],
       "correct": [
-        "absorption",
-        "transport",
-        "energy"
+        "a"
       ],
-      "explanation": "Aufnahme durch die Darmwand, Transport im Blut und Abbau in Körperzellen sind unterschiedliche Schritte. Erst der beschriebene Abbau in der Muskelzelle erklärt hier die Freisetzung nutzbarer Energie."
+      "explanation": "Bei steilem Einfallswinkel trifft mehr Strahlungsenergie auf jeden Quadratmeter. Die gekrümmte Erdoberfläche trägt dadurch zu den Temperaturunterschieden zwischen niedrigen und hohen Breiten bei."
     },
     {
-      "id": "bio010-energy-at-rest",
+      "id": "geography-2026-11-001-climate-zone",
       "type": "mcq",
-      "topic": "Energiebedarf",
+      "topic": "Klimazonen",
       "skills": [
-        "metabolism.energy",
-        "metabolism.building"
+        "climate.temperature-classification"
       ],
-      "prompt": "Eine Person sitzt ruhig und bewegt sich kaum. Welche Aussagen über ihren Stoffwechsel stimmen trotzdem?",
+      "prompt": "Im Unterricht gilt für die Jahresmitteltemperatur: gemäßigte Zone 0–12 °C, Subtropen 12–24 °C, Tropen über 24 °C. Zu welcher Klimazone gehört ein Ort mit 18 °C Jahresmitteltemperatur?",
       "options": [
         {
-          "id": "warmth",
-          "text": "Der Körper benötigt weiterhin Energie, zum Beispiel für die Körperwärme."
+          "id": "a",
+          "text": "Zur gemäßigten Zone"
         },
         {
-          "id": "building",
-          "text": "Auch der Aufbau körpereigener Stoffe benötigt Energie."
+          "id": "b",
+          "text": "Zu den Subtropen"
         },
         {
-          "id": "breakdown",
-          "text": "Beim Abbau von Nährstoffen in Körperzellen kann nutzbare Energie frei werden."
+          "id": "c",
+          "text": "Zu den Tropen"
         },
         {
-          "id": "none",
-          "text": "Ohne Sport benötigt der Körper grundsätzlich keine Energie."
-        },
-        {
-          "id": "identity",
-          "text": "Glucose ist kein Stoff, sondern nur ein anderer Name für Energie."
+          "id": "d",
+          "text": "Zur polaren Zone"
         }
       ],
       "correct": [
-        "warmth",
-        "building",
-        "breakdown"
+        "b"
       ],
-      "explanation": "Auch in Ruhe benötigen Lebensvorgänge Energie. Aufbauvorgänge brauchen ebenfalls Energie. Glucose ist ein Stoff, dessen Abbau Energie bereitstellen kann; Stoff und Energie sind nicht dasselbe."
+      "explanation": "18 °C liegt zwischen 12 °C und 24 °C. Nach der Einteilung des Arbeitsblatts gehört der Ort zu den Subtropen. Die Jahresmitteltemperatur beschreibt das ganze Jahr, nicht einen einzelnen Sommertag."
     },
     {
-      "id": "bio010-repairing-tissue",
+      "id": "geography-2026-11-001-relative-pressure",
       "type": "mcq",
-      "topic": "Aufbau und Energie",
+      "topic": "Luftdruck",
       "skills": [
-        "metabolism.building",
-        "metabolism.energy",
-        "nutrients.roles"
+        "pressure.relative-high-low"
       ],
-      "prompt": "Bei der Erneuerung von Körpergewebe stellen Zellen eigene Eiweiße her. Welche Aussagen passen dazu?",
+      "prompt": "Was kennzeichnet ein Tiefdruckgebiet am Boden? Vergleiche Orte auf gleicher Höhe.",
       "options": [
         {
-          "id": "units",
-          "text": "Aminosäuren können dabei als Bausteine dienen."
+          "id": "a",
+          "text": "Sein Luftdruck ist immer höher als in der Umgebung."
         },
         {
-          "id": "energy",
-          "text": "Das Zusammensetzen der Bausteine benötigt Energie."
+          "id": "b",
+          "text": "Seine Lufttemperatur liegt immer unter 0 °C."
         },
         {
-          "id": "glucose",
-          "text": "Der Abbau von Glucose kann Energie für solche Aufbauvorgänge bereitstellen."
+          "id": "c",
+          "text": "Sein Luftdruck ist niedriger als in der Umgebung."
         },
         {
-          "id": "transport",
-          "text": "Der Transport der Aminosäuren im Blut ist bereits ihr Zusammenbau zu Eiweißen."
-        },
-        {
-          "id": "pepsin",
-          "text": "Pepsin baut im Blut die neuen Gewebeeiweiße zusammen."
+          "id": "d",
+          "text": "Sein Luftdruck muss unabhängig von der Umgebung genau 1013 hPa betragen."
         }
       ],
       "correct": [
-        "units",
-        "energy",
-        "glucose"
+        "c"
       ],
-      "explanation": "Baustoffwechsel verwendet Bausteine für körpereigene Stoffe. Die nötige Energie kann der Energiestoffwechsel bereitstellen. Transport, Verdauung und Aufbau erfüllen unterschiedliche Aufgaben."
+      "explanation": "Hoch- und Tiefdruck werden im Vergleich zur Umgebung bestimmt. Eine feste Grenze von 1013 hPa entscheidet daher nicht allein darüber, ob ein Hoch oder Tief vorliegt."
     },
     {
-      "id": "bio010-enzyme-and-mucus",
+      "id": "geography-2026-11-001-thermal-wind",
       "type": "mcq",
-      "topic": "Verdauung wiederholen",
+      "topic": "Windentstehung",
       "skills": [
-        "enzymes.action",
-        "digestion.stomach"
+        "wind.thermal-circulation",
+        "pressure.surface-low"
       ],
-      "prompt": "Welche Aussagen erklären die Arbeit im Magen richtig?",
+      "prompt": "Welche Abfolge beschreibt die Windentstehung im vereinfachten Modell bei starker örtlicher Erwärmung?",
       "options": [
         {
-          "id": "pepsin",
-          "text": "Pepsin beschleunigt die Spaltung von Eiweiß in kleinere Eiweißstücke."
+          "id": "a",
+          "text": "Erwärmung → Luft sinkt → Bodentief → Luft strömt vom Tief weg."
         },
         {
-          "id": "acid",
-          "text": "Salzsäure schafft das saure Milieu für Pepsin."
+          "id": "b",
+          "text": "Erwärmung → Luft steigt → Bodenhoch → Luft strömt zum Hoch."
         },
         {
-          "id": "mucus",
-          "text": "Die Schleimschicht schützt die Magenwand vor dem Magensaft."
+          "id": "c",
+          "text": "Erwärmung → Luft bleibt unbeweglich → Druckunterschiede verschwinden sofort."
         },
         {
-          "id": "product",
-          "text": "Die entstehenden Peptide sind das Enzym, das Pepsin ersetzt."
-        },
-        {
-          "id": "once",
-          "text": "Jedes Pepsinmolekül wird nach einer einzigen Spaltung als Baustoff verbraucht."
+          "id": "d",
+          "text": "Erwärmung → Luft steigt → Bodentief → Luft strömt bodennah aus Bereichen höheren Drucks nach."
         }
       ],
       "correct": [
-        "pepsin",
-        "acid",
-        "mucus"
+        "d"
       ],
-      "explanation": "Pepsin ist ein Enzym, Peptide sind kleinere Eiweißstücke. Enzyme beschleunigen passende Reaktionen und werden dabei nicht verbraucht. Säurebedingungen und Schleimschutz haben eigene Aufgaben."
+      "explanation": "Starke Erwärmung kann Luft aufsteigen lassen und ein Bodentief begünstigen. Der Druckunterschied treibt bodennahen Luftausgleich an: Wind. Die Erdrotation lenkt die Strömung zusätzlich ab."
     },
     {
-      "id": "bio010-surfaces-retention",
+      "id": "geography-2026-11-001-coriolis",
       "type": "mcq",
-      "topic": "Oberflächen wiederholen",
+      "topic": "Coriolis und Passate",
       "skills": [
-        "digestion.mouth",
-        "digestion.intestines",
-        "enzymes.action"
+        "circulation.coriolis"
       ],
-      "prompt": "Beim Kauen und im Dünndarm spielen große Oberflächen eine Rolle. Welche Aussagen unterscheiden die beiden Fälle richtig?",
+      "prompt": "Wie lenkt der Corioliseffekt bewegte Luft auf den beiden Halbkugeln ab? Gemeint ist jeweils die Ablenkung relativ zur Bewegungsrichtung.",
       "options": [
         {
-          "id": "food",
-          "text": "Kauen macht mehr Oberfläche der Nahrung für Enzyme zugänglich."
+          "id": "a",
+          "text": "Nordhalbkugel nach rechts, Südhalbkugel nach links"
         },
         {
-          "id": "wall",
-          "text": "Darmzotten vergrößern die Aufnahmefläche der Dünndarmwand."
+          "id": "b",
+          "text": "Nordhalbkugel nach links, Südhalbkugel nach rechts"
         },
         {
-          "id": "same",
-          "text": "Kauen vergrößert unmittelbar die Oberfläche der Dünndarmwand."
+          "id": "c",
+          "text": "Auf beiden Halbkugeln immer nach Norden"
         },
         {
-          "id": "energy",
-          "text": "Darmzotten sind dazu da, sämtliche aufgenommene Glucose sofort in Bewegungsenergie umzuwandeln."
+          "id": "d",
+          "text": "Auf beiden Halbkugeln immer nach Osten"
         }
       ],
       "correct": [
-        "food",
-        "wall"
+        "a"
       ],
-      "explanation": "Nahrungsoberfläche erleichtert Enzymkontakt, Darmwandoberfläche erleichtert Aufnahme. Aufnahme ist noch nicht die spätere Nutzung der Bausteine in Körperzellen."
+      "explanation": "Die Erdrotation verursacht den Corioliseffekt. Die Ablenkung erfolgt auf der Nordhalbkugel nach rechts und auf der Südhalbkugel nach links. Bei äquatorwärts strömender Luft entstehen dadurch Nordost- bzw. Südostpassate."
     },
     {
-      "id": "bio010-energy-sentence",
-      "type": "frq",
-      "topic": "Lücken: Glucose nutzen",
+      "id": "geography-2026-11-001-savanna-rain",
+      "type": "mcq",
+      "topic": "Passatzirkulation und Vegetation",
       "skills": [
-        "metabolism.energy"
+        "circulation.itcz-seasonality",
+        "vegetation.seasonal-rain"
       ],
-      "prompt": "Ergänze: „In einer Körperzelle wird Glucose zur Energieversorgung (1) ___. Dabei wird nutzbare (2) ___ frei.“ Schreibe nur 1 und 2 mit den fehlenden Wörtern."
+      "prompt": "Warum wechseln sich in vielen Savannengebieten Regen- und Trockenzeiten ab?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Die Erde dreht sich nur während der Regenzeit um ihre Achse."
+        },
+        {
+          "id": "b",
+          "text": "Die Regenzone der ITC verlagert sich im Jahresverlauf; ein Gebiet liegt deshalb zeitweise in ihrem Einfluss und zeitweise außerhalb."
+        },
+        {
+          "id": "c",
+          "text": "Savannen liegen im Sommer am Nordpol und im Winter am Äquator."
+        },
+        {
+          "id": "d",
+          "text": "In der Trockenzeit gibt es in den Tropen grundsätzlich keine Sonnenstrahlung."
+        }
+      ],
+      "correct": [
+        "b"
+      ],
+      "explanation": "Die ITC mit aufsteigender feuchter Luft und häufigen Niederschlägen verlagert sich jahreszeitlich. Ihre wechselnde Nähe trägt zu Regen- und Trockenzeiten bei. Die Wasserverfügbarkeit prägt Vegetation und landwirtschaftliche Nutzung."
     },
     {
-      "id": "bio010-transport-location",
-      "type": "frq",
-      "topic": "Lücken: Ort und Weg",
+      "id": "geography-2026-11-001-nomad-adaptation",
+      "type": "mcq",
+      "topic": "Nomaden",
       "skills": [
-        "digestion.intestines",
-        "metabolism.energy"
+        "land-use.nomadic-adaptation"
       ],
-      "prompt": "Ergänze: „Glucose wird vom Dünndarm mit dem (1) ___ zu den Körperzellen transportiert. Der hier betrachtete Abbau zur Energieversorgung einer Muskelzelle findet in der (2) ___ statt.“ Schreibe nur die beiden fehlenden Begriffe in Reihenfolge."
+      "prompt": "Warum ziehen nomadische Viehzüchter in der Savanne mit ihren Herden weiter?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Weil alle Weideflächen das ganze Jahr gleich viel Futter bieten."
+        },
+        {
+          "id": "b",
+          "text": "Weil ihre Tiere grundsätzlich kein Wasser benötigen."
+        },
+        {
+          "id": "c",
+          "text": "Weil Wasser und Futter je nach Regenzeit, Trockenzeit und Abweidung an anderen Orten verfügbar sind."
+        },
+        {
+          "id": "d",
+          "text": "Weil Regen die Vegetation überall dauerhaft verschwinden lässt."
+        }
+      ],
+      "correct": [
+        "c"
+      ],
+      "explanation": "Die Wanderungen passen sich der wechselnden Verfügbarkeit von Wasser und Weiden an. In trockenen Zeiten sind Wasserstellen besonders wichtig; abgeweidete Flächen bieten vorerst zu wenig Futter."
     },
     {
-      "id": "bio010-metabolism-labels",
+      "id": "geography-2026-11-001-tropic-latitude",
       "type": "frq",
-      "topic": "Lücken: Stoffwechselbereiche",
+      "topic": "Beleuchtungszonen",
       "skills": [
-        "metabolism.energy",
-        "metabolism.building"
+        "illumination.zone-boundaries"
       ],
-      "prompt": "Ergänze: „Der Abbau von Glucose zur Energieversorgung gehört zum (1) ___. Der Aufbau körpereigener Eiweiße aus Aminosäuren gehört zum (2) ___.“ Schreibe nur 1 und 2 mit den Fachbegriffen."
+      "prompt": "Ergänze nur die Zahl: Der nördliche und der südliche Wendekreis liegen jeweils bei etwa ___ Grad nördlicher bzw. südlicher Breite."
     },
     {
-      "id": "bio010-protein-stages",
+      "id": "geography-2026-11-001-subtropical-high",
       "type": "frq",
-      "topic": "Lücken: Eiweißverdauung",
+      "topic": "Passatzirkulation",
       "skills": [
-        "digestion.proteins",
-        "digestion.stomach",
-        "digestion.intestines"
+        "circulation.descending-air",
+        "pressure.surface-high"
       ],
-      "prompt": "Ergänze: „Pepsin wirkt bei der Eiweißverdauung im (1) ___. Die kleineren Eiweißstücke heißen (2) ___. Im Dünndarm werden sie weiter bis zu einzelnen (3) ___ zerlegt.“ Schreibe nur die drei fehlenden Begriffe in Reihenfolge."
+      "prompt": "Ergänze mit einem Wort: Im vereinfachten Modell der Passatzirkulation sinkt Luft bei etwa 30° Breite ab. Am Boden entsteht dort ein ___."
     },
     {
-      "id": "bio010-enzyme-definition",
+      "id": "geography-2026-11-001-rising-air",
       "type": "frq",
-      "topic": "Lücken: Enzyme",
+      "topic": "Wolken und Regen",
       "skills": [
-        "enzymes.action"
+        "circulation.rising-air-cooling"
       ],
-      "prompt": "Ergänze: „Enzyme (1) ___ chemische Reaktionen. Weil sie dabei nicht (2) ___ werden, können sie erneut wirken.“ Schreibe nur die beiden fehlenden Wörter in Reihenfolge."
+      "prompt": "Ergänze mit einem Wort: Wenn warme, feuchte Luft aufsteigt, wird sie mit zunehmender Höhe ___. Dadurch kann Wasserdampf kondensieren."
     },
     {
-      "id": "bio010-explain-muscle-energy",
+      "id": "geography-2026-11-001-northeast-trade",
       "type": "frq",
-      "topic": "Energieversorgung erklären",
+      "topic": "Passate",
       "skills": [
-        "metabolism.energy"
+        "circulation.trade-wind-directions"
       ],
-      "prompt": "Eine Muskelzelle nutzt Glucose beim Schwimmen. Erkläre in 2–3 Sätzen, was mit der Glucose in der Zelle geschieht und wie das zur Muskelarbeit beiträgt. Der Fachbegriff „Energiestoffwechsel“ allein reicht als Erklärung nicht aus."
+      "prompt": "Wie heißt der Passat, der auf der Nordhalbkugel aus Nordosten in Richtung der äquatorialen Tiefdruckzone weht? Antworte mit einem Wort."
     },
     {
-      "id": "bio010-repair-transport-claim",
+      "id": "geography-2026-11-001-itc-name",
       "type": "frq",
-      "topic": "Transport und Abbau unterscheiden",
+      "topic": "Passatzirkulation",
       "skills": [
-        "digestion.intestines",
-        "metabolism.energy"
+        "circulation.itcz"
       ],
-      "prompt": "Jemand sagt: „Sobald Glucose ins Blut aufgenommen wurde, ist sie schon für die Bewegung abgebaut. Das Blut erledigt also den Energiestoffwechsel der Muskelzellen.“ Korrigiere diese Erklärung in etwa 3 Sätzen. Unterscheide Aufnahme, Transport und Nutzung in der Muskelzelle."
+      "prompt": "Wie lautet die im Unterricht verwendete Abkürzung für die Innertropische Konvergenzzone, in der die Passate zusammentreffen? Antworte nur mit der Abkürzung."
     },
     {
-      "id": "bio010-building-and-energy",
+      "id": "geography-2026-11-001-arid-months",
       "type": "frq",
-      "topic": "Zwei Aufgaben verbinden",
+      "topic": "Vegetation und Trockenheit",
       "skills": [
-        "metabolism.building",
-        "metabolism.energy",
-        "nutrients.roles"
+        "climate.aridity"
       ],
-      "prompt": "Eine Zelle stellt ein neues körpereigenes Eiweiß her. Erkläre in etwa 3–4 Sätzen die unterschiedlichen Rollen von Aminosäuren und Glucose dabei. Benenne die beiden Stoffwechselbereiche und erkläre, warum Bausteine allein für den Aufbau nicht genügen."
+      "prompt": "Ergänze mit einem Fachwort: Monate, in denen mehr Wasser verdunsten kann, als durch Niederschlag nachgeliefert wird, nennt man ___ Monate."
     },
     {
-      "id": "bio010-meal-to-use",
+      "id": "geography-2026-11-001-rainfed-farming",
       "type": "frq",
-      "topic": "Verdauung und Nutzung verbinden",
+      "topic": "Ackerbau",
       "skills": [
-        "digestion.proteins",
-        "digestion.stomach",
-        "digestion.intestines",
-        "metabolism.building"
+        "land-use.rainfed-farming"
       ],
-      "prompt": "Eine Mahlzeit enthält Eiweiß aus Linsen. Beschreibe seinen Weg vom Magen über den Dünndarm bis zum Aufbau eines körpereigenen Eiweißes. Nenne dabei Pepsin, Peptide und Aminosäuren an der richtigen Stelle und erkläre den Transport zu den Zellen. Etwa 4 Sätze genügen."
+      "prompt": "Wie heißt Ackerbau, bei dem die Felder ohne künstliche Bewässerung allein durch Niederschläge mit Wasser versorgt werden? Antworte mit einem Wort."
     },
     {
-      "id": "bio010-two-steps-energy",
+      "id": "geography-2026-11-001-millet",
       "type": "frq",
-      "topic": "Aufnahme reicht nicht",
+      "topic": "Ackerbau",
       "skills": [
-        "digestion.intestines",
-        "metabolism.energy"
+        "land-use.drought-adapted-crops"
       ],
-      "prompt": "Eine Erklärung endet so: „Darmzotten vergrößern die Oberfläche der Dünndarmwand. Dadurch kann Glucose gut aufgenommen werden.“ Erkläre zuerst, warum die große Oberfläche bei der Aufnahme hilft. Ergänze dann, welche weiteren Schritte nötig sind, damit Glucose einer Muskelzelle Energie für Bewegung bereitstellt. Etwa 3–4 Sätze genügen."
+      "prompt": "Welches im Unterricht behandelte Getreide eignet sich für trockene Savannengebiete, weil es wenig Feuchtigkeit benötigt und gut lagerbar ist? Antworte mit einem Wort."
     }
   ],
-  "canonicalPath": "./tests/biology-grade-8-2026-11/010-energy-and-building/"
+  "canonicalPath": "./tests/geography-grade-8-2026-11/001-basics/"
 };
