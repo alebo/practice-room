@@ -142,5 +142,6 @@ export const quiz = {
       "prompt": "Ein Parlament beschließt ein Gesetz. Eine Behörde wendet es an. Eine betroffene Person lässt die Entscheidung der Behörde gerichtlich überprüfen. Ordne in 3–4 Sätzen die drei Tätigkeiten den Staatsgewalten zu und erkläre, warum die Behörde dem Gericht das Ergebnis nicht vorschreiben darf."
     }
   ],
+  "testId": "politics-grade-8-2026-11",
   "canonicalPath": "../../../tests/politics-grade-8-2026-11/006-reasoning-and-review/"
 };

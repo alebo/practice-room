@@ -385,5 +385,6 @@ export const quiz = {
       "prompt": "Eiweiß aus Linsen wird bis zu seinen einzelnen Bausteinen verdaut. Wie heißen diese Bausteine, aus denen Körperzellen anschließend eigene Eiweiße aufbauen können? Antworte mit einem Fachwort."
     }
   ],
+  "testId": "biology-grade-8-2026-11",
   "canonicalPath": "./"
 };

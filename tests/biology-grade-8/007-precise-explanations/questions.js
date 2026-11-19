@@ -282,5 +282,6 @@ export const quiz = {
       "prompt": "In Körperzellen laufen zwei Vorgänge ab: A – Glucose wird abgebaut und nutzbare Energie wird frei. B – Aus Aminosäuren entstehen neue körpereigene Eiweiße. Ordne A und B den Bereichen des Stoffwechsels zu und erkläre in 3–4 Sätzen ihren Unterschied. Begründe auch, warum Vorgang B Energie benötigt."
     }
   ],
+  "testId": "biology-grade-8-2026-11",
   "canonicalPath": "../../../tests/biology-grade-8-2026-11/007-precise-explanations/"
 };

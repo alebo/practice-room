@@ -283,5 +283,6 @@ export const quiz = {
       "prompt": "Eine Zelle bekommt Aminosäuren und Glucose über das Blut. Erkläre, wie sie die Aminosäuren zum Aufbau nutzen und durch den Abbau von Glucose Energie dafür bereitstellen kann. Benenne die beiden Bereiche des Stoffwechsels und begründe, warum die Zelle für den Aufbau nicht nur Bausteine braucht. Etwa 3–4 Sätze genügen."
     }
   ],
+  "testId": "biology-grade-8-2026-11",
   "canonicalPath": "../../../tests/biology-grade-8-2026-11/009-explain-the-missing-steps/"
 };

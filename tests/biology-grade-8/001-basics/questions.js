@@ -317,5 +317,6 @@ export const quiz = {
       "explanation": "Durch die Rückgewinnung von Wasser wird der Darminhalt eingedickt."
     }
   ],
+  "testId": "biology-grade-8-2026-11",
   "canonicalPath": "../../../tests/biology-grade-8-2026-11/001-basics/"
 };

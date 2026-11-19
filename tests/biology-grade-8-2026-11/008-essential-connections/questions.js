@@ -291,5 +291,6 @@ export const quiz = {
       "prompt": "Warum helfen sowohl gründliches Kauen als auch die vielen Darmzotten bei der Verarbeitung der Nahrung? Vergleiche in etwa 3–4 Sätzen, welche Oberfläche jeweils größer wird und welcher Vorgang dadurch erleichtert wird."
     }
   ],
+  "testId": "biology-grade-8-2026-11",
   "canonicalPath": "./"
 };

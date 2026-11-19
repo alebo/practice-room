@@ -253,5 +253,6 @@ export const quiz = {
       "prompt": "Eine erwachsene Person muss eine Rechnung eines privaten Möbelhändlers bezahlen und erhält außerdem einen Steuerbescheid vom Finanzamt. Ordne beide Rechtsbeziehungen dem Privatrecht oder dem öffentlichen Recht zu. Begründe anhand der Stellung der Beteiligten, warum die Fälle trotz der Geldforderungen verschieden sind. Erkläre auch, ob eine Klage des Händlers den Kaufpreisanspruch zu öffentlichem Recht macht. Antworte in 3–5 Sätzen."
     }
   ],
+  "testId": "politics-grade-8-2026-11",
   "canonicalPath": "./"
 };

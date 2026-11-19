@@ -280,5 +280,6 @@ export const quiz = {
       "prompt": "Nach einer kleinen Schürfwunde bildet der Körper neues Hautgewebe. Erkläre in 3–5 Sätzen den Unterschied zwischen Energie- und Aufbaustoffwechsel an diesem Beispiel. Nenne einen geeigneten Nährstoffbaustein für den Aufbau körpereigener Eiweiße und erkläre, warum Baustoffe allein für die Heilung nicht ausreichen."
     }
   ],
+  "testId": "biology-grade-8-2026-11",
   "canonicalPath": "../../../tests/biology-grade-8-2026-11/005-explain-digestion/"
 };

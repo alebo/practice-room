@@ -299,5 +299,6 @@ export const quiz = {
       "prompt": "Welches im Unterricht behandelte Getreide eignet sich für trockene Savannengebiete, weil es wenig Feuchtigkeit benötigt und gut lagerbar ist? Antworte mit einem Wort."
     }
   ],
+  "testId": "geography-grade-8-2026-11",
   "canonicalPath": "./"
 };
