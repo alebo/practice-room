@@ -30,12 +30,13 @@ test('asset copy only includes supported images',async()=>{
 });
 
 test('dated tests and latest subject selection distinguish tests from exercise sets',async()=>{
-  const {testId,latestSubjects}=await import('../scripts/lib/content.mjs');
+  const {testId,latestTests}=await import('../scripts/lib/content.mjs');
   assert.equal(testId('biology-grade-8-2026-11'),'biology-grade-8-2026-11');
   assert.equal(testId('biology-grade-8-2026-11-second'),'biology-grade-8-2026-11-second');
   assert.throws(()=>testId('biology-grade-8'),/year-month/);
   assert.throws(()=>testId('biology-grade-8-2026-13'),/year-month/);
   const item=(test,set)=>({test,set,metadata:{subject:'biology-grade-8',title:'Biologie'}});
   const latest=item('biology-grade-8-2026-12','002-practice');
-  assert.deepEqual(latestSubjects([latest,item('biology-grade-8-2026-11','099-old'),item('biology-grade-8-2026-12','001-basics')]),[latest]);
+  const older=item('biology-grade-8-2026-11','099-old');
+  assert.deepEqual(latestTests([latest,older,item('biology-grade-8-2026-12','001-basics')]),[latest,older]);
 });

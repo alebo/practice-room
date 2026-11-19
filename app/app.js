@@ -1,4 +1,4 @@
-const questionURL = new URL('./questions.js', document.baseURI);
+const questionURL = new URL(document.querySelector('meta[name=quiz-module]')?.content || './questions.js', document.baseURI);
 const refreshToken = new URL(location.href).searchParams.get('refresh');
 if (refreshToken) questionURL.searchParams.set('refresh', refreshToken);
 const { quiz: publishedQuiz } = await import(questionURL.href);
@@ -9,6 +9,13 @@ import { createAttempt, isCorrect, validateQuiz, isFRQ, mcqSummary, buildReport 
 const app = document.querySelector('#app');
 const latestNavigation = document.querySelector('.latest-navigation');
 const subjectSelect = document.querySelector('#subject-select');
+// Browsers may restore a previous select value independently of the loaded page.
+function syncTestSelection() {
+  const selected = [...subjectSelect.options].find(option=>option.defaultSelected);
+  if (selected) subjectSelect.value = selected.value;
+}
+syncTestSelection();
+window.addEventListener('pageshow', syncTestSelection);
 subjectSelect.onchange = () => { location.assign(new URL(subjectSelect.value, document.baseURI).href); };
 const key = `lernraum:${quiz.id}`;
 const esc = text => String(text).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));

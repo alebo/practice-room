@@ -5,7 +5,7 @@ import { serializeAttempt } from '../../app/storage.js';
 import { decryptReport, parseShareURL } from '../../app/privatebin.js';
 const key=`lernraum:${quiz.id}`;
 async function completed(page) {
-  await page.route('**/questions.js',route=>route.fulfill({contentType:'text/javascript',body:`export const quiz = ${JSON.stringify(quiz)};`}));
+  await page.route('**/questions.js*',route=>route.fulfill({contentType:'text/javascript',body:`export const quiz = ${JSON.stringify(quiz)};`}));
   await page.goto('/');await expect(page.locator('#view-title')).toBeVisible();
   const attempt=createAttempt(quiz);attempt.index=attempt.order.length-1;attempt.done=true;
   for(const q of quiz.questions) attempt.answers[q.id]=isFRQ(q)?{text:'Synthetic answer only.',checked:true}:{selected:q.correct,checked:true};

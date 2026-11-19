@@ -2,18 +2,18 @@ import { createHash } from 'node:crypto';
 import { cp, mkdir, rm, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { parseArgs } from 'node:util';
-import { root, readJSON, listSets, latestSubjects, copyImages } from './lib/content.mjs';
+import { root, readJSON, listSets, latestTests, testLabel, copyImages } from './lib/content.mjs';
 const { values } = parseArgs({ options: { test: {type:'string'}, set: {type:'string'}, fixtures: {type:'boolean',default:false} } });
 if (Boolean(values.test) !== Boolean(values.set)) throw new Error('Specify both --test and --set.');
 const active = values.test ? {test:values.test,set:values.set} : await readJSON(path.join(root,'content/active-set.json'));
 const sets = await listSets();
 const selected = sets.find(s=>s.test===active.test && s.set===active.set);
 if (!selected) throw new Error(`Unknown active set: ${active.test}/${active.set}`);
-// Subjects select the newest dated test, then its highest numbered exercise set.
-const subjects = latestSubjects(sets);
+// Each dated test opens its own highest numbered exercise set.
+const tests = latestTests(sets);
 const latestRoutes = {};
 for (const item of sets) {
-  const latest = subjects.find(s=>s.metadata.subject===item.metadata.subject);
+  const latest = tests.find(s=>s.test===item.test);
   for (const id of [item.test, ...(item.metadata.legacyIds || [])]) latestRoutes[id] = `tests/${latest.test}/${latest.set}/`;
 }
 const dist = path.join(root,'dist');
@@ -27,14 +27,16 @@ const template = await readFile(path.join(root,'app/index.html'),'utf8');
 const escape = value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 async function renderSet(item, destination, prefix, canonicalPath) {
   await mkdir(destination,{recursive:true});
-  const html = template.replace('./styles.css',`${prefix}styles.css?v=${styleVersion}`).replace('./app.js',`${prefix}app.js?v=${appVersion}`)
+  const questions = `export const quiz = ${JSON.stringify({...item.quiz,testId:item.test,canonicalPath},null,2)};\n`;
+  const questionVersion = createHash('sha256').update(questions).digest('hex').slice(0,12);
+  const html = template.replace('./questions.js', `./questions.js?v=${questionVersion}`).replace('./styles.css',`${prefix}styles.css?v=${styleVersion}`).replace('./app.js',`${prefix}app.js?v=${appVersion}`)
     .replace('data-test=""', `data-test="${escape(item.test)}"`)
     .replace(/<title>.*?<\/title>/,`<title>${escape(item.quiz.title)} · Lernraum</title>`)
     .replace('href="./"',`href="${prefix}"`)
-    .replace('<select class="subject" id="subject-select" aria-label="Fach auswählen"></select>', `<select class="subject" id="subject-select" aria-label="Fach auswählen">${subjects.map(subject=>`<option value="${prefix}tests/${subject.test}/${subject.set}/"${subject.metadata.subject===item.metadata.subject ? ' selected' : ''}>${escape(subject.metadata.title)}</option>`).join('')}</select>`)
+    .replace('<select class="subject" id="subject-select" aria-label="Test auswählen"></select>', `<select class="subject" id="subject-select" aria-label="Test auswählen">${tests.map(subject=>`<option value="${prefix}tests/${subject.test}/${subject.set}/"${subject.test===item.test ? ' selected' : ''}>${escape(testLabel(subject))}</option>`).join('')}</select>`)
     .replace(/<meta name="description" content="[^"]*">/,`<meta name="description" content="${escape(item.quiz.subtitle || item.quiz.title)}">`);
   await writeFile(path.join(destination,'index.html'),html);
-  await writeFile(path.join(destination,'questions.js'),`export const quiz = ${JSON.stringify({...item.quiz,canonicalPath},null,2)};\n`);
+  await writeFile(path.join(destination,'questions.js'),questions);
   await copyImages(path.join(item.directory,'assets'),path.join(destination,'assets'));
 }
 await renderSet(selected,dist,'./',`./tests/${selected.test}/${selected.set}/`);

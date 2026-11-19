@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { isFRQ, createAttempt } from '../../app/quiz.js';
 import { quiz } from '../fixtures/sample-quiz.js';
 test.beforeEach(async ({page}) => {
-  await page.route('**/questions.js', route => route.fulfill({contentType:'text/javascript', body:`export const quiz = ${JSON.stringify(quiz)};`}));
+  await page.route('**/questions.js*', route => route.fulfill({contentType:'text/javascript', body:`export const quiz = ${JSON.stringify(quiz)};`}));
 });
 const key = `lernraum:${quiz.id}`;
 async function current(page) {
@@ -188,7 +188,7 @@ test('completed answers remain copyable after reopening and a content update unt
   await expect(page.locator('.score')).toHaveText('4 / 5');
   const saved=await page.evaluate(k=>localStorage.getItem(k),key);
   const updated={...quiz,version:quiz.version+1,title:'Aktualisierter Test'};
-  await context.route('**/questions.js',route=>route.fulfill({contentType:'text/javascript',body:`export const quiz = ${JSON.stringify(updated)};`}));
+  await context.route('**/questions.js*',route=>route.fulfill({contentType:'text/javascript',body:`export const quiz = ${JSON.stringify(updated)};`}));
   await page.close();
   const reopened=await context.newPage();
   await reopened.goto('/');

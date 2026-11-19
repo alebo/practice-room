@@ -12,10 +12,10 @@ export function testId(value) {
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*-\d{4}-(?:0[1-9]|1[0-2])(?:-[a-z0-9]+)*$/.test(value)) throw new Error('Test ID must include a year-month suffix, for example biology-grade-8-2026-11.');
   return value;
 }
-export function latestSubjects(sets) {
+export function latestTests(sets) {
   const latest = new Map();
-  for (const item of [...sets].sort((a,b) => a.test.localeCompare(b.test,'en',{numeric:true}) || a.set.localeCompare(b.set,'en',{numeric:true}))) latest.set(item.metadata.subject,item);
-  return [...latest.values()].sort((a,b)=>a.metadata.title.localeCompare(b.metadata.title,'de'));
+  for (const item of [...sets].sort((a,b) => a.test.localeCompare(b.test,'en',{numeric:true}) || a.set.localeCompare(b.set,'en',{numeric:true}))) latest.set(item.test,item);
+  return [...latest.values()].sort((a,b)=>a.metadata.title.localeCompare(b.metadata.title,'de') || b.test.localeCompare(a.test,'en',{numeric:true}));
 }
 export async function readJSON(file) { return JSON.parse(await readFile(file, 'utf8')); }
 export async function loadSet(test, set) {
@@ -62,4 +62,9 @@ export async function copyImages(source, destination) {
       await copyFile(path.join(source,entry.name),path.join(destination,entry.name));
     }
   }
+}
+
+export function testLabel(item) {
+  const suffix = item.test.slice(`${item.metadata.subject}-${item.metadata.month}`.length);
+  return `${item.metadata.title} · ${item.metadata.month}${suffix ? ` · ${suffix.slice(1)}` : ''}`;
 }

@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { readJSON, loadSet } from '../../scripts/lib/content.mjs';
+import { readJSON, loadSet, testLabel } from '../../scripts/lib/content.mjs';
 const active = await readJSON(new URL('../../content/active-set.json', import.meta.url));
 const {quiz: activeQuiz} = await loadSet(active.test, active.set);
 const {quiz} = await loadSet('biology-grade-8-2026-11','002-nutrients-and-digestion');
@@ -49,22 +49,22 @@ test('each exercise has a permanent route and separate saved progress',async({pa
   await expect(page.locator('h1')).toHaveText(activeQuiz.title);
 });
 
-test('subject selector opens latest sets and retains progress across subjects and direct links',async({page})=>{
+test('test selector opens latest sets and retains progress across subjects and direct links',async({page})=>{
   const {listSets}=await import('../../scripts/lib/content.mjs');
   const sets=await listSets();
   const latest=test=>sets.filter(s=>s.test===test).sort((a,b)=>a.set.localeCompare(b.set,'en',{numeric:true})).at(-1);
   const biology=latest('biology-grade-8-2026-11'),politics=latest('politics-grade-8-2026-11');
   await page.goto('/tests/biology-grade-8-2026-11/001-basics/');
-  await expect(page.getByRole('combobox',{name:'Fach auswählen'}).locator('option:checked')).toHaveText(biology.metadata.title);
+  await expect(page.getByRole('combobox',{name:'Test auswählen'}).locator('option:checked')).toHaveText(testLabel(biology));
   await page.locator('input[name="answer"]').first().check();
-  await page.getByRole('combobox').selectOption({label:politics.metadata.title});
+  await page.getByRole('combobox').selectOption({label:testLabel(politics)});
   await expect(page).toHaveURL(new RegExp(`/tests/${politics.test}/${politics.set}/$`));
   const prompt=await page.locator('#view-title').textContent();
   await page.locator('input[name="answer"]').first().check();
-  await page.getByRole('combobox').selectOption({label:biology.metadata.title});
+  await page.getByRole('combobox').selectOption({label:testLabel(biology)});
   await expect(page).toHaveURL(new RegExp(`/tests/${biology.test}/${biology.set}/$`));
   await expect(page.locator('h1')).toHaveText(biology.quiz.title);
-  await page.getByRole('combobox').selectOption({label:politics.metadata.title});
+  await page.getByRole('combobox').selectOption({label:testLabel(politics)});
   await expect(page.locator('#view-title')).toHaveText(prompt);
   await expect(page.locator('input:checked')).toHaveCount(1);
   await page.goto('/tests/biology-grade-8-2026-11/001-basics/');
@@ -84,7 +84,7 @@ test('subject selector opens latest sets and retains progress across subjects an
   await expect(page.getByRole('combobox')).toBeVisible();
 });
 
-test('latest button fetches current subject destination and preserves answers across refreshes', async ({page}) => {
+test('latest button fetches current test destination and preserves answers across refreshes', async ({page}) => {
   await page.goto('/tests/biology-grade-8-2026-11/001-basics/');
   await page.locator('input[name="answer"]').first().check();
   const saved = await page.evaluate(() => localStorage.getItem('lernraum:biology-001-basics'));
@@ -98,7 +98,7 @@ test('latest button fetches current subject destination and preserves answers ac
   await expect(page.locator('h1')).toHaveText(quiz.title);
   await page.locator('input[name="answer"]').first().check();
   const prompt = await page.locator('#view-title').textContent();
-  const questions = page.waitForRequest('**/questions.js?refresh=*');
+  const questions = page.waitForRequest('**/questions.js?*refresh=*');
   await page.getByRole('button',{name:'Neueste Übung laden'}).click();
   await questions;
   await expect(page.locator('#view-title')).toHaveText(prompt);
@@ -133,4 +133,22 @@ test('legacy test URLs retain progress and report the dated canonical URL',async
   const legacy=await page.evaluate(async()=> (await import('./questions.js')).quiz);
   expect(legacy.id).toBe(quiz.id);
   expect(legacy.canonicalPath).toBe('../../../tests/biology-grade-8-2026-11/001-basics/');
+});
+
+test('homepage loads versioned questions and keeps its specific test selected',async({page})=>{
+  // A cached pre-migration homepage module must not supply the current questions.
+  await page.route('**/questions.js',route=>route.fulfill({contentType:'text/javascript',body:`export const quiz = ${JSON.stringify(quiz)};`}));
+  const request=page.waitForRequest(url=>/questions\.js\?v=[a-f0-9]{12}$/.test(url.url()));
+  await page.goto('/');
+  await request;
+  await expect(page.locator('h1')).toHaveText(activeQuiz.title);
+  const {metadata}=await loadSet(active.test,active.set);
+  await expect(page.locator('#subject-select option:checked')).toHaveText(testLabel({test:active.test,metadata}));
+  const value=await page.locator('#subject-select').inputValue();
+  await page.evaluate(()=>{
+    const select=document.querySelector('#subject-select');
+    select.selectedIndex=(select.selectedIndex+1)%select.options.length;
+    window.dispatchEvent(new PageTransitionEvent('pageshow',{persisted:true}));
+  });
+  await expect(page.locator('#subject-select')).toHaveValue(value);
 });
