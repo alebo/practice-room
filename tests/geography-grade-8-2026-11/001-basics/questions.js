@@ -1,6 +1,6 @@
 export const quiz = {
   "id": "geography-grade-8-2026-11-001-basics",
-  "version": 1,
+  "version": 2,
   "language": "de",
   "title": "Klima, Wind und Leben in der Savanne",
   "subtitle": "7 Multiple-Choice-Fragen: Wähle jeweils genau eine Antwort. Danach 8 Kurzantworten: Schreibe nur ein bis zwei Wörter, eine Zahl oder die gesuchte Abkürzung. Bei Lückensätzen genügt das fehlende Wort. Kurzantworten werden extern geprüft.",
@@ -134,33 +134,33 @@ export const quiz = {
     {
       "id": "geography-2026-11-001-coriolis",
       "type": "mcq",
-      "topic": "Coriolis und Passate",
+      "topic": "Passatzirkulation",
       "skills": [
-        "circulation.coriolis"
+        "circulation.descending-air"
       ],
-      "prompt": "Wie lenkt der Corioliseffekt bewegte Luft auf den beiden Halbkugeln ab? Gemeint ist jeweils die Ablenkung relativ zur Bewegungsrichtung.",
+      "prompt": "Warum lösen sich im Bereich der subtropischen Hochdruckgebiete häufig Wolken auf?",
       "options": [
         {
           "id": "a",
-          "text": "Nordhalbkugel nach rechts, Südhalbkugel nach links"
+          "text": "Die absinkende Luft erwärmt sich; ihre relative Luftfeuchtigkeit nimmt ab."
         },
         {
           "id": "b",
-          "text": "Nordhalbkugel nach links, Südhalbkugel nach rechts"
+          "text": "Die absinkende Luft kühlt sich ab; dadurch verdunstet das Wasser in den Wolken."
         },
         {
           "id": "c",
-          "text": "Auf beiden Halbkugeln immer nach Norden"
+          "text": "Die Luft steigt auf und kühlt sich ab; dadurch lösen sich die Wolken auf."
         },
         {
           "id": "d",
-          "text": "Auf beiden Halbkugeln immer nach Osten"
+          "text": "Hoher Luftdruck verhindert grundsätzlich, dass Wasser verdunsten kann."
         }
       ],
       "correct": [
         "a"
       ],
-      "explanation": "Die Erdrotation verursacht den Corioliseffekt. Die Ablenkung erfolgt auf der Nordhalbkugel nach rechts und auf der Südhalbkugel nach links. Bei äquatorwärts strömender Luft entstehen dadurch Nordost- bzw. Südostpassate."
+      "explanation": "Beim Absinken erwärmt sich die Luft. Dadurch sinkt ihre relative Luftfeuchtigkeit, und Wolkentröpfchen können verdunsten. Das begünstigt trockene Bedingungen im Bereich der subtropischen Hochdruckgebiete."
     },
     {
       "id": "geography-2026-11-001-savanna-rain",
