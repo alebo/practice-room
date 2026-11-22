@@ -1,305 +1,266 @@
 export const quiz = {
-  "id": "geography-grade-8-2026-11-002-pressure-rain-and-farming",
+  "id": "geography-grade-8-2026-11-003-climate-and-land-use",
   "version": 1,
   "language": "de",
-  "title": "Luftdruck, Sonnenstrahlen und Regenzeiten",
-  "subtitle": "7 Multiple-Choice-Fragen: Wähle jeweils genau eine Antwort. Danach 8 Kurzantworten: Ein bis zwei Wörter genügen; bei Lückensätzen nur die Lücke ausfüllen. Kurzantworten werden extern geprüft.",
-  "label": "Geographie · Klasse 8 · Übung 002",
+  "title": "Klima und Landnutzung: Zusammenhänge erklären",
+  "subtitle": "Wähle bei 5 Multiple-Choice-Fragen jeweils eine Antwort. Danach folgen 5 Kurzantworten und 5 Erklärfragen in gemischter Reihenfolge. Bei Kurzantworten genügen ein bis zwei Wörter. Bei Erklärfragen reichen zwei bis vier Sätze. Die Textantworten werden extern geprüft.",
+  "label": "Geographie · Klasse 8 · Übung 003",
   "questions": [
     {
-      "id": "geography-2026-11-002-compare-pressure",
+      "id": "geography-2026-11-003-zone-criteria",
       "type": "mcq",
-      "topic": "Hoch und Tief",
+      "topic": "Beleuchtungs- und Klimazonen",
       "skills": [
-        "pressure.relative-high-low"
+        "illumination.zone-boundaries",
+        "climate.temperature-classification"
       ],
-      "prompt": "Drei benachbarte Orte auf gleicher Höhe haben folgenden Luftdruck: West 1008 hPa, Mitte 1002 hPa, Ost 1007 hPa. Wie ist die Mitte im Vergleich zu beiden Nachbarorten einzuordnen?",
+      "prompt": "Welche Aussage unterscheidet Beleuchtungszonen von der Klimaeinteilung auf dem Arbeitsblatt?",
       "options": [
         {
           "id": "a",
-          "text": "Als Hochdruckbereich, weil 1002 hPa über null liegt."
+          "text": "Beleuchtungszonen und Klimazonen werden beide anhand der Regenmenge eingeteilt."
         },
         {
           "id": "b",
-          "text": "Als Tiefdruckbereich, weil der Druck niedriger ist als an beiden Nachbarorten."
+          "text": "Beleuchtungszonen werden durch Breitenkreise begrenzt. Das Arbeitsblatt verwendet für seine Klimaeinteilung die Jahresmitteltemperatur."
         },
         {
           "id": "c",
-          "text": "Als Hochdruckbereich, weil dort die Luft kälter sein muss."
+          "text": "Beleuchtungszonen werden anhand der Jahresmitteltemperatur eingeteilt. Klimazonen enden stets an den Wendekreisen."
         },
         {
           "id": "d",
-          "text": "Eine Einordnung ist nur möglich, wenn der Druck genau 1013 hPa beträgt."
+          "text": "Beide Einteilungen ergeben sich allein aus der geografischen Breite."
         }
       ],
       "correct": [
         "b"
       ],
-      "explanation": "1002 hPa ist weniger als 1008 und 1007 hPa. Die Mitte ist relativ zu ihren Nachbarorten ein Tiefdruckbereich. Entscheidend ist der Vergleich mit der Umgebung."
+      "explanation": "Wende- und Polarkreise begrenzen die Beleuchtungszonen. Das Klima-Arbeitsblatt verwendet Temperaturbereiche für seine vereinfachte Einteilung."
     },
     {
-      "id": "geography-2026-11-002-high-below-standard",
+      "id": "geography-2026-11-003-sea-breeze",
       "type": "mcq",
-      "topic": "Hoch und Tief",
+      "topic": "Windentstehung",
       "skills": [
+        "wind.thermal-circulation",
         "pressure.relative-high-low"
       ],
-      "prompt": "In der Mitte eines Gebiets beträgt der Luftdruck 1009 hPa, ringsum nur 1004 hPa. Alle Werte beziehen sich auf dieselbe Höhe. Welche Aussage stimmt?",
+      "prompt": "An einer Küste erwärmt sich das Land tagsüber stärker als das Meer. Über dem Land steigt Luft auf. Aus welcher Richtung strömt im vereinfachten Modell bodennah Luft nach?",
       "options": [
         {
           "id": "a",
-          "text": "Die Mitte ist ein Tief, weil ihr Druck unter 1013 hPa liegt."
+          "text": "Vom Land zum Meer, weil über dem Land ein Bodentief entsteht."
         },
         {
           "id": "b",
-          "text": "Die Mitte ist ein Tief, weil 1009 größer als 1004 ist."
+          "text": "Vom Land zum Meer, weil warme Luft grundsätzlich zum Wasser fließt."
         },
         {
           "id": "c",
-          "text": "Die Mitte ist ein Hoch, weil ihr Druck höher als ringsum ist."
+          "text": "Vom Meer zum Land, weil über dem Land der Luftdruck am Boden höher ist."
         },
         {
           "id": "d",
-          "text": "Die Mitte kann kein Hoch sein, solange der Druck unter 1020 hPa liegt."
-        }
-      ],
-      "correct": [
-        "c"
-      ],
-      "explanation": "Ein Hoch wird durch höheren Druck als in der Umgebung bestimmt. Auch ein Wert unter 1013 hPa kann deshalb zu einem relativen Hoch gehören."
-    },
-    {
-      "id": "geography-2026-11-002-energy-area",
-      "type": "mcq",
-      "topic": "Sonneneinstrahlung",
-      "skills": [
-        "illumination.solar-angle"
-      ],
-      "prompt": "Zwei gleiche Strahlenbündel bringen dieselbe Energie zum Boden. Ein steiles Bündel beleuchtet 1 m², ein flaches 2 m². Welche Fläche erhält pro Quadratmeter mehr Energie?",
-      "options": [
-        {
-          "id": "a",
-          "text": "Die Fläche unter dem steilen Bündel: Dort verteilt sich die Energie auf weniger Quadratmeter."
-        },
-        {
-          "id": "b",
-          "text": "Die Fläche unter dem flachen Bündel: Die größere Fläche erzeugt zusätzliche Energie."
-        },
-        {
-          "id": "c",
-          "text": "Beide gleich viel: Die Größe der beleuchteten Fläche spielt keine Rolle."
-        },
-        {
-          "id": "d",
-          "text": "Die Fläche unter dem flachen Bündel: Flache Strahlen sind grundsätzlich energiereicher."
-        }
-      ],
-      "correct": [
-        "a"
-      ],
-      "explanation": "Gleiche Energie auf 1 m² statt 2 m² bedeutet doppelt so viel Energie pro Quadratmeter. So lässt sich der Einfluss des Einfallswinkels verstehen."
-    },
-    {
-      "id": "geography-2026-11-002-sun-angle-climate",
-      "type": "mcq",
-      "topic": "Beleuchtungszonen",
-      "skills": [
-        "illumination.solar-angle"
-      ],
-      "prompt": "Warum trägt die Kugelgestalt der Erde dazu bei, dass polare Breiten im Jahresmittel weniger stark erwärmt werden als die Äquatorregion?",
-      "options": [
-        {
-          "id": "a",
-          "text": "Weil Sonnenstrahlen an den Polen grundsätzlich keine Energie enthalten."
-        },
-        {
-          "id": "b",
-          "text": "Weil die Erde sich an den Polen nicht um die Sonne bewegt."
-        },
-        {
-          "id": "c",
-          "text": "Weil eine größere beleuchtete Fläche immer stärker erwärmt wird."
-        },
-        {
-          "id": "d",
-          "text": "Weil Sonnenstrahlen dort flacher einfallen und sich ihre Energie auf eine größere Fläche verteilt."
+          "text": "Vom Meer zum Land, weil über dem Land der Luftdruck am Boden niedriger ist."
         }
       ],
       "correct": [
         "d"
       ],
-      "explanation": "Bei flachem Einfallswinkel verteilt sich ein Strahlenbündel auf mehr Bodenfläche. Pro Quadratmeter kommt weniger Energie an. Auch jahreszeitliche Unterschiede der Tageslänge spielen eine Rolle."
+      "explanation": "Über dem wärmeren Land steigt Luft auf. Im vereinfachten Modell strömt bodennah Luft aus dem Bereich höheren Drucks über dem Meer zum Bodentief über Land."
     },
     {
-      "id": "geography-2026-11-002-itc-rain",
+      "id": "geography-2026-11-003-upper-return",
       "type": "mcq",
-      "topic": "Regenzeiten",
+      "topic": "Passatzirkulation",
       "skills": [
-        "circulation.itcz-seasonality",
-        "vegetation.seasonal-rain"
+        "circulation.upper-return"
       ],
-      "prompt": "Die Regenzone der ITC verlagert sich über ein Savannengebiet. Welcher Vorgang begünstigt dort Niederschläge?",
+      "prompt": "In welche Richtung strömt die Luft im oberen Teil der Passatzirkulation im vereinfachten Modell?",
       "options": [
         {
           "id": "a",
-          "text": "Luft sinkt ab, erwärmt sich und bildet dadurch immer neue Regenwolken."
+          "text": "Aus der Äquatorregion in Richtung der Subtropen auf beiden Halbkugeln."
         },
         {
           "id": "b",
-          "text": "Feuchte Luft steigt auf, kühlt sich ab und Wasserdampf kondensiert."
+          "text": "Von den Subtropen zur Äquatorregion auf beiden Halbkugeln."
         },
         {
           "id": "c",
-          "text": "Die Luft bleibt am Boden; dadurch muss ihr gesamter Wasserdampf ausregnen."
+          "text": "Aus der Äquatorregion ausschließlich zur Nordhalbkugel."
         },
         {
           "id": "d",
-          "text": "Die ITC verhindert, dass feuchte Luft aufsteigen kann."
-        }
-      ],
-      "correct": [
-        "b"
-      ],
-      "explanation": "In der ITC treffen bodennahe Luftströmungen zusammen. Feuchte Luft steigt auf, kühlt ab und kann Wolken und Niederschlag bilden. Die jahreszeitliche Verlagerung trägt zum Wechsel von Regen- und Trockenzeiten bei."
-    },
-    {
-      "id": "geography-2026-11-002-crop-parts",
-      "type": "mcq",
-      "topic": "Hirse und Maniok",
-      "skills": [
-        "land-use.drought-adapted-crops"
-      ],
-      "prompt": "Welche Zuordnung von Kulturpflanze und genutztem Pflanzenteil ist richtig?",
-      "options": [
-        {
-          "id": "a",
-          "text": "Hirse: Speicherwurzeln; Maniok: Getreidekörner."
-        },
-        {
-          "id": "b",
-          "text": "Hirse und Maniok: beide Getreidekörner."
-        },
-        {
-          "id": "c",
-          "text": "Hirse: Getreidekörner; Maniok: Speicherwurzeln."
-        },
-        {
-          "id": "d",
-          "text": "Hirse und Maniok: beide ausschließlich Blätter."
-        }
-      ],
-      "correct": [
-        "c"
-      ],
-      "explanation": "Hirse ist ein Getreide. Bei Maniok werden die Speicherwurzeln genutzt. Die Pflanzen gehören deshalb nicht zur gleichen Gruppe von Nahrungspflanzen."
-    },
-    {
-      "id": "geography-2026-11-002-rainfed-risk",
-      "type": "mcq",
-      "topic": "Ackerbau und Regen",
-      "skills": [
-        "land-use.rainfed-farming",
-        "vegetation.seasonal-rain"
-      ],
-      "prompt": "Eine Familie baut ohne künstliche Bewässerung Getreide an. Die Regenzeit beginnt, doch danach bleibt der Regen während des Wachstums lange aus. Was ist das größte unmittelbare Risiko?",
-      "options": [
-        {
-          "id": "a",
-          "text": "Die Pflanzen bekommen zu wenig Wasser; der Ertrag kann stark sinken."
-        },
-        {
-          "id": "b",
-          "text": "Die Pflanzen erhalten automatisch Wasser aus dem Hochdruckgebiet."
-        },
-        {
-          "id": "c",
-          "text": "Die Pflanzen brauchen nach der Aussaat grundsätzlich kein Wasser mehr."
-        },
-        {
-          "id": "d",
-          "text": "Eine längere Trockenphase verbessert unabhängig von der Pflanze immer die Ernte."
+          "text": "In der Höhe findet kein horizontaler Lufttransport statt."
         }
       ],
       "correct": [
         "a"
       ],
-      "explanation": "Regenfeldbau hängt von ausreichendem und passend verteiltem Niederschlag ab. Auch nach Beginn der Regenzeit kann eine längere Trockenphase die Pflanzen schädigen."
+      "explanation": "Über der ITC steigt Luft auf und strömt in der Höhe polwärts. In den Subtropen sinkt sie ab. Bodennah strömt Luft wieder in Richtung ITC."
     },
     {
-      "id": "geography-2026-11-002-low-term",
-      "type": "frq",
-      "topic": "Luftdruck",
+      "id": "geography-2026-11-003-dry-season-vegetation",
+      "type": "mcq",
+      "topic": "Savannentypen",
       "skills": [
-        "pressure.relative-high-low"
+        "vegetation.seasonal-rain"
       ],
-      "prompt": "Wie heißt ein Gebiet, dessen Luftdruck niedriger ist als in seiner Umgebung? Antworte mit einem Wort."
+      "prompt": "Zwei Savannenregionen sind ganzjährig ähnlich warm. Region A hat eine deutlich längere Regenzeit als Region B. Was ist in Region A unter sonst ähnlichen Bedingungen eher zu erwarten?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Weniger Pflanzenwachstum, weil die Regenzeit den Boden grundsätzlich austrocknet."
+        },
+        {
+          "id": "b",
+          "text": "Dieselbe Vegetation, weil nur die Temperatur für Pflanzen eine Rolle spielt."
+        },
+        {
+          "id": "c",
+          "text": "Dichtere Vegetation mit mehr Bäumen, weil länger Wasser verfügbar ist."
+        },
+        {
+          "id": "d",
+          "text": "Weniger Bäume, weil Bäume nur während langer Trockenzeiten wachsen."
+        }
+      ],
+      "correct": [
+        "c"
+      ],
+      "explanation": "Eine längere Regenzeit lässt Pflanzen länger wachsen. Unter vergleichbaren Bedingungen kann eine Savanne mehr und dichter stehende Bäume tragen."
     },
     {
-      "id": "geography-2026-11-002-high-comparison",
-      "type": "frq",
-      "topic": "Luftdruck",
+      "id": "geography-2026-11-003-seasonal-grazing",
+      "type": "mcq",
+      "topic": "Nomadische Viehwirtschaft",
       "skills": [
-        "pressure.relative-high-low"
+        "land-use.nomadic-adaptation"
       ],
-      "prompt": "Ergänze mit einem Wort: Im Hochdruckgebiet ist der Luftdruck im Vergleich zur Umgebung ___."
+      "prompt": "Nach den ersten Regenfällen wächst auf einer Weide in der Dornsavanne frisches Gras. Warum kann es sinnvoll sein, die Herde vorübergehend dorthin zu treiben?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Die Herde kann die saisonal verfügbare Weide nutzen und später bei Wassermangel weiterziehen."
+        },
+        {
+          "id": "b",
+          "text": "Die ersten Regenfälle stellen sicher, dass dort das ganze Jahr ausreichend Futter wächst."
+        },
+        {
+          "id": "c",
+          "text": "Die Tiere brauchen auf einer frisch begrünten Weide keine Wasserstelle mehr."
+        },
+        {
+          "id": "d",
+          "text": "Durch den Wechsel wird der Regen in anderen Teilen der Savanne zuverlässiger."
+        }
+      ],
+      "correct": [
+        "a"
+      ],
+      "explanation": "Nomadische Viehhaltung nutzt Weiden und Wasserstellen dort, wo sie gerade verfügbar sind. Wenn das Futter knapp wird oder Wasser fehlt, ziehen die Herden weiter."
     },
     {
-      "id": "geography-2026-11-002-pressure-flow",
+      "id": "geography-2026-11-003-polar-circle",
       "type": "frq",
-      "topic": "Wind",
+      "topic": "Kurzantwort · Beleuchtungszonen",
       "skills": [
-        "wind.thermal-circulation",
-        "pressure.relative-high-low"
+        "illumination.zone-boundaries"
       ],
-      "prompt": "Ergänze mit einem Wort: Im vereinfachten Modell strömt Luft am Boden vom Hochdruckgebiet zum ___."
+      "prompt": "Wie heißt der Breitenkreis bei etwa 66,5° nördlicher Breite? Antworte mit höchstens zwei Wörtern."
     },
     {
-      "id": "geography-2026-11-002-spread-energy",
+      "id": "geography-2026-11-003-height-low",
       "type": "frq",
-      "topic": "Sonneneinstrahlung",
+      "topic": "Kurzantwort · Luftdruck",
+      "skills": [
+        "pressure.height-low",
+        "circulation.upper-return"
+      ],
+      "prompt": "Ergänze den Fachbegriff: Im vereinfachten Modell der Passatzirkulation sinkt Luft im Bereich der Subtropen ab. Dem Bodenhoch steht dort in der Höhe ein ___ gegenüber."
+    },
+    {
+      "id": "geography-2026-11-003-south-trade",
+      "type": "frq",
+      "topic": "Kurzantwort · Passate",
+      "skills": [
+        "circulation.trade-wind-directions"
+      ],
+      "prompt": "Wie heißt der bodennahe Passat, der auf der Südhalbkugel aus Südosten weht? Antworte mit einem Wort."
+    },
+    {
+      "id": "geography-2026-11-003-dry-savanna",
+      "type": "frq",
+      "topic": "Kurzantwort · Vegetation",
+      "skills": [
+        "vegetation.seasonal-rain"
+      ],
+      "prompt": "Welche der drei Formen hat typischerweise die längste Trockenzeit: Feuchtsavanne, Trockensavanne oder Dornsavanne? Nenne nur den Savannentyp."
+    },
+    {
+      "id": "geography-2026-11-003-sowing-season",
+      "type": "frq",
+      "topic": "Kurzantwort · Ackerbau",
+      "skills": [
+        "land-use.rainfed-farming"
+      ],
+      "prompt": "Ergänze mit einem Wort: Im Beispiel zum Regenfeldbau wird die Hirse nach den ersten Niederschlägen zu Beginn der ___ ausgesät."
+    },
+    {
+      "id": "geography-2026-11-003-compare-sun",
+      "type": "frq",
+      "topic": "Erklärfrage · Beleuchtungszonen",
       "skills": [
         "illumination.solar-angle"
       ],
-      "prompt": "Ergänze mit einem Wort: Bei flachem Einfallswinkel verteilt sich dieselbe Strahlungsenergie auf eine ___ Bodenfläche als bei steilem Einfallswinkel."
+      "prompt": "Ein gleich starkes Sonnenstrahlenbündel trifft nahe am Äquator steiler und in hohen Breiten flacher auf den Boden. Erkläre in zwei bis vier Sätzen, wie sich die Energie dabei auf die Bodenfläche verteilt und was das für die Erwärmung pro Quadratmeter bedeutet."
     },
     {
-      "id": "geography-2026-11-002-energy-density",
+      "id": "geography-2026-11-003-wind-from-pressure",
       "type": "frq",
-      "topic": "Sonneneinstrahlung",
+      "topic": "Erklärfrage · Wind und Luftdruck",
       "skills": [
-        "illumination.solar-angle"
+        "pressure.relative-high-low",
+        "wind.thermal-circulation"
       ],
-      "prompt": "Ergänze mit einem Wort: Verteilt sich dieselbe Strahlungsenergie auf eine kleinere Fläche, erhält jeder Quadratmeter ___ Energie."
+      "prompt": "Über Gebiet A erwärmt sich der Boden stärker als über dem benachbarten Gebiet B. Erkläre im vereinfachten Modell in zwei bis vier Sätzen, wie über A ein Bodentief entstehen kann und in welche Richtung bodennah Luft strömt."
     },
     {
-      "id": "geography-2026-11-002-season-name",
+      "id": "geography-2026-11-003-trace-passats",
       "type": "frq",
-      "topic": "ITC und Regen",
+      "topic": "Erklärfrage · Passatzirkulation",
+      "skills": [
+        "circulation.itcz",
+        "circulation.rising-air-cooling",
+        "circulation.upper-return",
+        "circulation.descending-air"
+      ],
+      "prompt": "Verfolge im vereinfachten Modell die Luft vom Zusammentreffen der Passate bis zur bodennahen Rückströmung. Beschreibe in zwei bis vier Sätzen, wo die Luft aufsteigt, wie Regen entstehen kann, wohin die Luft in der Höhe strömt und wo sie wieder absinkt."
+    },
+    {
+      "id": "geography-2026-11-003-itc-and-plants",
+      "type": "frq",
+      "topic": "Erklärfrage · ITC und Vegetation",
       "skills": [
         "circulation.itcz-seasonality",
         "vegetation.seasonal-rain"
       ],
-      "prompt": "Wie nennt man in der Savanne die Jahreszeit mit häufigen Niederschlägen, wenn das Gebiet im Einfluss der Regenzone der ITC liegt? Antworte mit einem Wort."
+      "prompt": "Die ITC liegt im Jahresverlauf zeitweise über einer Savanne und verlagert sich dann. Erkläre in zwei bis vier Sätzen, wie das zur Regen- und Trockenzeit beiträgt und warum die Länge der Regenzeit für die Vegetation wichtig ist."
     },
     {
-      "id": "geography-2026-11-002-grain-choice",
+      "id": "geography-2026-11-003-farm-and-herd",
       "type": "frq",
-      "topic": "Hirse und Maniok",
+      "topic": "Erklärfrage · Nomaden und Ackerbau",
       "skills": [
-        "land-use.drought-adapted-crops"
+        "land-use.rainfed-farming",
+        "land-use.nomadic-adaptation"
       ],
-      "prompt": "Welche der beiden Pflanzen ist ein Getreide: Hirse oder Maniok? Antworte nur mit dem Pflanzennamen."
-    },
-    {
-      "id": "geography-2026-11-002-cassava-part",
-      "type": "frq",
-      "topic": "Hirse und Maniok",
-      "skills": [
-        "land-use.drought-adapted-crops"
-      ],
-      "prompt": "Welche unterirdischen Pflanzenteile werden bei Maniok als Nahrungsmittel genutzt? Antworte mit einem Wort."
+      "prompt": "Eine Familie betreibt Regenfeldbau. Eine andere zieht mit einer Herde durch die Savanne. Erkläre in zwei bis vier Sätzen, wie jede Familie ihre Arbeit an die wechselnde Verfügbarkeit von Wasser anpasst."
     }
   ],
   "testId": "geography-grade-8-2026-11",
-  "canonicalPath": "./tests/geography-grade-8-2026-11/002-pressure-rain-and-farming/"
+  "canonicalPath": "./tests/geography-grade-8-2026-11/003-climate-and-land-use/"
 };
