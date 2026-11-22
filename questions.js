@@ -1,266 +1,267 @@
 export const quiz = {
-  "id": "geography-grade-8-2026-11-003-climate-and-land-use",
+  "id": "geography-grade-8-2026-11-004-solar-energy-and-trade-winds",
   "version": 1,
   "language": "de",
-  "title": "Klima und Landnutzung: Zusammenhänge erklären",
-  "subtitle": "Wähle bei 5 Multiple-Choice-Fragen jeweils eine Antwort. Danach folgen 5 Kurzantworten und 5 Erklärfragen in gemischter Reihenfolge. Bei Kurzantworten genügen ein bis zwei Wörter. Bei Erklärfragen reichen zwei bis vier Sätze. Die Textantworten werden extern geprüft.",
-  "label": "Geographie · Klasse 8 · Übung 003",
+  "title": "Sonnenenergie und Passatzirkulation",
+  "subtitle": "Wähle bei 5 Multiple-Choice-Fragen jeweils eine Antwort. Danach folgen 5 Kurzantworten und 5 Erklärfragen in gemischter Reihenfolge. Für eine Kurzantwort genügen ein bis zwei Wörter. Für eine Erklärfrage reichen zwei bis vier Sätze. Die Textantworten werden extern geprüft.",
+  "label": "Geographie · Klasse 8 · Übung 004",
   "questions": [
     {
-      "id": "geography-2026-11-003-zone-criteria",
+      "id": "geography-2026-11-004-boundary-and-zone",
       "type": "mcq",
-      "topic": "Beleuchtungs- und Klimazonen",
+      "topic": "Beleuchtungszonen",
       "skills": [
-        "illumination.zone-boundaries",
-        "climate.temperature-classification"
+        "illumination.zone-boundaries"
       ],
-      "prompt": "Welche Aussage unterscheidet Beleuchtungszonen von der Klimaeinteilung auf dem Arbeitsblatt?",
+      "prompt": "Auf einem Globus wird bei 66,5° Süd eine Linie eingezeichnet. Das Gebiet zwischen dieser Linie und dem Südpol wird eingefärbt. Wie heißen Linie und Gebiet?",
       "options": [
         {
           "id": "a",
-          "text": "Beleuchtungszonen und Klimazonen werden beide anhand der Regenmenge eingeteilt."
+          "text": "Südlicher Wendekreis und südliche Polarzone."
         },
         {
           "id": "b",
-          "text": "Beleuchtungszonen werden durch Breitenkreise begrenzt. Das Arbeitsblatt verwendet für seine Klimaeinteilung die Jahresmitteltemperatur."
+          "text": "Südlicher Polarkreis und südliche Polarzone."
         },
         {
           "id": "c",
-          "text": "Beleuchtungszonen werden anhand der Jahresmitteltemperatur eingeteilt. Klimazonen enden stets an den Wendekreisen."
+          "text": "Südliche Polarzone und südlicher Polarkreis."
         },
         {
           "id": "d",
-          "text": "Beide Einteilungen ergeben sich allein aus der geografischen Breite."
+          "text": "Südlicher Polarkreis und südliche Mittelbreiten."
         }
       ],
       "correct": [
         "b"
       ],
-      "explanation": "Wende- und Polarkreise begrenzen die Beleuchtungszonen. Das Klima-Arbeitsblatt verwendet Temperaturbereiche für seine vereinfachte Einteilung."
+      "explanation": "Der südliche Polarkreis ist die Linie bei etwa 66,5° Süd. Die südliche Polarzone liegt zwischen dieser Linie und dem Südpol."
     },
     {
-      "id": "geography-2026-11-003-sea-breeze",
+      "id": "geography-2026-11-004-energy-ratio",
       "type": "mcq",
-      "topic": "Windentstehung",
+      "topic": "Sonnenenergie",
       "skills": [
-        "wind.thermal-circulation",
-        "pressure.relative-high-low"
+        "illumination.solar-angle"
       ],
-      "prompt": "An einer Küste erwärmt sich das Land tagsüber stärker als das Meer. Über dem Land steigt Luft auf. Aus welcher Richtung strömt im vereinfachten Modell bodennah Luft nach?",
+      "prompt": "Zwei Sonnenstrahlenbündel liefern insgesamt gleich viel Energie. Das steile Bündel trifft auf 2 m², das flache auf 6 m². Wie viel Energie erhält ein Quadratmeter unter dem flachen Bündel im Vergleich zum steilen?",
       "options": [
         {
           "id": "a",
-          "text": "Vom Land zum Meer, weil über dem Land ein Bodentief entsteht."
+          "text": "Dreimal so viel."
         },
         {
           "id": "b",
-          "text": "Vom Land zum Meer, weil warme Luft grundsätzlich zum Wasser fließt."
+          "text": "Genauso viel."
         },
         {
           "id": "c",
-          "text": "Vom Meer zum Land, weil über dem Land der Luftdruck am Boden höher ist."
+          "text": "Halb so viel."
         },
         {
           "id": "d",
-          "text": "Vom Meer zum Land, weil über dem Land der Luftdruck am Boden niedriger ist."
+          "text": "Ein Drittel so viel."
         }
       ],
       "correct": [
         "d"
       ],
-      "explanation": "Über dem wärmeren Land steigt Luft auf. Im vereinfachten Modell strömt bodennah Luft aus dem Bereich höheren Drucks über dem Meer zum Bodentief über Land."
+      "explanation": "Auf 6 m² verteilt sich dieselbe Gesamtenergie auf die dreifache Fläche. Daher kommt pro Quadratmeter ein Drittel der Energie an."
     },
     {
-      "id": "geography-2026-11-003-upper-return",
+      "id": "geography-2026-11-004-cloud-sequence",
       "type": "mcq",
-      "topic": "Passatzirkulation",
+      "topic": "Wolken und Regen",
       "skills": [
-        "circulation.upper-return"
+        "circulation.rising-air-cooling"
       ],
-      "prompt": "In welche Richtung strömt die Luft im oberen Teil der Passatzirkulation im vereinfachten Modell?",
+      "prompt": "Welche Abfolge erklärt die Wolkenbildung in der ITC?",
       "options": [
         {
           "id": "a",
-          "text": "Aus der Äquatorregion in Richtung der Subtropen auf beiden Halbkugeln."
+          "text": "Feuchte Luft steigt auf, kühlt ab und Wasserdampf kondensiert."
         },
         {
           "id": "b",
-          "text": "Von den Subtropen zur Äquatorregion auf beiden Halbkugeln."
+          "text": "Feuchte Luft steigt auf, erwärmt sich und Wasserdampf kondensiert."
         },
         {
           "id": "c",
-          "text": "Aus der Äquatorregion ausschließlich zur Nordhalbkugel."
+          "text": "Feuchte Luft sinkt ab, erwärmt sich und Wasserdampf kondensiert."
         },
         {
           "id": "d",
-          "text": "In der Höhe findet kein horizontaler Lufttransport statt."
+          "text": "Feuchte Luft sinkt ab, kühlt ab und Wolkentropfen verdunsten."
         }
       ],
       "correct": [
         "a"
       ],
-      "explanation": "Über der ITC steigt Luft auf und strömt in der Höhe polwärts. In den Subtropen sinkt sie ab. Bodennah strömt Luft wieder in Richtung ITC."
+      "explanation": "Aufsteigende feuchte Luft kühlt sich ab. Wasserdampf kann dann zu kleinen Wassertröpfchen kondensieren, die Wolken bilden."
     },
     {
-      "id": "geography-2026-11-003-dry-season-vegetation",
+      "id": "geography-2026-11-004-subtropical-branch",
       "type": "mcq",
-      "topic": "Savannentypen",
+      "topic": "Passatzirkulation",
       "skills": [
-        "vegetation.seasonal-rain"
+        "circulation.upper-return",
+        "circulation.descending-air"
       ],
-      "prompt": "Zwei Savannenregionen sind ganzjährig ähnlich warm. Region A hat eine deutlich längere Regenzeit als Region B. Was ist in Region A unter sonst ähnlichen Bedingungen eher zu erwarten?",
+      "prompt": "Was geschieht im vereinfachten Modell mit Luft, die in der Höhe von der ITC wegströmt und die Subtropen nahe 30° Breite erreicht?",
       "options": [
         {
           "id": "a",
-          "text": "Weniger Pflanzenwachstum, weil die Regenzeit den Boden grundsätzlich austrocknet."
+          "text": "Sie steigt dort weiter auf und strömt am Boden zu den Polen."
         },
         {
           "id": "b",
-          "text": "Dieselbe Vegetation, weil nur die Temperatur für Pflanzen eine Rolle spielt."
+          "text": "Sie sinkt dort ab und kühlt sich dabei weiter ab."
         },
         {
           "id": "c",
-          "text": "Dichtere Vegetation mit mehr Bäumen, weil länger Wasser verfügbar ist."
+          "text": "Sie sinkt dort ab und erwärmt sich dabei."
         },
         {
           "id": "d",
-          "text": "Weniger Bäume, weil Bäume nur während langer Trockenzeiten wachsen."
+          "text": "Sie bleibt dort in der Höhe und der Kreislauf endet."
         }
       ],
       "correct": [
         "c"
       ],
-      "explanation": "Eine längere Regenzeit lässt Pflanzen länger wachsen. Unter vergleichbaren Bedingungen kann eine Savanne mehr und dichter stehende Bäume tragen."
+      "explanation": "Im Modell sinkt die Luft in den Subtropen ab. Beim Absinken erwärmt sie sich und Wolken können sich auflösen."
     },
     {
-      "id": "geography-2026-11-003-seasonal-grazing",
+      "id": "geography-2026-11-004-surface-flow",
       "type": "mcq",
-      "topic": "Nomadische Viehwirtschaft",
+      "topic": "Passatzirkulation und Luftdruck",
       "skills": [
-        "land-use.nomadic-adaptation"
+        "circulation.trade-wind-directions",
+        "pressure.relative-high-low"
       ],
-      "prompt": "Nach den ersten Regenfällen wächst auf einer Weide in der Dornsavanne frisches Gras. Warum kann es sinnvoll sein, die Herde vorübergehend dorthin zu treiben?",
+      "prompt": "Welche Aussage beschreibt die bodennahe Rückströmung im Modell der Passatzirkulation?",
       "options": [
         {
           "id": "a",
-          "text": "Die Herde kann die saisonal verfügbare Weide nutzen und später bei Wassermangel weiterziehen."
+          "text": "Die Luft strömt von den subtropischen Bodenhochs zur äquatornahen Tiefdruckzone."
         },
         {
           "id": "b",
-          "text": "Die ersten Regenfälle stellen sicher, dass dort das ganze Jahr ausreichend Futter wächst."
+          "text": "Die Luft strömt von der äquatornahen Tiefdruckzone zu den subtropischen Bodenhochs."
         },
         {
           "id": "c",
-          "text": "Die Tiere brauchen auf einer frisch begrünten Weide keine Wasserstelle mehr."
+          "text": "Die Luft strömt aus den Subtropen ausschließlich in Richtung der Pole."
         },
         {
           "id": "d",
-          "text": "Durch den Wechsel wird der Regen in anderen Teilen der Savanne zuverlässiger."
+          "text": "Die Luft strömt zwischen der ITC und den Subtropen nur in der Höhe."
         }
       ],
       "correct": [
         "a"
       ],
-      "explanation": "Nomadische Viehhaltung nutzt Weiden und Wasserstellen dort, wo sie gerade verfügbar sind. Wenn das Futter knapp wird oder Wasser fehlt, ziehen die Herden weiter."
+      "explanation": "Der Druckunterschied treibt den bodennahen Luftstrom von den subtropischen Hochdruckgebieten zur ITC an. Dieser Teil der Zirkulation umfasst die Passatwinde."
     },
     {
-      "id": "geography-2026-11-003-polar-circle",
+      "id": "geography-2026-11-004-polar-latitude",
       "type": "frq",
       "topic": "Kurzantwort · Beleuchtungszonen",
       "skills": [
         "illumination.zone-boundaries"
       ],
-      "prompt": "Wie heißt der Breitenkreis bei etwa 66,5° nördlicher Breite? Antworte mit höchstens zwei Wörtern."
+      "prompt": "Ergänze nur die Zahl: Der südliche Polarkreis liegt bei etwa ___ Grad südlicher Breite."
     },
     {
-      "id": "geography-2026-11-003-height-low",
+      "id": "geography-2026-11-004-northern-zone",
       "type": "frq",
-      "topic": "Kurzantwort · Luftdruck",
+      "topic": "Kurzantwort · Beleuchtungszonen",
       "skills": [
-        "pressure.height-low",
-        "circulation.upper-return"
+        "illumination.zone-boundaries"
       ],
-      "prompt": "Ergänze den Fachbegriff: Im vereinfachten Modell der Passatzirkulation sinkt Luft im Bereich der Subtropen ab. Dem Bodenhoch steht dort in der Höhe ein ___ gegenüber."
+      "prompt": "Wie heißt das Gebiet zwischen dem nördlichen Polarkreis und dem Nordpol? Antworte mit höchstens zwei Wörtern."
     },
     {
-      "id": "geography-2026-11-003-south-trade",
+      "id": "geography-2026-11-004-total-energy",
       "type": "frq",
-      "topic": "Kurzantwort · Passate",
-      "skills": [
-        "circulation.trade-wind-directions"
-      ],
-      "prompt": "Wie heißt der bodennahe Passat, der auf der Südhalbkugel aus Südosten weht? Antworte mit einem Wort."
-    },
-    {
-      "id": "geography-2026-11-003-dry-savanna",
-      "type": "frq",
-      "topic": "Kurzantwort · Vegetation",
-      "skills": [
-        "vegetation.seasonal-rain"
-      ],
-      "prompt": "Welche der drei Formen hat typischerweise die längste Trockenzeit: Feuchtsavanne, Trockensavanne oder Dornsavanne? Nenne nur den Savannentyp."
-    },
-    {
-      "id": "geography-2026-11-003-sowing-season",
-      "type": "frq",
-      "topic": "Kurzantwort · Ackerbau",
-      "skills": [
-        "land-use.rainfed-farming"
-      ],
-      "prompt": "Ergänze mit einem Wort: Im Beispiel zum Regenfeldbau wird die Hirse nach den ersten Niederschlägen zu Beginn der ___ ausgesät."
-    },
-    {
-      "id": "geography-2026-11-003-compare-sun",
-      "type": "frq",
-      "topic": "Erklärfrage · Beleuchtungszonen",
+      "topic": "Kurzantwort · Sonnenenergie",
       "skills": [
         "illumination.solar-angle"
       ],
-      "prompt": "Ein gleich starkes Sonnenstrahlenbündel trifft nahe am Äquator steiler und in hohen Breiten flacher auf den Boden. Erkläre in zwei bis vier Sätzen, wie sich die Energie dabei auf die Bodenfläche verteilt und was das für die Erwärmung pro Quadratmeter bedeutet."
+      "prompt": "Ergänze mit höchstens zwei Wörtern: Zwei Bündel liefern beide 120 Energieeinheiten. Eines trifft steil und eines flach auf den Boden. Beide beleuchteten Flächen erhalten insgesamt ___ Energie."
     },
     {
-      "id": "geography-2026-11-003-wind-from-pressure",
+      "id": "geography-2026-11-004-condensation-term",
       "type": "frq",
-      "topic": "Erklärfrage · Wind und Luftdruck",
+      "topic": "Kurzantwort · Wolkenbildung",
       "skills": [
-        "pressure.relative-high-low",
-        "wind.thermal-circulation"
+        "circulation.rising-air-cooling"
       ],
-      "prompt": "Über Gebiet A erwärmt sich der Boden stärker als über dem benachbarten Gebiet B. Erkläre im vereinfachten Modell in zwei bis vier Sätzen, wie über A ein Bodentief entstehen kann und in welche Richtung bodennah Luft strömt."
+      "prompt": "Wie heißt der Vorgang, bei dem Wasserdampf beim Abkühlen zu flüssigen Wassertröpfchen wird? Antworte mit einem Fachwort."
     },
     {
-      "id": "geography-2026-11-003-trace-passats",
+      "id": "geography-2026-11-004-sinking-latitude",
+      "type": "frq",
+      "topic": "Kurzantwort · Passatzirkulation",
+      "skills": [
+        "circulation.descending-air"
+      ],
+      "prompt": "Ergänze nur die Zahl: Im vereinfachten Modell der Passatzirkulation sinkt die Luft in den Subtropen bei etwa ___ Grad nördlicher und südlicher Breite ab."
+    },
+    {
+      "id": "geography-2026-11-004-correct-map-label",
+      "type": "frq",
+      "topic": "Erklärfrage · Beleuchtungszonen",
+      "skills": [
+        "illumination.zone-boundaries"
+      ],
+      "prompt": "Auf einer Karte steht „Polarzone“ direkt an der Linie bei 66,5° Nord. Erkläre in zwei bis vier Sätzen, wie die Linie beschriftet sein sollte und welche Fläche als Polarzone eingefärbt werden sollte."
+    },
+    {
+      "id": "geography-2026-11-004-energy-calculation",
+      "type": "frq",
+      "topic": "Erklärfrage · Sonnenenergie",
+      "skills": [
+        "illumination.solar-angle"
+      ],
+      "prompt": "Zwei Strahlenbündel liefern jeweils 120 Energieeinheiten. Bündel A trifft steiler ein und beleuchtet 2 m². Bündel B beleuchtet 4 m². Gib für beide Bündel die Energie pro Quadratmeter an und erkläre in zwei bis vier Sätzen, welcher Boden dadurch stärker erwärmt wird, wenn sonst alles gleich ist."
+    },
+    {
+      "id": "geography-2026-11-004-rising-and-sinking",
+      "type": "frq",
+      "topic": "Erklärfrage · Wolkenbildung",
+      "skills": [
+        "circulation.itcz",
+        "circulation.rising-air-cooling",
+        "circulation.descending-air"
+      ],
+      "prompt": "In der ITC bilden sich oft Regenwolken. Im Bereich der subtropischen Bodenhochs lösen sich Wolken häufig auf. Erkläre beide Vorgänge in zwei bis vier Sätzen. Nenne jeweils die Bewegungsrichtung der Luft, ihre Temperaturänderung und die Wirkung auf die Wolken."
+    },
+    {
+      "id": "geography-2026-11-004-close-the-loop",
       "type": "frq",
       "topic": "Erklärfrage · Passatzirkulation",
       "skills": [
         "circulation.itcz",
-        "circulation.rising-air-cooling",
         "circulation.upper-return",
-        "circulation.descending-air"
+        "circulation.descending-air",
+        "pressure.relative-high-low",
+        "circulation.trade-wind-directions"
       ],
-      "prompt": "Verfolge im vereinfachten Modell die Luft vom Zusammentreffen der Passate bis zur bodennahen Rückströmung. Beschreibe in zwei bis vier Sätzen, wo die Luft aufsteigt, wie Regen entstehen kann, wohin die Luft in der Höhe strömt und wo sie wieder absinkt."
+      "prompt": "Die Passate treffen nahe am Äquator zusammen. Beschreibe in zwei bis vier Sätzen, wie der Kreislauf von dort aus weitergeht. Nenne den Aufstieg, die Richtung der Höhenströmung, den Ort des Absinkens und die Druckgebiete am Boden, zwischen denen die Luft zurückströmt."
     },
     {
-      "id": "geography-2026-11-003-itc-and-plants",
+      "id": "geography-2026-11-004-rain-and-sowing",
       "type": "frq",
-      "topic": "Erklärfrage · ITC und Vegetation",
+      "topic": "Erklärfrage · ITC und Regenfeldbau",
       "skills": [
         "circulation.itcz-seasonality",
-        "vegetation.seasonal-rain"
+        "vegetation.seasonal-rain",
+        "land-use.rainfed-farming"
       ],
-      "prompt": "Die ITC liegt im Jahresverlauf zeitweise über einer Savanne und verlagert sich dann. Erkläre in zwei bis vier Sätzen, wie das zur Regen- und Trockenzeit beiträgt und warum die Länge der Regenzeit für die Vegetation wichtig ist."
-    },
-    {
-      "id": "geography-2026-11-003-farm-and-herd",
-      "type": "frq",
-      "topic": "Erklärfrage · Nomaden und Ackerbau",
-      "skills": [
-        "land-use.rainfed-farming",
-        "land-use.nomadic-adaptation"
-      ],
-      "prompt": "Eine Familie betreibt Regenfeldbau. Eine andere zieht mit einer Herde durch die Savanne. Erkläre in zwei bis vier Sätzen, wie jede Familie ihre Arbeit an die wechselnde Verfügbarkeit von Wasser anpasst."
+      "prompt": "Die Regenzone der ITC erreicht ein Savannengebiet und zieht später weiter. Erkläre in zwei bis vier Sätzen, wie sich das auf die Niederschläge auswirkt und warum eine Familie ohne künstliche Bewässerung die Aussaat an die ersten Regenfälle anpasst."
     }
   ],
   "testId": "geography-grade-8-2026-11",
-  "canonicalPath": "./tests/geography-grade-8-2026-11/003-climate-and-land-use/"
+  "canonicalPath": "./tests/geography-grade-8-2026-11/004-solar-energy-and-trade-winds/"
 };
