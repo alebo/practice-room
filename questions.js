@@ -1,267 +1,270 @@
 export const quiz = {
-  "id": "geography-grade-8-2026-11-004-solar-energy-and-trade-winds",
+  "id": "geography-grade-8-2026-11-005-surface-and-upper-air",
   "version": 1,
   "language": "de",
-  "title": "Sonnenenergie und Passatzirkulation",
-  "subtitle": "Wähle bei 5 Multiple-Choice-Fragen jeweils eine Antwort. Danach folgen 5 Kurzantworten und 5 Erklärfragen in gemischter Reihenfolge. Für eine Kurzantwort genügen ein bis zwei Wörter. Für eine Erklärfrage reichen zwei bis vier Sätze. Die Textantworten werden extern geprüft.",
-  "label": "Geographie · Klasse 8 · Übung 004",
+  "title": "Passatwinde am Boden und Luftströmung in der Höhe",
+  "subtitle": "Wähle bei 5 Multiple-Choice-Fragen jeweils eine Antwort. Danach folgen 5 Kurzantworten und 5 Erklärfragen in gemischter Reihenfolge. Für Kurzantworten genügen ein bis zwei Wörter. Für Erklärfragen reichen zwei bis vier Sätze. Die Textantworten werden extern geprüft.",
+  "label": "Geographie · Klasse 8 · Übung 005",
   "questions": [
     {
-      "id": "geography-2026-11-004-boundary-and-zone",
+      "id": "geography-2026-11-005-northern-branch",
       "type": "mcq",
-      "topic": "Beleuchtungszonen",
+      "topic": "Passatzirkulation",
       "skills": [
-        "illumination.zone-boundaries"
+        "circulation.trade-wind-directions",
+        "circulation.upper-return"
       ],
-      "prompt": "Auf einem Globus wird bei 66,5° Süd eine Linie eingezeichnet. Das Gebiet zwischen dieser Linie und dem Südpol wird eingefärbt. Wie heißen Linie und Gebiet?",
+      "prompt": "Betrachte im vereinfachten Modell die Strecke zwischen der äquatornahen ITC und den nördlichen Subtropen. Welche Richtungen stimmen?",
       "options": [
         {
           "id": "a",
-          "text": "Südlicher Wendekreis und südliche Polarzone."
+          "text": "Am Boden südwärts, in der Höhe nordwärts."
         },
         {
           "id": "b",
-          "text": "Südlicher Polarkreis und südliche Polarzone."
+          "text": "Am Boden nordwärts, in der Höhe südwärts."
         },
         {
           "id": "c",
-          "text": "Südliche Polarzone und südlicher Polarkreis."
+          "text": "Am Boden und in der Höhe südwärts."
         },
         {
           "id": "d",
-          "text": "Südlicher Polarkreis und südliche Mittelbreiten."
-        }
-      ],
-      "correct": [
-        "b"
-      ],
-      "explanation": "Der südliche Polarkreis ist die Linie bei etwa 66,5° Süd. Die südliche Polarzone liegt zwischen dieser Linie und dem Südpol."
-    },
-    {
-      "id": "geography-2026-11-004-energy-ratio",
-      "type": "mcq",
-      "topic": "Sonnenenergie",
-      "skills": [
-        "illumination.solar-angle"
-      ],
-      "prompt": "Zwei Sonnenstrahlenbündel liefern insgesamt gleich viel Energie. Das steile Bündel trifft auf 2 m², das flache auf 6 m². Wie viel Energie erhält ein Quadratmeter unter dem flachen Bündel im Vergleich zum steilen?",
-      "options": [
-        {
-          "id": "a",
-          "text": "Dreimal so viel."
-        },
-        {
-          "id": "b",
-          "text": "Genauso viel."
-        },
-        {
-          "id": "c",
-          "text": "Halb so viel."
-        },
-        {
-          "id": "d",
-          "text": "Ein Drittel so viel."
-        }
-      ],
-      "correct": [
-        "d"
-      ],
-      "explanation": "Auf 6 m² verteilt sich dieselbe Gesamtenergie auf die dreifache Fläche. Daher kommt pro Quadratmeter ein Drittel der Energie an."
-    },
-    {
-      "id": "geography-2026-11-004-cloud-sequence",
-      "type": "mcq",
-      "topic": "Wolken und Regen",
-      "skills": [
-        "circulation.rising-air-cooling"
-      ],
-      "prompt": "Welche Abfolge erklärt die Wolkenbildung in der ITC?",
-      "options": [
-        {
-          "id": "a",
-          "text": "Feuchte Luft steigt auf, kühlt ab und Wasserdampf kondensiert."
-        },
-        {
-          "id": "b",
-          "text": "Feuchte Luft steigt auf, erwärmt sich und Wasserdampf kondensiert."
-        },
-        {
-          "id": "c",
-          "text": "Feuchte Luft sinkt ab, erwärmt sich und Wasserdampf kondensiert."
-        },
-        {
-          "id": "d",
-          "text": "Feuchte Luft sinkt ab, kühlt ab und Wolkentropfen verdunsten."
+          "text": "Am Boden und in der Höhe nordwärts."
         }
       ],
       "correct": [
         "a"
       ],
-      "explanation": "Aufsteigende feuchte Luft kühlt sich ab. Wasserdampf kann dann zu kleinen Wassertröpfchen kondensieren, die Wolken bilden."
+      "explanation": "Auf der Nordhalbkugel führt der bodennahe Weg von den Subtropen südwärts zur ITC. Die Höhenströmung verläuft in umgekehrter Richtung. Gemeint ist jeweils die Nord-Süd-Komponente."
     },
     {
-      "id": "geography-2026-11-004-subtropical-branch",
+      "id": "geography-2026-11-005-southern-branch",
       "type": "mcq",
       "topic": "Passatzirkulation",
       "skills": [
-        "circulation.upper-return",
-        "circulation.descending-air"
+        "circulation.trade-wind-directions",
+        "circulation.upper-return"
       ],
-      "prompt": "Was geschieht im vereinfachten Modell mit Luft, die in der Höhe von der ITC wegströmt und die Subtropen nahe 30° Breite erreicht?",
+      "prompt": "Im vereinfachten Modell liegt die ITC am Äquator. Wohin bewegt sich Luft am Boden auf dem Weg vom südlichen subtropischen Hoch zur ITC?",
       "options": [
         {
           "id": "a",
-          "text": "Sie steigt dort weiter auf und strömt am Boden zu den Polen."
+          "text": "Weiter nach Süden in Richtung Südpol."
         },
         {
           "id": "b",
-          "text": "Sie sinkt dort ab und kühlt sich dabei weiter ab."
+          "text": "Senkrecht nach oben, ohne sich dem Äquator zu nähern."
         },
         {
           "id": "c",
-          "text": "Sie sinkt dort ab und erwärmt sich dabei."
+          "text": "Nach Norden in Richtung Äquator."
         },
         {
           "id": "d",
-          "text": "Sie bleibt dort in der Höhe und der Kreislauf endet."
+          "text": "Parallel zum Äquator auf derselben geografischen Breite."
         }
       ],
       "correct": [
         "c"
       ],
-      "explanation": "Im Modell sinkt die Luft in den Subtropen ab. Beim Absinken erwärmt sie sich und Wolken können sich auflösen."
+      "explanation": "Auf der Südhalbkugel liegt der Äquator nördlich der Subtropen. Die bodennahe Luft bewegt sich deshalb auf ihrem Weg zur ITC auch nach Norden."
     },
     {
-      "id": "geography-2026-11-004-surface-flow",
+      "id": "geography-2026-11-005-pressure-gradient",
       "type": "mcq",
-      "topic": "Passatzirkulation und Luftdruck",
+      "topic": "Luftdruck und Wind",
       "skills": [
-        "circulation.trade-wind-directions",
-        "pressure.relative-high-low"
+        "pressure.relative-high-low",
+        "wind.thermal-circulation"
       ],
-      "prompt": "Welche Aussage beschreibt die bodennahe Rückströmung im Modell der Passatzirkulation?",
+      "prompt": "An zwei Orten auf gleicher Höhe werden 1006 hPa in A und 999 hPa in B gemessen. Welche Richtung begünstigt dieser Druckunterschied im vereinfachten Modell?",
       "options": [
         {
           "id": "a",
-          "text": "Die Luft strömt von den subtropischen Bodenhochs zur äquatornahen Tiefdruckzone."
+          "text": "Von B nach A, weil B den niedrigeren Luftdruck hat."
         },
         {
           "id": "b",
-          "text": "Die Luft strömt von der äquatornahen Tiefdruckzone zu den subtropischen Bodenhochs."
+          "text": "Von A nach B, weil A den höheren Luftdruck hat."
         },
         {
           "id": "c",
-          "text": "Die Luft strömt aus den Subtropen ausschließlich in Richtung der Pole."
+          "text": "Keine Richtung, weil beide Werte unter 1013 hPa liegen."
         },
         {
           "id": "d",
-          "text": "Die Luft strömt zwischen der ITC und den Subtropen nur in der Höhe."
+          "text": "Keine Richtung, solange die Jahresmitteltemperatur unbekannt ist."
         }
       ],
       "correct": [
-        "a"
+        "b"
       ],
-      "explanation": "Der Druckunterschied treibt den bodennahen Luftstrom von den subtropischen Hochdruckgebieten zur ITC an. Dieser Teil der Zirkulation umfasst die Passatwinde."
+      "explanation": "Die Druckkraft wirkt vom höheren zum niedrigeren Druck. Hier begünstigt sie eine Strömung von A nach B."
     },
     {
-      "id": "geography-2026-11-004-polar-latitude",
-      "type": "frq",
-      "topic": "Kurzantwort · Beleuchtungszonen",
-      "skills": [
-        "illumination.zone-boundaries"
-      ],
-      "prompt": "Ergänze nur die Zahl: Der südliche Polarkreis liegt bei etwa ___ Grad südlicher Breite."
-    },
-    {
-      "id": "geography-2026-11-004-northern-zone",
-      "type": "frq",
-      "topic": "Kurzantwort · Beleuchtungszonen",
-      "skills": [
-        "illumination.zone-boundaries"
-      ],
-      "prompt": "Wie heißt das Gebiet zwischen dem nördlichen Polarkreis und dem Nordpol? Antworte mit höchstens zwei Wörtern."
-    },
-    {
-      "id": "geography-2026-11-004-total-energy",
-      "type": "frq",
-      "topic": "Kurzantwort · Sonnenenergie",
+      "id": "geography-2026-11-005-sunlight-per-area",
+      "type": "mcq",
+      "topic": "Sonnenenergie",
       "skills": [
         "illumination.solar-angle"
       ],
-      "prompt": "Ergänze mit höchstens zwei Wörtern: Zwei Bündel liefern beide 120 Energieeinheiten. Eines trifft steil und eines flach auf den Boden. Beide beleuchteten Flächen erhalten insgesamt ___ Energie."
+      "prompt": "Ein steiles und ein flaches Strahlenbündel bringen jeweils 180 Energieeinheiten auf den Boden. Das steile beleuchtet 3 m², das flache 6 m². Wie viel Energie erhält jeder Quadratmeter unter dem flachen Bündel?",
+      "options": [
+        {
+          "id": "a",
+          "text": "15 Energieeinheiten."
+        },
+        {
+          "id": "b",
+          "text": "60 Energieeinheiten."
+        },
+        {
+          "id": "c",
+          "text": "90 Energieeinheiten."
+        },
+        {
+          "id": "d",
+          "text": "30 Energieeinheiten."
+        }
+      ],
+      "correct": [
+        "d"
+      ],
+      "explanation": "180 geteilt durch 6 ergibt 30 Energieeinheiten pro Quadratmeter. Unter dem steilen Bündel sind es 60 pro Quadratmeter."
     },
     {
-      "id": "geography-2026-11-004-condensation-term",
+      "id": "geography-2026-11-005-season-and-grazing",
+      "type": "mcq",
+      "topic": "Nomaden und Regenzeit",
+      "skills": [
+        "vegetation.seasonal-rain",
+        "land-use.nomadic-adaptation"
+      ],
+      "prompt": "In einer Savannenregion endet die Regenzeit. Mehrere Weiden vertrocknen, in einem benachbarten Gebiet gibt es noch Wasser und Futter. Welche Entscheidung passt dazu?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Die Herde bleibt auf der trockenen Weide, weil die Tiere dann weniger Wasser brauchen."
+        },
+        {
+          "id": "b",
+          "text": "Die Herde zieht zur Weide mit Wasser und Futter, solange diese verfügbar sind."
+        },
+        {
+          "id": "c",
+          "text": "Die Herde zieht auf die trockenste verfügbare Weide, weil dort mehr Gras wachsen muss."
+        },
+        {
+          "id": "d",
+          "text": "Die Herde kehrt erst zurück, wenn in beiden Gebieten der Regen endgültig ausbleibt."
+        }
+      ],
+      "correct": [
+        "b"
+      ],
+      "explanation": "Nomadische Viehhaltung nutzt Weiden und Wasserstellen dort, wo sie saisonal verfügbar sind."
+    },
+    {
+      "id": "geography-2026-11-005-surface-destination",
+      "type": "frq",
+      "topic": "Kurzantwort · Passatzirkulation",
+      "skills": [
+        "circulation.trade-wind-directions",
+        "circulation.itcz"
+      ],
+      "prompt": "Ergänze nur die Abkürzung: Die bodennahen Passatwinde beider Halbkugeln treffen in der ___ zusammen."
+    },
+    {
+      "id": "geography-2026-11-005-upper-destination",
+      "type": "frq",
+      "topic": "Kurzantwort · Passatzirkulation",
+      "skills": [
+        "circulation.upper-return"
+      ],
+      "prompt": "Ergänze mit einem Wort: In der Höhe strömt die Luft im Modell von der Äquatorregion in Richtung der ___."
+    },
+    {
+      "id": "geography-2026-11-005-subtropical-pressure",
+      "type": "frq",
+      "topic": "Kurzantwort · Luftdruck",
+      "skills": [
+        "pressure.surface-high",
+        "circulation.descending-air"
+      ],
+      "prompt": "Ergänze mit einem Fachwort: Wo in den Subtropen Luft absinkt, befindet sich im vereinfachten Modell am Boden ein ___."
+    },
+    {
+      "id": "geography-2026-11-005-rising-moisture",
       "type": "frq",
       "topic": "Kurzantwort · Wolkenbildung",
       "skills": [
         "circulation.rising-air-cooling"
       ],
-      "prompt": "Wie heißt der Vorgang, bei dem Wasserdampf beim Abkühlen zu flüssigen Wassertröpfchen wird? Antworte mit einem Fachwort."
+      "prompt": "Ergänze mit einem Wort: Beim Aufsteigen feuchter Luft kühlt diese ab. Sobald sie gesättigt ist und weiter abkühlt, ___ Wasserdampf zu Wolkentröpfchen."
     },
     {
-      "id": "geography-2026-11-004-sinking-latitude",
+      "id": "geography-2026-11-005-latitude-boundary",
       "type": "frq",
-      "topic": "Kurzantwort · Passatzirkulation",
-      "skills": [
-        "circulation.descending-air"
-      ],
-      "prompt": "Ergänze nur die Zahl: Im vereinfachten Modell der Passatzirkulation sinkt die Luft in den Subtropen bei etwa ___ Grad nördlicher und südlicher Breite ab."
-    },
-    {
-      "id": "geography-2026-11-004-correct-map-label",
-      "type": "frq",
-      "topic": "Erklärfrage · Beleuchtungszonen",
+      "topic": "Kurzantwort · Beleuchtungszonen",
       "skills": [
         "illumination.zone-boundaries"
       ],
-      "prompt": "Auf einer Karte steht „Polarzone“ direkt an der Linie bei 66,5° Nord. Erkläre in zwei bis vier Sätzen, wie die Linie beschriftet sein sollte und welche Fläche als Polarzone eingefärbt werden sollte."
+      "prompt": "Wie heißt die Grenzlinie zwischen den nördlichen Mittelbreiten und der nördlichen Polarzone? Antworte mit höchstens zwei Wörtern."
     },
     {
-      "id": "geography-2026-11-004-energy-calculation",
-      "type": "frq",
-      "topic": "Erklärfrage · Sonnenenergie",
-      "skills": [
-        "illumination.solar-angle"
-      ],
-      "prompt": "Zwei Strahlenbündel liefern jeweils 120 Energieeinheiten. Bündel A trifft steiler ein und beleuchtet 2 m². Bündel B beleuchtet 4 m². Gib für beide Bündel die Energie pro Quadratmeter an und erkläre in zwei bis vier Sätzen, welcher Boden dadurch stärker erwärmt wird, wenn sonst alles gleich ist."
-    },
-    {
-      "id": "geography-2026-11-004-rising-and-sinking",
-      "type": "frq",
-      "topic": "Erklärfrage · Wolkenbildung",
-      "skills": [
-        "circulation.itcz",
-        "circulation.rising-air-cooling",
-        "circulation.descending-air"
-      ],
-      "prompt": "In der ITC bilden sich oft Regenwolken. Im Bereich der subtropischen Bodenhochs lösen sich Wolken häufig auf. Erkläre beide Vorgänge in zwei bis vier Sätzen. Nenne jeweils die Bewegungsrichtung der Luft, ihre Temperaturänderung und die Wirkung auf die Wolken."
-    },
-    {
-      "id": "geography-2026-11-004-close-the-loop",
+      "id": "geography-2026-11-005-compare-two-levels",
       "type": "frq",
       "topic": "Erklärfrage · Passatzirkulation",
       "skills": [
-        "circulation.itcz",
         "circulation.upper-return",
-        "circulation.descending-air",
-        "pressure.relative-high-low",
-        "circulation.trade-wind-directions"
+        "circulation.trade-wind-directions",
+        "pressure.relative-high-low"
       ],
-      "prompt": "Die Passate treffen nahe am Äquator zusammen. Beschreibe in zwei bis vier Sätzen, wie der Kreislauf von dort aus weitergeht. Nenne den Aufstieg, die Richtung der Höhenströmung, den Ort des Absinkens und die Druckgebiete am Boden, zwischen denen die Luft zurückströmt."
+      "prompt": "Im vereinfachten Modell möchtest du zwei Pfeile zwischen ITC und Subtropen einzeichnen. Erkläre in zwei bis vier Sätzen, in welche Richtung der Pfeil am Boden und der Pfeil in der Höhe zeigen. Begründe die Richtung am Boden mit den Druckgebieten."
     },
     {
-      "id": "geography-2026-11-004-rain-and-sowing",
+      "id": "geography-2026-11-005-correct-circulation",
       "type": "frq",
-      "topic": "Erklärfrage · ITC und Regenfeldbau",
+      "topic": "Erklärfrage · Passatzirkulation",
+      "skills": [
+        "circulation.descending-air",
+        "circulation.rising-air-cooling",
+        "circulation.itcz"
+      ],
+      "prompt": "In einer Skizze steigt die Luft in den Subtropen auf und sinkt an der ITC ab. Korrigiere in zwei bis vier Sätzen beide senkrechten Pfeile. Erkläre auch, an welchem Ort feuchte Luft abkühlt und Wolken bilden kann."
+    },
+    {
+      "id": "geography-2026-11-005-dry-and-wet",
+      "type": "frq",
+      "topic": "Erklärfrage · Luftbewegung und Niederschlag",
+      "skills": [
+        "circulation.descending-air",
+        "circulation.rising-air-cooling"
+      ],
+      "prompt": "An der ITC entstehen häufig Wolken, während in den Subtropen oft Wolken verschwinden. Erkläre in zwei bis vier Sätzen, wie die Temperaturänderung beim Aufsteigen beziehungsweise Absinken der Luft zu diesem Unterschied beiträgt."
+    },
+    {
+      "id": "geography-2026-11-005-farming-and-season",
+      "type": "frq",
+      "topic": "Erklärfrage · ITC und Ackerbau",
       "skills": [
         "circulation.itcz-seasonality",
         "vegetation.seasonal-rain",
         "land-use.rainfed-farming"
       ],
-      "prompt": "Die Regenzone der ITC erreicht ein Savannengebiet und zieht später weiter. Erkläre in zwei bis vier Sätzen, wie sich das auf die Niederschläge auswirkt und warum eine Familie ohne künstliche Bewässerung die Aussaat an die ersten Regenfälle anpasst."
+      "prompt": "Die Regenzone der ITC erreicht eine Savannenregion. Nach den ersten Regenfällen folgt jedoch während der Wachstumszeit eine längere trockene Phase. Erkläre in zwei bis vier Sätzen, warum eine Familie zunächst aussät und welches Risiko die trockene Phase für ihren Regenfeldbau bringt."
+    },
+    {
+      "id": "geography-2026-11-005-equal-energy",
+      "type": "frq",
+      "topic": "Erklärfrage · Sonnenenergie",
+      "skills": [
+        "illumination.solar-angle"
+      ],
+      "prompt": "Zwei Sonnenstrahlenbündel liefern insgesamt gleich viel Energie, beleuchten aber unterschiedlich große Flächen. Erkläre in zwei bis vier Sätzen, wie du die Energie pro Quadratmeter vergleichst und auf welcher Fläche dadurch unter sonst gleichen Bedingungen die stärkere Erwärmung zu erwarten ist."
     }
   ],
   "testId": "geography-grade-8-2026-11",
-  "canonicalPath": "./tests/geography-grade-8-2026-11/004-solar-energy-and-trade-winds/"
+  "canonicalPath": "./tests/geography-grade-8-2026-11/005-surface-and-upper-air/"
 };
