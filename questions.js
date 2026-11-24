@@ -1,270 +1,291 @@
 export const quiz = {
-  "id": "geography-grade-8-2026-11-005-surface-and-upper-air",
+  "id": "biology-grade-8-2026-11-011-complete-process-explanations",
   "version": 1,
   "language": "de",
-  "title": "Passatwinde am Boden und Luftströmung in der Höhe",
-  "subtitle": "Wähle bei 5 Multiple-Choice-Fragen jeweils eine Antwort. Danach folgen 5 Kurzantworten und 5 Erklärfragen in gemischter Reihenfolge. Für Kurzantworten genügen ein bis zwei Wörter. Für Erklärfragen reichen zwei bis vier Sätze. Die Textantworten werden extern geprüft.",
-  "label": "Geographie · Klasse 8 · Übung 005",
+  "title": "Vollständig erklären: Energie, Bausteine und Verdauung",
+  "subtitle": "5 Mehrfachauswahlfragen, 5 Lückentexte und 5 Erklärungen. Wähle alle richtigen Aussagen. Fülle bei Lückentexten jede Nummer aus. Prüfe bei Erklärungen: Ort, Vorgang und Zweck.",
+  "label": "Biologie · Übungsset 011",
   "questions": [
     {
-      "id": "geography-2026-11-005-northern-branch",
+      "id": "bio011-precise-energy",
       "type": "mcq",
-      "topic": "Passatzirkulation",
+      "topic": "Stoff und Energie",
       "skills": [
-        "circulation.trade-wind-directions",
-        "circulation.upper-return"
+        "metabolism.energy"
       ],
-      "prompt": "Betrachte im vereinfachten Modell die Strecke zwischen der äquatornahen ITC und den nördlichen Subtropen. Welche Richtungen stimmen?",
+      "prompt": "Welche Sätze eignen sich für eine fachlich genaue Erklärung der Energieversorgung einer Muskelzelle?",
       "options": [
         {
-          "id": "a",
-          "text": "Am Boden südwärts, in der Höhe nordwärts."
+          "id": "breakdown",
+          "text": "Glucose wird in der Muskelzelle abgebaut."
         },
         {
-          "id": "b",
-          "text": "Am Boden nordwärts, in der Höhe südwärts."
+          "id": "release",
+          "text": "Beim Abbau wird nutzbare Energie für Muskelarbeit frei."
         },
         {
-          "id": "c",
-          "text": "Am Boden und in der Höhe südwärts."
+          "id": "identity",
+          "text": "Glucose ist selbst eine Form von Muskelkraft und kein Stoff."
         },
         {
-          "id": "d",
-          "text": "Am Boden und in der Höhe nordwärts."
+          "id": "transport",
+          "text": "Der Transport im Blut ersetzt den Abbau von Glucose in der Muskelzelle."
         }
       ],
       "correct": [
-        "a"
+        "breakdown",
+        "release"
       ],
-      "explanation": "Auf der Nordhalbkugel führt der bodennahe Weg von den Subtropen südwärts zur ITC. Die Höhenströmung verläuft in umgekehrter Richtung. Gemeint ist jeweils die Nord-Süd-Komponente."
+      "explanation": "Glucose ist ein Stoff. Bei ihrem Abbau wird Energie frei, die die Zelle nutzen kann. Der Transport bringt Glucose zur Zelle, erklärt aber noch nicht ihre Nutzung."
     },
     {
-      "id": "geography-2026-11-005-southern-branch",
+      "id": "bio011-protein-assembly",
       "type": "mcq",
-      "topic": "Passatzirkulation",
+      "topic": "Bausteine und Aufbau",
       "skills": [
-        "circulation.trade-wind-directions",
-        "circulation.upper-return"
+        "metabolism.building",
+        "nutrients.roles"
       ],
-      "prompt": "Im vereinfachten Modell liegt die ITC am Äquator. Wohin bewegt sich Luft am Boden auf dem Weg vom südlichen subtropischen Hoch zur ITC?",
+      "prompt": "Eine Körperzelle stellt ein Eiweiß her. Welche Aussagen beschreiben die Rolle der Aminosäuren richtig?",
       "options": [
         {
-          "id": "a",
-          "text": "Weiter nach Süden in Richtung Südpol."
+          "id": "units",
+          "text": "Aminosäuren sind Bausteine, die zu einer Eiweißkette verbunden werden können."
         },
         {
-          "id": "b",
-          "text": "Senkrecht nach oben, ohne sich dem Äquator zu nähern."
+          "id": "own",
+          "text": "Aus aufgenommenen Aminosäuren können körpereigene Eiweiße entstehen."
         },
         {
-          "id": "c",
-          "text": "Nach Norden in Richtung Äquator."
+          "id": "energy",
+          "text": "Für das Zusammensetzen wird Energie benötigt."
         },
         {
-          "id": "d",
-          "text": "Parallel zum Äquator auf derselben geografischen Breite."
+          "id": "finished",
+          "text": "Jede einzelne Aminosäure ist bereits ein fertiges körpereigenes Eiweiß."
+        },
+        {
+          "id": "blood",
+          "text": "Das Blut setzt bei jedem Transport alle Aminosäuren automatisch zu Eiweißen zusammen."
         }
       ],
       "correct": [
-        "c"
+        "units",
+        "own",
+        "energy"
       ],
-      "explanation": "Auf der Südhalbkugel liegt der Äquator nördlich der Subtropen. Die bodennahe Luft bewegt sich deshalb auf ihrem Weg zur ITC auch nach Norden."
+      "explanation": "Aminosäuren sind selbst die Bausteine von Eiweißen. Zellen verbinden sie zu körpereigenen Eiweißen. Dieser Aufbau benötigt Energie; Transport und Aufbau sind verschiedene Vorgänge."
     },
     {
-      "id": "geography-2026-11-005-pressure-gradient",
+      "id": "bio011-three-locations",
       "type": "mcq",
-      "topic": "Luftdruck und Wind",
+      "topic": "Orte unterscheiden",
       "skills": [
-        "pressure.relative-high-low",
-        "wind.thermal-circulation"
+        "digestion.intestines",
+        "metabolism.energy"
       ],
-      "prompt": "An zwei Orten auf gleicher Höhe werden 1006 hPa in A und 999 hPa in B gemessen. Welche Richtung begünstigt dieser Druckunterschied im vereinfachten Modell?",
+      "prompt": "Welche Zuordnungen von Ort und Vorgang stimmen für den Weg von Glucose zur Energieversorgung einer Muskelzelle?",
       "options": [
         {
-          "id": "a",
-          "text": "Von B nach A, weil B den niedrigeren Luftdruck hat."
+          "id": "wall",
+          "text": "Dünndarmwand: Glucose wird in den Körper aufgenommen."
         },
         {
-          "id": "b",
-          "text": "Von A nach B, weil A den höheren Luftdruck hat."
+          "id": "blood",
+          "text": "Blut: Glucose wird zu Körperzellen transportiert."
         },
         {
-          "id": "c",
-          "text": "Keine Richtung, weil beide Werte unter 1013 hPa liegen."
+          "id": "muscle",
+          "text": "Muskelzelle: Glucose wird zur Bereitstellung nutzbarer Energie abgebaut."
         },
         {
-          "id": "d",
-          "text": "Keine Richtung, solange die Jahresmitteltemperatur unbekannt ist."
+          "id": "teeth",
+          "text": "Zähne: Glucose wird ins Blut gepumpt."
+        },
+        {
+          "id": "same",
+          "text": "Dünndarmwand und Muskelzelle sind zwei Namen für denselben Ort."
         }
       ],
       "correct": [
-        "b"
+        "wall",
+        "blood",
+        "muscle"
       ],
-      "explanation": "Die Druckkraft wirkt vom höheren zum niedrigeren Druck. Hier begünstigt sie eine Strömung von A nach B."
+      "explanation": "Glucose wird durch die Dünndarmwand aufgenommen, mit dem Blut transportiert und kann in Muskelzellen zur Energieversorgung abgebaut werden. Diese Schritte finden an unterschiedlichen Orten statt."
     },
     {
-      "id": "geography-2026-11-005-sunlight-per-area",
+      "id": "bio011-fat-retention",
       "type": "mcq",
-      "topic": "Sonnenenergie",
+      "topic": "Fettbausteine wiederholen",
       "skills": [
-        "illumination.solar-angle"
+        "nutrients.fats",
+        "nutrients.building-blocks",
+        "nutrients.roles"
       ],
-      "prompt": "Ein steiles und ein flaches Strahlenbündel bringen jeweils 180 Energieeinheiten auf den Boden. Das steile beleuchtet 3 m², das flache 6 m². Wie viel Energie erhält jeder Quadratmeter unter dem flachen Bündel?",
+      "prompt": "Für vier Triglyceridmodelle werden Bausteine bereitgelegt. Welche Aussagen stimmen?",
       "options": [
         {
-          "id": "a",
-          "text": "15 Energieeinheiten."
+          "id": "glycerin",
+          "text": "Vier Glycerinbausteine werden benötigt."
         },
         {
-          "id": "b",
-          "text": "60 Energieeinheiten."
+          "id": "acids",
+          "text": "Zwölf Fettsäurebausteine werden benötigt."
         },
         {
-          "id": "c",
-          "text": "90 Energieeinheiten."
+          "id": "store",
+          "text": "Fette können dem Körper als Energiereserve dienen."
         },
         {
-          "id": "d",
-          "text": "30 Energieeinheiten."
+          "id": "amino",
+          "text": "Die benötigten Kettenbausteine sind Aminosäuren statt Fettsäuren."
         }
       ],
       "correct": [
-        "d"
+        "glycerin",
+        "acids",
+        "store"
       ],
-      "explanation": "180 geteilt durch 6 ergibt 30 Energieeinheiten pro Quadratmeter. Unter dem steilen Bündel sind es 60 pro Quadratmeter."
+      "explanation": "Ein Triglycerid enthält ein Glycerin und drei Fettsäuren. Vier Modelle benötigen daher vier Glycerin und zwölf Fettsäuren. Fette dienen unter anderem als Energiespeicher."
     },
     {
-      "id": "geography-2026-11-005-season-and-grazing",
+      "id": "bio011-stomach-and-intestine",
       "type": "mcq",
-      "topic": "Nomaden und Regenzeit",
+      "topic": "Verdauungsstationen",
       "skills": [
-        "vegetation.seasonal-rain",
-        "land-use.nomadic-adaptation"
+        "digestion.stomach",
+        "digestion.intestines",
+        "digestion.proteins"
       ],
-      "prompt": "In einer Savannenregion endet die Regenzeit. Mehrere Weiden vertrocknen, in einem benachbarten Gebiet gibt es noch Wasser und Futter. Welche Entscheidung passt dazu?",
+      "prompt": "Welche Aussagen unterscheiden Magen und Dünndarm bei der Eiweißverdauung richtig?",
       "options": [
         {
-          "id": "a",
-          "text": "Die Herde bleibt auf der trockenen Weide, weil die Tiere dann weniger Wasser brauchen."
+          "id": "stomach",
+          "text": "Im Magen spaltet Pepsin Eiweiß in Peptide."
         },
         {
-          "id": "b",
-          "text": "Die Herde zieht zur Weide mit Wasser und Futter, solange diese verfügbar sind."
+          "id": "intestine",
+          "text": "Im Dünndarm setzen weitere Enzyme die Zerlegung bis zu Aminosäuren fort."
         },
         {
-          "id": "c",
-          "text": "Die Herde zieht auf die trockenste verfügbare Weide, weil dort mehr Gras wachsen muss."
+          "id": "mucus",
+          "text": "Die Schleimschicht schützt die Magenwand vor dem Magensaft."
         },
         {
-          "id": "d",
-          "text": "Die Herde kehrt erst zurück, wenn in beiden Gebieten der Regen endgültig ausbleibt."
+          "id": "swap",
+          "text": "Pepsin baut im Dünndarm aus Aminosäuren neue Muskeleiweiße."
+        },
+        {
+          "id": "acid",
+          "text": "Salzsäure ist ein anderer Name für Aminosäuren."
         }
       ],
       "correct": [
-        "b"
+        "stomach",
+        "intestine",
+        "mucus"
       ],
-      "explanation": "Nomadische Viehhaltung nutzt Weiden und Wasserstellen dort, wo sie saisonal verfügbar sind."
+      "explanation": "Pepsin wirkt im Magen; weitere Verdauungsenzyme wirken im Dünndarm. Die Schleimschicht schützt die Magenwand. Körpereigene Eiweiße werden später in Körperzellen aufgebaut."
     },
     {
-      "id": "geography-2026-11-005-surface-destination",
+      "id": "bio011-two-places",
       "type": "frq",
-      "topic": "Kurzantwort · Passatzirkulation",
+      "topic": "Lücken: Transport und Nutzung",
       "skills": [
-        "circulation.trade-wind-directions",
-        "circulation.itcz"
+        "metabolism.energy"
       ],
-      "prompt": "Ergänze nur die Abkürzung: Die bodennahen Passatwinde beider Halbkugeln treffen in der ___ zusammen."
+      "prompt": "Ergänze beide Orte: „Glucose wird mit dem (1) ___ transportiert. Für die Energieversorgung einer Muskelzelle wird sie in der (2) ___ abgebaut.“ Schreibe 1 und 2 mit den fehlenden Begriffen."
     },
     {
-      "id": "geography-2026-11-005-upper-destination",
+      "id": "bio011-building-units",
       "type": "frq",
-      "topic": "Kurzantwort · Passatzirkulation",
+      "topic": "Lücken: Eiweiß aufbauen",
       "skills": [
-        "circulation.upper-return"
+        "metabolism.building",
+        "nutrients.building-blocks"
       ],
-      "prompt": "Ergänze mit einem Wort: In der Höhe strömt die Luft im Modell von der Äquatorregion in Richtung der ___."
+      "prompt": "Ergänze: „Die Bausteine von Eiweißen heißen (1) ___. Körperzellen verbinden sie beim (2) ___ zu körpereigenen Eiweißen.“ Schreibe die beiden fehlenden Fachbegriffe in Reihenfolge."
     },
     {
-      "id": "geography-2026-11-005-subtropical-pressure",
+      "id": "bio011-energy-verb",
       "type": "frq",
-      "topic": "Kurzantwort · Luftdruck",
+      "topic": "Lücken: Energie bereitstellen",
       "skills": [
-        "pressure.surface-high",
-        "circulation.descending-air"
+        "metabolism.energy"
       ],
-      "prompt": "Ergänze mit einem Fachwort: Wo in den Subtropen Luft absinkt, befindet sich im vereinfachten Modell am Boden ein ___."
+      "prompt": "Ergänze: „Beim (1) ___ von Glucose in einer Körperzelle wird nutzbare (2) ___ frei.“ Schreibe die beiden fehlenden Wörter in Reihenfolge."
     },
     {
-      "id": "geography-2026-11-005-rising-moisture",
+      "id": "bio011-enzyme-recall",
       "type": "frq",
-      "topic": "Kurzantwort · Wolkenbildung",
+      "topic": "Lücken: Enzyme",
       "skills": [
-        "circulation.rising-air-cooling"
+        "enzymes.action"
       ],
-      "prompt": "Ergänze mit einem Wort: Beim Aufsteigen feuchter Luft kühlt diese ab. Sobald sie gesättigt ist und weiter abkühlt, ___ Wasserdampf zu Wolkentröpfchen."
+      "prompt": "Ergänze: „Enzyme (1) ___ chemische Reaktionen. Bei der Reaktion werden sie nicht (2) ___ und können deshalb wiederholt wirken.“ Schreibe beide fehlenden Wörter in Reihenfolge."
     },
     {
-      "id": "geography-2026-11-005-latitude-boundary",
+      "id": "bio011-two-surfaces",
       "type": "frq",
-      "topic": "Kurzantwort · Beleuchtungszonen",
+      "topic": "Lücken: Oberflächen",
       "skills": [
-        "illumination.zone-boundaries"
+        "digestion.mouth",
+        "digestion.intestines"
       ],
-      "prompt": "Wie heißt die Grenzlinie zwischen den nördlichen Mittelbreiten und der nördlichen Polarzone? Antworte mit höchstens zwei Wörtern."
+      "prompt": "Ergänze: „Kauen vergrößert die zugängliche Oberfläche der (1) ___. Zotten vergrößern die Oberfläche der (2) ___.“ Schreibe die beiden fehlenden Begriffe in Reihenfolge."
     },
     {
-      "id": "geography-2026-11-005-compare-two-levels",
+      "id": "bio011-three-sentence-route",
       "type": "frq",
-      "topic": "Erklärfrage · Passatzirkulation",
+      "topic": "Aufnahme, Transport, Nutzung",
       "skills": [
-        "circulation.upper-return",
-        "circulation.trade-wind-directions",
-        "pressure.relative-high-low"
+        "digestion.intestines",
+        "metabolism.energy"
       ],
-      "prompt": "Im vereinfachten Modell möchtest du zwei Pfeile zwischen ITC und Subtropen einzeichnen. Erkläre in zwei bis vier Sätzen, in welche Richtung der Pfeil am Boden und der Pfeil in der Höhe zeigen. Begründe die Richtung am Boden mit den Druckgebieten."
+      "prompt": "Glucose aus einer Mahlzeit soll die Muskelarbeit beim Tanzen ermöglichen. Beschreibe ihren Weg ab dem Dünndarm in drei Schritten: Aufnahme, Transport und Nutzung in der Muskelzelle. Erkläre im letzten Schritt, was mit der Glucose geschieht und wie das die Bewegung ermöglicht. Etwa 3–4 Sätze genügen."
     },
     {
-      "id": "geography-2026-11-005-correct-circulation",
+      "id": "bio011-correct-building-claim",
       "type": "frq",
-      "topic": "Erklärfrage · Passatzirkulation",
+      "topic": "Bausteine richtig erklären",
       "skills": [
-        "circulation.descending-air",
-        "circulation.rising-air-cooling",
-        "circulation.itcz"
+        "metabolism.building",
+        "metabolism.energy",
+        "nutrients.roles"
       ],
-      "prompt": "In einer Skizze steigt die Luft in den Subtropen auf und sinkt an der ITC ab. Korrigiere in zwei bis vier Sätzen beide senkrechten Pfeile. Erkläre auch, an welchem Ort feuchte Luft abkühlt und Wolken bilden kann."
+      "prompt": "Ein Lernzettel behauptet: „Aminosäuren helfen nur dabei, andere Bausteine herzustellen. Eiweiße entstehen dann ohne Energie.“ Korrigiere beide Teile. Erkläre außerdem, wie der Abbau von Glucose Energie für den Aufbau eines körpereigenen Eiweißes bereitstellen kann. Etwa 3–4 Sätze genügen."
     },
     {
-      "id": "geography-2026-11-005-dry-and-wet",
+      "id": "bio011-substance-versus-energy",
       "type": "frq",
-      "topic": "Erklärfrage · Luftbewegung und Niederschlag",
+      "topic": "Eine Erklärung präzisieren",
       "skills": [
-        "circulation.descending-air",
-        "circulation.rising-air-cooling"
+        "metabolism.energy"
       ],
-      "prompt": "An der ITC entstehen häufig Wolken, während in den Subtropen oft Wolken verschwinden. Erkläre in zwei bis vier Sätzen, wie die Temperaturänderung beim Aufsteigen beziehungsweise Absinken der Luft zu diesem Unterschied beiträgt."
+      "prompt": "Warum ist der Satz „Glucose verwandelt sich einfach in Energie“ als Erklärung ungenau? Schreibe eine genauere Erklärung für eine Körperzelle und nenne eine Verwendung der dabei frei werdenden Energie außer Bewegung. Etwa 2–3 Sätze genügen."
     },
     {
-      "id": "geography-2026-11-005-farming-and-season",
+      "id": "bio011-enzyme-definition-transfer",
       "type": "frq",
-      "topic": "Erklärfrage · ITC und Ackerbau",
+      "topic": "Enzyme vollständig erklären",
       "skills": [
-        "circulation.itcz-seasonality",
-        "vegetation.seasonal-rain",
-        "land-use.rainfed-farming"
+        "enzymes.action"
       ],
-      "prompt": "Die Regenzone der ITC erreicht eine Savannenregion. Nach den ersten Regenfällen folgt jedoch während der Wachstumszeit eine längere trockene Phase. Erkläre in zwei bis vier Sätzen, warum eine Familie zunächst aussät und welches Risiko die trockene Phase für ihren Regenfeldbau bringt."
+      "prompt": "Erkläre einem Mitschüler in etwa 3 Sätzen, was ein Enzym ist. Gehe auf die Geschwindigkeit chemischer Reaktionen, passende Ausgangsstoffe und die wiederholte Wirkung desselben Enzyms ein. Ein Beispiel allein reicht nicht."
     },
     {
-      "id": "geography-2026-11-005-equal-energy",
+      "id": "bio011-chewing-versus-uptake",
       "type": "frq",
-      "topic": "Erklärfrage · Sonnenenergie",
+      "topic": "Zwei Hilfen für die Verdauung",
       "skills": [
-        "illumination.solar-angle"
+        "digestion.mouth",
+        "digestion.intestines",
+        "enzymes.action"
       ],
-      "prompt": "Zwei Sonnenstrahlenbündel liefern insgesamt gleich viel Energie, beleuchten aber unterschiedlich große Flächen. Erkläre in zwei bis vier Sätzen, wie du die Energie pro Quadratmeter vergleichst und auf welcher Fläche dadurch unter sonst gleichen Bedingungen die stärkere Erwärmung zu erwarten ist."
+      "prompt": "Ein Bissen wird gründlich gekaut. Später treffen seine verdauten Nährstoffbausteine auf eine Dünndarmwand mit vielen Zotten. Erkläre, welche Oberfläche jeweils vergrößert ist und warum das einmal die Enzymwirkung und einmal die Aufnahme erleichtert. Etwa 3–4 Sätze genügen."
     }
   ],
-  "testId": "geography-grade-8-2026-11",
-  "canonicalPath": "./tests/geography-grade-8-2026-11/005-surface-and-upper-air/"
+  "testId": "biology-grade-8-2026-11",
+  "canonicalPath": "./tests/biology-grade-8-2026-11/011-complete-process-explanations/"
 };
