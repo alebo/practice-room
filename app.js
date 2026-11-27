@@ -170,7 +170,10 @@ function clozeSentence(q, answer, review = false) {
     const value = answer?.responses[i - 1] ?? '';
     const input = review ? `<strong>${esc(value.trim() || '___')}</strong>` :
       `<input type="text" aria-label="Lücke ${i}" ${status ? `readonly aria-describedby="blank-status-${i}" aria-invalid="${status !== 'correct'}"` : ''} value="${esc(value)}" autocomplete="off" autocapitalize="off" spellcheck="false">`;
-    const label = status ? `<small ${review ? '' : `id="blank-status-${i}"`}>${blankLabels[status]}</small>` : '';
+    const solution = status && status !== 'correct' && !review
+      ? ` <strong class="cloze-solution">Lösung: ${esc(q.blanks[i - 1].join(' / '))}</strong>`
+      : '';
+    const label = status ? `<small ${review ? '' : `id="blank-status-${i}"`}>${blankLabels[status]}${solution}</small>` : '';
     return sentence + `<span class="cloze-blank ${status || ''}">${input}${label}</span>` + esc(part);
   }, '')}</p>`;
 }

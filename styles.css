@@ -53,6 +53,11 @@ textarea{display:block;width:100%;min-width:0;resize:vertical;border:1px solid #
 }
 .cloze-blank small {
   font-size: .75em;
+  text-align: center;
+}
+.cloze-solution {
+  display: block;
+  color: var(--green);
 }
 .review-body .cloze-blank {
   padding-inline: .25em;
