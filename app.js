@@ -3,9 +3,9 @@ const refreshToken = new URL(location.href).searchParams.get('refresh');
 if (refreshToken) questionURL.searchParams.set('refresh', refreshToken);
 const { quiz: publishedQuiz } = await import(questionURL.href);
 let quiz = publishedQuiz;
-import { restoreSavedAttempt, serializeAttempt } from './storage.js';
-import { createShare } from './privatebin.js';
-import { createAttempt, isCorrect, validateQuiz, isFRQ, mcqSummary, buildReport } from './quiz.js';
+import { restoreSavedAttempt, serializeAttempt } from './storage.js?v=1e34dcc6fd49';
+import { createShare } from './privatebin.js?v=04d0379024ec';
+import { createAttempt, isCorrect, validateQuiz, isFRQ, isCloze, clozeParts, blankResults, blankLabels, mcqSummary, clozeSummary, buildReport } from './quiz.js?v=970c05884160';
 const app = document.querySelector('#app');
 const latestNavigation = document.querySelector('.latest-navigation');
 const subjectSelect = document.querySelector('#subject-select');
@@ -82,7 +82,7 @@ function storageNote() {
   document.querySelector('#storage-note').textContent = storageAvailable ? 'Deine Antworten bleiben gespeichert, bis du diesen Test neu startest.' : 'Speichern ist nicht verfügbar. Dieser Versuch bleibt nur bis zum Neuladen erhalten.';
 }
 function question(id) { return quiz.questions.find(q => q.id === id); }
-function missed() { return mcqSummary(quiz, state).wrong; }
+function missed() { return [...mcqSummary(quiz, state).wrong, ...clozeSummary(quiz, state).wrong]; }
 function fullAttempt() { return state.original || state; }
 function reportText() { return buildReport(quiz, fullAttempt(), new URL(publishedQuiz.canonicalPath || './', location.href).href); }
 function intro() {
@@ -146,6 +146,7 @@ async function renderDiagrams(generation) {
 function exercise() {
   const q = question(state.order[state.index]);
   if (isFRQ(q)) return freeResponse(q);
+  if (isCloze(q)) return clozeExercise(q);
   const answer = state.answers[q.id] || { selected: [], checked: false };
   const multiple = q.correct.length > 1;
   const completed = state.order.filter(id => state.answers[id]?.checked).length;
@@ -160,6 +161,46 @@ function exercise() {
 function feedback(q, answer) {
   const correct = isCorrect(q, answer.selected);
   return `<section class="feedback ${correct ? 'positive' : 'negative'}" tabindex="-1"><strong>${correct ? 'Richtig! Gut gemacht.' : !answer.selected.length ? 'Nicht beantwortet.' : 'Noch nicht ganz richtig.'}</strong>${!correct ? '<p>Die richtigen Antworten sind oben grün markiert.</p>' : ''}${q.explanation ? `<p lang="${esc(q.language || quiz.language)}">${esc(q.explanation)}</p>` : ''}</section>`;
+}
+function clozeSentence(q, answer, review = false) {
+  const statuses = answer?.checked ? blankResults(q, answer.responses) : [];
+  return `<p class="cloze-sentence" lang="${esc(q.language || quiz.language)}">${clozeParts(q).reduce((sentence, part, i) => {
+    if (!i) return esc(part);
+    const status = statuses[i - 1];
+    const value = answer?.responses[i - 1] ?? '';
+    const input = review ? `<strong>${esc(value.trim() || '___')}</strong>` :
+      `<input type="text" aria-label="Lücke ${i}" ${status ? `readonly aria-describedby="blank-status-${i}" aria-invalid="${status !== 'correct'}"` : ''} value="${esc(value)}" autocomplete="off" autocapitalize="off" spellcheck="false">`;
+    const label = status ? `<small ${review ? '' : `id="blank-status-${i}"`}>${blankLabels[status]}</small>` : '';
+    return sentence + `<span class="cloze-blank ${status || ''}">${input}${label}</span>` + esc(part);
+  }, '')}</p>`;
+}
+function clozeExercise(q) {
+  const answer = state.answers[q.id];
+  const completed = state.order.filter(id => state.answers[id]?.checked).length;
+  const checked = answer?.checked;
+  const correct = checked ? blankResults(q, answer.responses).filter(status => status === 'correct').length : 0;
+  const nextLabel = state.index === state.order.length - 1 ? 'Ergebnis ansehen' : 'Nächste Frage';
+  return `<section class="workspace">
+    <div class="progress-row"><span>${state.mode === 'missed' ? 'Wiederholung · Lückentext' : 'Lückentext'}</span><strong>${completed} / ${state.order.length} abgeschlossen</strong></div>
+    <progress value="${completed}" max="${state.order.length}" aria-label="Abgeschlossene Fragen"></progress>
+    <article class="question-card">
+      <div class="question-meta"><span>FRAGE ${state.index + 1} / ${state.order.length}</span><span class="topic">${esc(q.topic || 'Lückentext')}</span></div>
+      <form id="answer-form">
+        <h2 id="view-title" tabindex="-1" lang="${esc(q.language || quiz.language)}">${esc(q.prompt)}</h2>
+        ${media(q)}
+        ${clozeSentence(q, answer)}
+        ${checked ? `<p class="feedback ${correct === q.blanks.length ? 'positive' : 'negative'}" tabindex="-1">${correct} von ${q.blanks.length} Lücken richtig.</p>` : ''}
+        <div class="card-bottom">
+          ${state.index > 0 ? '<button class="secondary" id="previous" type="button">← Zurück</button>' : ''}
+          ${checked ? `<button class="primary" id="next" type="button">${nextLabel} <span aria-hidden="true">→</span></button>` : '<button class="primary" type="submit">Antwort prüfen <span aria-hidden="true">→</span></button>'}
+        </div>
+      </form>
+    </article>
+    <div class="under-card">
+      ${state.original ? '<button class="text-button" id="show-report">Gesamtbericht ansehen</button>' : ''}
+      <button class="text-button" id="restart">Neu starten</button>
+    </div>
+  </section>`;
 }
 function freeResponse(q) {
   const text = state.answers[q.id]?.text || '';
@@ -193,6 +234,23 @@ function bindExercise() {
     };
     return;
   }
+  const next = document.querySelector('#next');
+  if (next) next.onclick = advance;
+  if (isCloze(q)) {
+    const inputs = [...form.querySelectorAll('.cloze-blank input')];
+    const responses = () => inputs.map(input => input.value);
+    form.oninput = () => {
+      state.answers[q.id] = { responses: responses(), checked: false };
+      save();
+    };
+    form.onsubmit = event => {
+      event.preventDefault();
+      if (state.answers[q.id]?.checked) return;
+      state.answers[q.id] = { responses: responses(), checked: true };
+      save(); render(); document.querySelector('.feedback').focus();
+    };
+    return;
+  }
   form.onchange = () => {
     const selected = [...form.querySelectorAll('input:checked')].map(input => input.value);
     state.answers[q.id] = { selected, checked: false };
@@ -209,13 +267,15 @@ function bindExercise() {
     state.answers[q.id] = { selected: [], checked: true };
     save(); render(); document.querySelector('.feedback').focus();
   };
-  const next = document.querySelector('#next');
-  if (next) next.onclick = advance;
 }
 function reviewQuestion(id, index, attempt) {
   const q = question(id), a = attempt.answers[id];
   if (isFRQ(q)) {
     return `<details class="frq-review" open><summary><span class="review-status pending" aria-label="Nicht bewertet">—</span><span lang="${esc(q.language || quiz.language)}">${index + 1}. ${esc(q.prompt)}</span><span aria-hidden="true">+</span></summary><div class="review-body">${media(q)}<p class="muted">Nicht bewertet · Prüfung durch eine andere Person</p><label class="response-label" for="edit-${esc(id)}">Deine Antwort bearbeiten</label><textarea id="edit-${esc(id)}" data-frq="${esc(id)}" rows="5" lang="${esc(q.language || quiz.language)}">${esc(a.text)}</textarea><p class="response-status" data-status="${esc(id)}">${a.text.trim() ? 'Antwort im Bericht enthalten.' : 'Nicht beantwortet'}</p></div></details>`;
+  }
+  if (isCloze(q)) {
+    const correct = blankResults(q, a.responses).filter(status => status === 'correct').length;
+    return `<details open><summary><span class="review-status ${correct === q.blanks.length ? 'success' : 'failure'}">${correct}/${q.blanks.length}</span><span lang="${esc(q.language || quiz.language)}">${index + 1}. ${esc(q.prompt)}</span><span aria-hidden="true">+</span></summary><div class="review-body" lang="${esc(q.language || quiz.language)}">${media(q)}${clozeSentence(q, a, true)}<p><strong>Lösungen</strong></p><ol>${q.blanks.map(accepted => `<li>${esc(accepted.join(' / '))}</li>`).join('')}</ol></div></details>`;
   }
   const correct = isCorrect(q, a.selected);
   return `<details><summary><span class="review-status ${correct ? 'success' : 'failure'}" aria-label="${!a.selected.length ? 'Nicht beantwortet' : correct ? 'Richtig' : 'Falsch'}">${correct ? '✓' : '×'}</span><span lang="${esc(q.language || quiz.language)}">${index+1}. ${esc(q.prompt)}</span><span aria-hidden="true">+</span></summary><div class="review-body" lang="${esc(q.language || quiz.language)}">${media(q)}${!a.selected.length ? '<p>Nicht beantwortet</p>' : ''}<ul>${attempt.optionOrder[id].map(oid => { const o=q.options.find(o=>o.id===oid); return `<li class="${q.correct.includes(oid) ? 'review-correct' : ''}">${esc(o.text)} <small>${a.selected.includes(oid) ? '· Deine Auswahl ' : ''}${q.correct.includes(oid) ? '· Richtig' : ''}</small></li>`; }).join('')}</ul>${q.explanation ? `<p>${esc(q.explanation)}</p>` : ''}</div></details>`;
@@ -223,10 +283,12 @@ function reviewQuestion(id, index, attempt) {
 function results() {
   const full = fullAttempt();
   const score = mcqSummary(quiz, full);
+  const clozeScore = clozeSummary(quiz, full);
   const frqs = full.order.filter(id => isFRQ(question(id)));
   const retryScore = state.original && state.done ? mcqSummary(quiz, state) : null;
+  const retryCloze = retryScore ? clozeSummary(quiz, state) : null;
   const wrong = state.done ? missed() : [];
-  return `<section class="workspace"><article class="result-card"><div class="eyebrow">Gesamtbericht · ursprünglicher Versuch</div><h2 id="view-title" tabindex="-1">Deine Ergebnisse auf einen Blick.</h2>${score.total ? `<div class="score">${score.correct}<span> / ${score.total}</span></div><p>MCQ richtig beantwortet · ${Math.round(score.correct/score.total*100)} %</p>` : '<p>Dieser Test enthält keine MCQs.</p>'}${frqs.length ? `<p class="muted">${frqs.length} freie Antworten · nicht bewertet</p>` : ''}<p class="muted">Ein Punkt pro vollständig richtiger MCQ-Antwort.</p><div class="actions">${wrong.length ? `<button class="secondary" id="retry-missed">${wrong.length} Fehler wiederholen <span aria-hidden="true">→</span></button>` : ''}${!state.done ? '<button class="secondary" id="continue-retry">Wiederholung fortsetzen</button>' : ''}<button class="secondary" id="retry-all">Gesamten Test neu starten</button></div></article>${retryScore ? `<aside class="retry-result"><h2>MCQ-Wiederholung</h2><p><strong>${retryScore.correct} / ${retryScore.total}</strong> richtig. Dieser Übungsversuch verändert den Gesamtbericht nicht.</p></aside>` : ''}${sharePanel()}<section class="review"><h2>Deine Antworten im Überblick</h2><p class="muted">MCQ-Ergebnisse stammen aus dem ursprünglichen Versuch.${frqs.length ? ' Freie Antworten bleiben bearbeitbar.' : ''}</p>${full.order.map((id, i) => reviewQuestion(id, i, full)).join('')}</section></section>`;
+  return `<section class="workspace"><article class="result-card"><div class="eyebrow">Gesamtbericht · ursprünglicher Versuch</div><h2 id="view-title" tabindex="-1">Deine Ergebnisse auf einen Blick.</h2>${score.total ? `<div class="score">${score.correct}<span> / ${score.total}</span></div><p>MCQ richtig beantwortet · ${Math.round(score.correct/score.total*100)} %</p>` : ''}${clozeScore.total ? `<p class="cloze-score"><strong>${clozeScore.correct} / ${clozeScore.total}</strong> Lücken richtig ausgefüllt.</p>` : ''}${frqs.length ? `<p class="muted">${frqs.length} freie Antworten · nicht bewertet</p>` : ''}${score.total ? '<p class="muted">Ein Punkt pro vollständig richtiger MCQ-Antwort.</p>' : ''}<div class="actions">${wrong.length ? `<button class="secondary" id="retry-missed">${wrong.length} Fehler wiederholen <span aria-hidden="true">→</span></button>` : ''}${!state.done ? '<button class="secondary" id="continue-retry">Wiederholung fortsetzen</button>' : ''}<button class="secondary" id="retry-all">Gesamten Test neu starten</button></div></article>${retryScore ? `<aside class="retry-result"><h2>${retryCloze.total ? 'Wiederholung' : 'MCQ-Wiederholung'}</h2>${retryScore.total ? `<p><strong>${retryScore.correct} / ${retryScore.total}</strong> richtig.</p>` : ''}${retryCloze.total ? `<p><strong>${retryCloze.correct} / ${retryCloze.total}</strong> Lücken richtig ausgefüllt.</p>` : ''}<p>Dieser Übungsversuch verändert den Gesamtbericht nicht.</p></aside>` : ''}${sharePanel()}<section class="review"><h2>Deine Antworten im Überblick</h2>${frqs.length ? '<p class="muted">Freie Antworten bleiben bearbeitbar.</p>' : ''}${full.order.map((id, i) => reviewQuestion(id, i, full)).join('')}</section></section>`;
 }
 function sharePanel() {
   const share = fullAttempt().share;

@@ -1,4 +1,4 @@
-import { createAttempt, validAttempt, validateQuiz } from './quiz.js';
+import { createAttempt, validAttempt, validateQuiz } from './quiz.js?v=970c05884160';
 
 // Keep the public quiz separate from the snapshot used by an existing attempt.
 // Unknown or incompatible saved data must never be silently replaced.
