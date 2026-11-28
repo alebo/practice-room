@@ -8,15 +8,16 @@ import { createShare } from './privatebin.js?v=04d0379024ec';
 import { createAttempt, isCorrect, validateQuiz, isFRQ, isCloze, clozeParts, blankResults, blankLabels, mcqSummary, clozeSummary, buildReport } from './quiz.js?v=970c05884160';
 const app = document.querySelector('#app');
 const latestNavigation = document.querySelector('.latest-navigation');
-const subjectSelect = document.querySelector('#subject-select');
 // Browsers may restore a previous select value independently of the loaded page.
-function syncTestSelection() {
-  const selected = [...subjectSelect.options].find(option=>option.defaultSelected);
-  if (selected) subjectSelect.value = selected.value;
+for (const select of document.querySelectorAll('#subject-select, #set-select')) {
+  const syncSelection = () => {
+    const selected = [...select.options].find(option => option.defaultSelected);
+    if (selected) select.value = selected.value;
+  };
+  syncSelection();
+  window.addEventListener('pageshow', syncSelection);
+  select.onchange = () => { location.assign(new URL(select.value, document.baseURI).href); };
 }
-syncTestSelection();
-window.addEventListener('pageshow', syncTestSelection);
-subjectSelect.onchange = () => { location.assign(new URL(subjectSelect.value, document.baseURI).href); };
 const key = `lernraum:${quiz.id}`;
 const esc = text => String(text).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let state;
